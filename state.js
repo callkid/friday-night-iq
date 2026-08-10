@@ -2,8 +2,9 @@
 'use strict';
 var E=root.FNIQEngine,K='fniq_prod_v1';
 function def(){return{quarter:'Q1',down:1,distance:10,fieldSide:'OWN',yardLine:25}}
-function fresh(){return{setup:{team:'',opp:'',date:new Date().toISOString().slice(0,10),season:String(new Date().getFullYear())},roster:[],plays:[],drive:1,activeQB:null,current:def(),awaitingPossessionStart:false}}
-function load(){var s;try{s=JSON.parse(localStorage.getItem(K))||fresh()}catch(e){s=fresh()}if(!s.setup)s.setup=fresh().setup;if(!Array.isArray(s.roster))s.roster=[];if(!Array.isArray(s.plays))s.plays=[];if(!s.current){if(s.plays.length){var n=E.nextSituation(s.plays[s.plays.length-1]);s.current={quarter:n.quarter,down:n.down,distance:n.distance,fieldSide:n.fieldSide,yardLine:n.yardLine};s.drive=n.drive||s.drive||1;s.awaitingPossessionStart=!!n.possessionEnded}else s.current=def()}s.current=E.normalizeSituation(s.current);s.drive=Number(s.drive)||1;if(typeof s.awaitingPossessionStart!=='boolean')s.awaitingPossessionStart=false;return s}
+function brand(){return{primary:'#62d6c8',secondary:'#829cff',logo:''}}
+function fresh(){return{setup:{team:'',opp:'',date:new Date().toISOString().slice(0,10),season:String(new Date().getFullYear())},branding:brand(),roster:[],plays:[],drive:1,activeQB:null,current:def(),awaitingPossessionStart:false}}
+function load(){var s;try{s=JSON.parse(localStorage.getItem(K))||fresh()}catch(e){s=fresh()}if(!s.setup)s.setup=fresh().setup;if(!s.branding)s.branding=brand();s.branding.primary=s.branding.primary||'#62d6c8';s.branding.secondary=s.branding.secondary||'#829cff';s.branding.logo=s.branding.logo||'';if(!Array.isArray(s.roster))s.roster=[];if(!Array.isArray(s.plays))s.plays=[];if(!s.current){if(s.plays.length){var n=E.nextSituation(s.plays[s.plays.length-1]);s.current={quarter:n.quarter,down:n.down,distance:n.distance,fieldSide:n.fieldSide,yardLine:n.yardLine};s.drive=n.drive||s.drive||1;s.awaitingPossessionStart=!!n.possessionEnded}else s.current=def()}s.current=E.normalizeSituation(s.current);s.drive=Number(s.drive)||1;if(typeof s.awaitingPossessionStart!=='boolean')s.awaitingPossessionStart=false;return s}
 var A=root.FNIQ=root.FNIQ||{};A.E=E;A.state=load();A.sel={front:null,safeties:null,box:null,playType:null};
 A.save=function(){localStorage.setItem(K,JSON.stringify(A.state))};
 A.defaultSituation=def;
