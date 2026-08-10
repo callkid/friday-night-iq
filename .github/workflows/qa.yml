@@ -1,0 +1,40 @@
+name: Friday Night IQ QA
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  qa:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: JavaScript syntax
+        run: |
+          node --check game-engine.js
+          node --check state.js
+          node --check ui.js
+          node --check game-customization.js
+          node --check analytics.js
+          node --check export.js
+          node --check app.js
+      - name: Game-state smoke tests
+        run: node qa-smoke.js
+      - name: DOM reference check
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import re
+          html=Path('index.html').read_text()
+          ids=set(re.findall(r'id="([^"]+)"',html))
+          refs=set()
+          for f in ['ui.js','analytics.js','game-customization.js','export.js']:
+              s=Path(f).read_text()
+              refs.update(re.findall(r"\$\('([^']+)'\)",s))
+              refs.update(re.findall(r'\$\("([^"]+)"\)',s))
+          missing=sorted(refs-ids)
+          dup=[x for x in ids if len(re.findall(r'id="'+re.escape(x)+r'"',html))>1]
+          if missing or dup:
+              raise SystemExit(f'missing={missing} duplicate_ids={dup}')
+          print('DOM references clean')
+          PY
