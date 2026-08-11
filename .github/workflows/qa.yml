@@ -14,12 +14,18 @@ jobs:
           node --check game-engine.js
           node --check state.js
           node --check ui.js
+          node --check durability.js
           node --check game-customization.js
           node --check analytics.js
           node --check export.js
           node --check app.js
+          node --check qa-durability.js
       - name: Game-state smoke tests
         run: node qa-smoke.js
+      - name: Durability and backup tests
+        run: node qa-durability.js
+      - name: Recovery loader check
+        run: grep -q "durability.js" app.js
       - name: DOM reference check
         run: |
           python - <<'PY'
