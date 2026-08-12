@@ -98,3 +98,15 @@ jobs:
           PY
       - name: Second destructive beta simulation
         run: node qa-destructive-beta.js
+      - name: Code size report
+        run: |
+          PROD="index.html style.css ui-enhancements.css booth-workflow.css game-iq-search.css app.js game-engine.js state.js ui.js durability.js settings-ui.js game-customization.js booth-workflow.js booth-fixes.js analytics.js analytics-relations.js game-iq-search.js export.js export-extensions.js"
+          TESTS="qa-smoke.js qa-durability.js qa-settings.js qa-analytics-relations.js qa-booth-workflow.js qa-game-iq-search.js qa-destructive-beta.js"
+          echo "PRODUCTION_LINES=$(wc -l $PROD | tail -1 | awk '{print $1}')"
+          echo "PRODUCTION_BYTES=$(wc -c $PROD | tail -1 | awk '{print $1}')"
+          echo "TEST_LINES=$(wc -l $TESTS | tail -1 | awk '{print $1}')"
+          echo "TEST_BYTES=$(wc -c $TESTS | tail -1 | awk '{print $1}')"
+          echo "--- production files ---"
+          wc -l $PROD
+          echo "--- QA files ---"
+          wc -l $TESTS
