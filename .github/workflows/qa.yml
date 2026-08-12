@@ -129,7 +129,8 @@ jobs:
           grep -q "game-iq-pro.js" app.js
           grep -q "game-iq-polish.js" app.js
           grep -q "export-extensions.js" app.js
-          grep -q "v=safety13" app.js
+          grep -q "v=safety14" app.js
+          grep -q "app.js?v=safety14" index.html
           test -f booth-workflow.css
           test -f game-iq-search.css
           test -f game-iq-facets.css
