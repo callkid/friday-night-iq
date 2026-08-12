@@ -27,6 +27,7 @@ jobs:
           node --check game-iq-facets.js
           node --check coach-language.js
           node --check game-iq-pro.js
+          node --check game-iq-polish.js
           node --check export.js
           node --check export-extensions.js
           node --check app.js
@@ -40,6 +41,7 @@ jobs:
           node --check qa-game-day-fixes.js
           node --check qa-game-iq-pro.js
           node --check qa-game-iq-pro-destructive.js
+          node --check qa-game-iq-polish.js
           node --check qa-destructive-beta.js
       - name: Game-state smoke tests
         run: node qa-smoke.js
@@ -63,6 +65,8 @@ jobs:
         run: node qa-game-iq-pro.js
       - name: Game IQ 2.0 destructive question chains
         run: node qa-game-iq-pro-destructive.js
+      - name: First-down situation and Saved Views tests
+        run: node qa-game-iq-polish.js
       - name: Game-day workflow source checks
         run: |
           grep -q "'Offside':{team:'Defense'" game-customization.js
@@ -105,6 +109,11 @@ jobs:
           grep -q "vs overall" game-iq-pro.js
           grep -q "trendSignals" game-iq-pro.js
           grep -q "bestAnswers" game-iq-pro.js
+          grep -q "1st & 10" game-iq-polish.js
+          grep -q "1st & Long" game-iq-polish.js
+          grep -q "Save for quick access" game-iq-polish.js
+          grep -q "SAVED VIEWS" game-iq-polish.js
+          grep -q "bookmarks, not the current situation" game-iq-polish.js
       - name: Release loader check
         run: |
           grep -q "durability.js" app.js
@@ -118,12 +127,14 @@ jobs:
           grep -q "game-iq-facets.js" app.js
           grep -q "coach-language.js" app.js
           grep -q "game-iq-pro.js" app.js
+          grep -q "game-iq-polish.js" app.js
           grep -q "export-extensions.js" app.js
-          grep -q "v=safety12" app.js
+          grep -q "v=safety13" app.js
           test -f booth-workflow.css
           test -f game-iq-search.css
           test -f game-iq-facets.css
           test -f game-iq-pro.css
+          test -f game-iq-polish.css
           test -f qb-setup.css
           test -f game-day-fixes.css
           grep -q "Backups & Recovery" durability.js
@@ -150,8 +161,8 @@ jobs:
         run: node qa-destructive-beta.js
       - name: Code size report
         run: |
-          PROD="index.html style.css ui-enhancements.css booth-workflow.css game-iq-search.css game-iq-facets.css game-iq-pro.css qb-setup.css game-day-fixes.css app.js game-engine.js state.js ui.js durability.js settings-ui.js qb-setup.js game-customization.js booth-workflow.js booth-fixes.js game-day-fixes.js analytics.js analytics-relations.js game-iq-search.js game-iq-facets.js coach-language.js game-iq-pro.js export.js export-extensions.js"
-          TESTS="qa-smoke.js qa-durability.js qa-settings.js qa-analytics-relations.js qa-booth-workflow.js qa-game-iq-search.js qa-qb-facets.js qa-coach-language.js qa-game-day-fixes.js qa-game-iq-pro.js qa-game-iq-pro-destructive.js qa-destructive-beta.js"
+          PROD="index.html style.css ui-enhancements.css booth-workflow.css game-iq-search.css game-iq-facets.css game-iq-pro.css game-iq-polish.css qb-setup.css game-day-fixes.css app.js game-engine.js state.js ui.js durability.js settings-ui.js qb-setup.js game-customization.js booth-workflow.js booth-fixes.js game-day-fixes.js analytics.js analytics-relations.js game-iq-search.js game-iq-facets.js coach-language.js game-iq-pro.js game-iq-polish.js export.js export-extensions.js"
+          TESTS="qa-smoke.js qa-durability.js qa-settings.js qa-analytics-relations.js qa-booth-workflow.js qa-game-iq-search.js qa-qb-facets.js qa-coach-language.js qa-game-day-fixes.js qa-game-iq-pro.js qa-game-iq-pro-destructive.js qa-game-iq-polish.js qa-destructive-beta.js"
           echo "PRODUCTION_LINES=$(wc -l $PROD | tail -1 | awk '{print $1}')"
           echo "PRODUCTION_BYTES=$(wc -c $PROD | tail -1 | awk '{print $1}')"
           echo "TEST_LINES=$(wc -l $TESTS | tail -1 | awk '{print $1}')"
