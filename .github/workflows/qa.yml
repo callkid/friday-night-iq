@@ -30,6 +30,7 @@ jobs:
           node --check qa-analytics-relations.js
           node --check qa-booth-workflow.js
           node --check qa-game-iq-search.js
+          node --check qa-destructive-beta.js
       - name: Game-state smoke tests
         run: node qa-smoke.js
       - name: Durability and backup tests
@@ -95,3 +96,5 @@ jobs:
               raise SystemExit(f'missing={missing} duplicate_ids={dup}')
           print('Static DOM references clean')
           PY
+      - name: Second destructive beta simulation
+        run: node qa-destructive-beta.js
