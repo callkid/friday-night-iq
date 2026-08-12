@@ -9,7 +9,7 @@ permissions:
 
 jobs:
   patch:
-    if: github.event.head_commit.message == 'Run Game IQ stability patch'
+    if: github.event.head_commit.message == 'Retry validated Game IQ stability patch'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -30,8 +30,9 @@ jobs:
           node qa-game-iq-pro.js
           node qa-game-iq-pro-destructive.js
           node qa-destructive-beta.js
-      - name: Commit stability release
+      - name: Commit validated production changes
         run: |
+          git checkout HEAD -- .github/workflows/qa.yml .github/workflows/game-iq-stability-patch.yml
           git config user.name "Friday Night IQ QA"
           git config user.email "actions@users.noreply.github.com"
           git add -A
