@@ -32,9 +32,11 @@ jobs:
         run: |
           grep -q "durability.js" app.js
           grep -q "settings-ui.js" app.js
-          grep -q "v=safety3" app.js
+          grep -q "v=safety4" app.js
           test -f ui-enhancements.css
           grep -q "ui-enhancements.css?v=ui3" settings-ui.js
+          grep -q "Backups & Recovery" durability.js
+          grep -q "Your game is safe" durability.js
       - name: DOM reference check
         run: |
           python - <<'PY'
