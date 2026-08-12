@@ -1,0 +1,24 @@
+const E=require('./game-engine.js');
+const B=require('./booth-workflow.js');
+const F=require('./booth-fixes.js');
+function assert(x,m){if(!x)throw new Error(m);}
+assert(B.FORMATIONS.length===12,'Skyridge formation list should have 12 formations');
+assert(B.FORMATIONS.includes('Trips Right')&&B.FORMATIONS.includes('Bunch Left'),'formation vocabulary missing');
+assert(B.MOTIONS.length===12&&B.MOTIONS.includes('H-Jet')&&B.MOTIONS.includes('Z-L1'),'motion vocabulary missing');
+assert(B.CONCEPT_FAMILIES.join('|')==='Run|RPO|Short Game|Drop Back|Screen|Play Action','concept families changed');
+assert(B.RUN_TYPES.join('|')==='Inside Zone|Outside Zone|Counter|Power|Draw','run types changed');
+assert(B.isExplosive({playType:'Run',yards:12},{explosiveRun:12,explosivePass:16}),'12-yard run should be explosive');
+assert(!B.isExplosive({playType:'Run',yards:11},{explosiveRun:12,explosivePass:16}),'11-yard run should not be explosive');
+assert(B.isExplosive({playType:'Pass',yards:16},{explosiveRun:12,explosivePass:16}),'16-yard pass should be explosive');
+assert(!B.isExplosive({playType:'Pass',yards:15},{explosiveRun:12,explosivePass:16}),'15-yard pass should not be explosive');
+assert(B.isExplosive({playType:'Run',yards:14},{explosiveRun:14,explosivePass:18}),'custom run threshold ignored');
+assert(!B.isExplosive({playType:'Pass',yards:17},{explosiveRun:14,explosivePass:18}),'custom pass threshold ignored');
+assert(B.pointsFor('Field Goal','Good')===3,'field goal scoring wrong');
+assert(B.pointsFor('Extra Point','Good')===1,'extra point scoring wrong');
+assert(B.pointsFor('Field Goal','Blocked')===0,'blocked field goal scoring wrong');
+assert(F.validThreshold('16',12)===16&&F.validThreshold('bad',12)===12,'threshold validation wrong');
+const fum=E.nextSituation({quarter:'Q2',down:2,distance:5,fieldSide:'OWN',yardLine:40,drive:2,playType:'Run',yards:4,tags:['Fumble','Fumble Lost']});
+assert(fum.possessionEnded===true&&fum.reason==='Turnover','lost fumble must end possession');
+const kept=E.nextSituation({quarter:'Q2',down:2,distance:5,fieldSide:'OWN',yardLine:40,drive:2,playType:'Run',yards:4,tags:['Fumble']});
+assert(kept.possessionEnded===false&&kept.down===3,'recovered fumble should not end possession');
+console.log('Booth Workflow 2.0 tests passed');
