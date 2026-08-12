@@ -24,6 +24,7 @@ jobs:
           node --check analytics-relations.js
           node --check game-iq-search.js
           node --check game-iq-facets.js
+          node --check coach-language.js
           node --check export.js
           node --check export-extensions.js
           node --check app.js
@@ -33,6 +34,7 @@ jobs:
           node --check qa-booth-workflow.js
           node --check qa-game-iq-search.js
           node --check qa-qb-facets.js
+          node --check qa-coach-language.js
           node --check qa-destructive-beta.js
       - name: Game-state smoke tests
         run: node qa-smoke.js
@@ -48,6 +50,8 @@ jobs:
         run: node qa-game-iq-search.js
       - name: Setup QB and faceted filter tests
         run: node qa-qb-facets.js
+      - name: Human coach-analysis wording tests
+        run: node qa-coach-language.js
       - name: Game-day workflow source checks
         run: |
           grep -q "'Offside':{team:'Defense'" game-customization.js
@@ -73,6 +77,8 @@ jobs:
           grep -q "Active QB:" qb-setup.js
           grep -q "Car-shopping style drill-down" game-iq-facets.js
           grep -q "facetCounts" game-iq-facets.js
+          grep -q "humanizeDistribution" coach-language.js
+          grep -q "shortSituation" coach-language.js
       - name: Release loader check
         run: |
           grep -q "durability.js" app.js
@@ -83,8 +89,9 @@ jobs:
           grep -q "analytics-relations.js" app.js
           grep -q "game-iq-search.js" app.js
           grep -q "game-iq-facets.js" app.js
+          grep -q "coach-language.js" app.js
           grep -q "export-extensions.js" app.js
-          grep -q "v=safety8" app.js
+          grep -q "v=safety9" app.js
           test -f booth-workflow.css
           test -f game-iq-search.css
           test -f game-iq-facets.css
@@ -113,8 +120,8 @@ jobs:
         run: node qa-destructive-beta.js
       - name: Code size report
         run: |
-          PROD="index.html style.css ui-enhancements.css booth-workflow.css game-iq-search.css game-iq-facets.css qb-setup.css app.js game-engine.js state.js ui.js durability.js settings-ui.js qb-setup.js game-customization.js booth-workflow.js booth-fixes.js analytics.js analytics-relations.js game-iq-search.js game-iq-facets.js export.js export-extensions.js"
-          TESTS="qa-smoke.js qa-durability.js qa-settings.js qa-analytics-relations.js qa-booth-workflow.js qa-game-iq-search.js qa-qb-facets.js qa-destructive-beta.js"
+          PROD="index.html style.css ui-enhancements.css booth-workflow.css game-iq-search.css game-iq-facets.css qb-setup.css app.js game-engine.js state.js ui.js durability.js settings-ui.js qb-setup.js game-customization.js booth-workflow.js booth-fixes.js analytics.js analytics-relations.js game-iq-search.js game-iq-facets.js coach-language.js export.js export-extensions.js"
+          TESTS="qa-smoke.js qa-durability.js qa-settings.js qa-analytics-relations.js qa-booth-workflow.js qa-game-iq-search.js qa-qb-facets.js qa-coach-language.js qa-destructive-beta.js"
           echo "PRODUCTION_LINES=$(wc -l $PROD | tail -1 | awk '{print $1}')"
           echo "PRODUCTION_BYTES=$(wc -c $PROD | tail -1 | awk '{print $1}')"
           echo "TEST_LINES=$(wc -l $TESTS | tail -1 | awk '{print $1}')"
