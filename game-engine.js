@@ -18,6 +18,7 @@
   function distanceFromLine(line,newAbs){return Math.max(1,Math.round(line-newAbs))}
   function sameSituation(p){return{quarter:p.quarter,down:p.down,distance:p.distance,fieldSide:p.fieldSide,yardLine:p.yardLine,drive:p.drive,possessionEnded:false,reason:''}}
   function endedSituation(p,endAbs,reason){var f=fromAbs(endAbs);return{quarter:p.quarter,down:1,distance:10,fieldSide:f.fieldSide,yardLine:f.yardLine,drive:num(p.drive,1)+1,possessionEnded:true,reason:reason}}
+  function firstDownAt(p,end,reason){var f=fromAbs(end);return{quarter:p.quarter,down:1,distance:Math.max(1,Math.min(10,Math.round(100-end))),fieldSide:f.fieldSide,yardLine:f.yardLine,drive:p.drive,possessionEnded:false,reason:reason||'First down'}}
   function normalNext(p){
     if(p.playType==='No Play'||p.playType==='Penalty')return sameSituation(p);
     var start=fieldAbs(p.fieldSide,p.yardLine), line=lineToGainAbs(p), gain=num(p.yards,0), end=start+gain;
@@ -27,7 +28,7 @@
     var first=hasTag(p,'First Down')||end>=line;
     if(p.down===4&&!first)return endedSituation(p,end,'Turnover on downs');
     var f=fromAbs(end);
-    if(first)return{quarter:p.quarter,down:1,distance:Math.max(1,Math.min(10,Math.round(100-end))),fieldSide:f.fieldSide,yardLine:f.yardLine,drive:p.drive,possessionEnded:false,reason:'First down'};
+    if(first)return firstDownAt(p,end,'First down');
     return{quarter:p.quarter,down:Math.min(4,p.down+1),distance:distanceFromLine(line,end),fieldSide:f.fieldSide,yardLine:f.yardLine,drive:p.drive,possessionEnded:false,reason:''};
   }
   function penaltyNext(p){
@@ -39,15 +40,19 @@
     var start=fieldAbs(p.fieldSide,p.yardLine),line=lineToGainAbs(p),end=start+num(pen.yards,0),f=fromAbs(end),effect=pen.effect||'REPEAT';
     if(end>=100)return endedSituation(p,99,'Touchdown');
     if(end<=0)return endedSituation(p,1,'Safety');
-    if(effect==='AUTO1')return{quarter:p.quarter,down:1,distance:Math.max(1,Math.min(10,Math.round(100-end))),fieldSide:f.fieldSide,yardLine:f.yardLine,drive:p.drive,possessionEnded:false,reason:'Automatic first down'};
-    if(effect==='REPEAT')return{quarter:p.quarter,down:p.down,distance:distanceFromLine(line,end),fieldSide:f.fieldSide,yardLine:f.yardLine,drive:p.drive,possessionEnded:false,reason:'Repeat down'};
+    if(effect==='AUTO1')return firstDownAt(p,end,'Automatic first down');
+    if(effect==='REPEAT'){
+      if(end>=line)return firstDownAt(p,end,'First down by penalty');
+      return{quarter:p.quarter,down:p.down,distance:distanceFromLine(line,end),fieldSide:f.fieldSide,yardLine:f.yardLine,drive:p.drive,possessionEnded:false,reason:'Repeat down'};
+    }
     if(effect==='COUNT'){
       var got=end>=line;
-      if(got)return{quarter:p.quarter,down:1,distance:Math.max(1,Math.min(10,Math.round(100-end))),fieldSide:f.fieldSide,yardLine:f.yardLine,drive:p.drive,possessionEnded:false,reason:'First down'};
+      if(got)return firstDownAt(p,end,'First down');
       if(p.down===4)return endedSituation(p,end,'Turnover on downs');
       return{quarter:p.quarter,down:p.down+1,distance:distanceFromLine(line,end),fieldSide:f.fieldSide,yardLine:f.yardLine,drive:p.drive,possessionEnded:false,reason:'Count play'};
     }
     if(effect==='LOSS'){
+      if(end>=line&&pen.team==='Defense')return firstDownAt(p,end,'First down by penalty');
       if(p.down===4)return endedSituation(p,end,'Loss of down');
       return{quarter:p.quarter,down:Math.min(4,p.down+1),distance:distanceFromLine(line,end),fieldSide:f.fieldSide,yardLine:f.yardLine,drive:p.drive,possessionEnded:false,reason:'Loss of down'};
     }
