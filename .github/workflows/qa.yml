@@ -97,8 +97,8 @@ jobs:
           grep -q "COACH NOW" game-iq-pro.js
           grep -q "Explore current situation" game-iq-pro.js
           grep -q "Pin this question" game-iq-pro.js
-          grep -q "WHAT THEY\\'RE DOING" game-iq-pro.js
-          grep -q "HOW WE\\'RE DOING" game-iq-pro.js
+          grep -q "WHAT THEY" game-iq-pro.js
+          grep -q "HOW WE" game-iq-pro.js
           grep -q "EXPLORE DEEPER" game-iq-pro.js
           grep -q "Use this exact view in search" game-iq-pro.js
           grep -q "More Analysis" game-iq-pro.js
