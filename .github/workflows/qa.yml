@@ -18,23 +18,38 @@ jobs:
           node --check settings-ui.js
           node --check game-customization.js
           node --check analytics.js
+          node --check analytics-relations.js
           node --check export.js
           node --check app.js
           node --check qa-durability.js
           node --check qa-settings.js
+          node --check qa-analytics-relations.js
       - name: Game-state smoke tests
         run: node qa-smoke.js
       - name: Durability and backup tests
         run: node qa-durability.js
       - name: Settings and carry-forward tests
         run: node qa-settings.js
+      - name: Relational analytics tests
+        run: node qa-analytics-relations.js
+      - name: Game-day workflow source checks
+        run: |
+          grep -q "'Offside':{team:'Defense'" game-customization.js
+          grep -q "First down by penalty" game-engine.js
+          grep -q "Where does this drive start?" game-customization.js
+          grep -q "Set the new drive starting yard line first" game-customization.js
+          grep -q "Edit Last Play" game-customization.js
+          grep -q "replaceLastPlay" state.js
+          grep -q "post-snap • Unknown ≠ None" game-customization.js
+          grep -q "Advanced enforcement" game-customization.js
       - name: Release loader check
         run: |
           grep -q "durability.js" app.js
           grep -q "settings-ui.js" app.js
-          grep -q "v=safety4" app.js
+          grep -q "analytics-relations.js" app.js
+          grep -q "v=safety6" app.js
+          grep -q "ui-enhancements.css?v=flow5" app.js
           test -f ui-enhancements.css
-          grep -q "ui-enhancements.css?v=ui3" settings-ui.js
           grep -q "Backups & Recovery" durability.js
           grep -q "Your game is safe" durability.js
       - name: DOM reference check
@@ -45,7 +60,7 @@ jobs:
           html=Path('index.html').read_text()
           ids=set(re.findall(r'id="([^"]+)"',html))
           refs=set()
-          for f in ['ui.js','analytics.js','game-customization.js','export.js']:
+          for f in ['ui.js','analytics.js','export.js']:
               s=Path(f).read_text()
               refs.update(re.findall(r"\$\('([^']+)'\)",s))
               refs.update(re.findall(r'\$\("([^"]+)"\)',s))
