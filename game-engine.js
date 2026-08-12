@@ -11,7 +11,7 @@
   function normalizeSituation(s){s=s||{};var side=s.fieldSide||'OWN';var y=side==='50'?50:clamp(num(s.yardLine,25),1,49);return{quarter:s.quarter||'Q1',down:clamp(num(s.down,1),1,4),distance:Math.max(1,num(s.distance,10)),fieldSide:side,yardLine:y}}
   function tags(p){return Array.isArray(p.tags)?p.tags:[]}
   function hasTag(p,t){return tags(p).indexOf(t)>=0}
-  function isTurnover(p){return hasTag(p,'Turnover')||p.passResult==='Interception'}
+  function isTurnover(p){return hasTag(p,'Turnover')||hasTag(p,'Fumble Lost')||p.passResult==='Interception'}
   function penaltyStatus(p){return p&&p.penalty&&p.penalty.status?p.penalty.status:''}
   function officialNetYards(p){var st=penaltyStatus(p);if(st==='Accepted')return num(p.penalty.yards,0);if(st==='Offsetting')return 0;if(st==='Declined')return p.playType==='Penalty'?0:num(p.yards,0);return p.playType==='Penalty'?0:num(p.yards,0)}
   function lineToGainAbs(p){var start=fieldAbs(p.fieldSide,p.yardLine);return Math.min(100,start+Math.max(1,num(p.distance,10)))}
