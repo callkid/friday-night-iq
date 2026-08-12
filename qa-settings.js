@@ -1,4 +1,4 @@
-const S=require('./settings-ui.js');
+const fs=require('fs'),S=require('./settings-ui.js');
 function assert(x,m){if(!x)throw new Error(m)}
 let saves=[];
 const A={
@@ -21,4 +21,13 @@ A.undo();
 assert(A.state.context.formation==='NA','undo should not repopulate persistent formation');
 assert(A.state.context.personnel==='12','undo should preserve prior personnel context from underlying state');
 assert(saves.includes('formation-reset'),'formation reset should be persisted');
-console.log('Friday Night IQ settings/carry-forward tests passed');
+assert(S.normalizeTheme('light')==='light','light theme normalization failed');
+assert(S.normalizeTheme('dark')==='dark','dark theme normalization failed');
+assert(S.normalizeTheme('anything')==='dark','unknown theme should safely default dark');
+const src=fs.readFileSync('settings-ui.js','utf8');
+assert(src.includes("b.id='quickSaveTop'")&&src.includes("byId('save')")&&src.includes('save.click()'),'Quick Save must reuse the existing Save action');
+assert(src.includes('5000'),'help tooltip must wait five seconds');
+assert(src.includes("lastLook:'Copies the previous defensive front")&&src.includes("lastContext:'Copies the previous defensive look"),'Last Look/Last Context help missing');
+assert(src.includes("THEME_KEY='fniq_theme_v1'")&&src.includes("data-theme")||src.includes("setAttribute('data-theme'"),'theme persistence or application missing');
+assert(src.includes("ui-enhancements.css?v=ui3"),'enhancement stylesheet not loaded');
+console.log('Friday Night IQ settings/carry-forward/UI enhancement tests passed');
