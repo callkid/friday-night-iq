@@ -11,6 +11,7 @@ function pct(a,b){return b?Math.round(a/b*100):0;}
 function avg(a){return a.length?a.reduce(function(s,x){return s+x;},0)/a.length:0;}
 function norm(v){return String(v==null?'':v).toLowerCase().replace(/[^a-z0-9]+/g,' ').trim();}
 function distanceBucket(d){d=Number(d)||10;return d<=3?'Short':d<=7?'Medium':'Long';}
+function firstDownSituation(down,distance){down=Number(down);distance=Number(distance);if(down!==1)return null;if(distance===10)return'Ten';if(distance>10)return'Long';if(distance<=3)return'Short';return'Medium';}
 function resolvedCoverage(p){
   var post=p&&p.postCoverage;
   if(known(post))return post==='Same as pre-snap'?(p.coverage||'NA'):post;
@@ -57,6 +58,7 @@ function resultFlags(E,p,isExplosive){
 var DIMENSIONS={
   quarter:{label:'Quarter'},
   down:{label:'Down'},
+  firstDownSituation:{label:'First down situation'},
   distanceBucket:{label:'Distance'},
   exactDistance:{label:'Exact distance'},
   hash:{label:'Hash'},
@@ -85,6 +87,7 @@ var DIMENSIONS={
 function valueFor(E,p,key){
   if(key==='quarter')return p.quarter;
   if(key==='down')return String(p.down);
+  if(key==='firstDownSituation')return firstDownSituation(p.down,p.distance);
   if(key==='distanceBucket')return distanceBucket(p.distance);
   if(key==='exactDistance')return String(p.distance);
   if(key==='hash')return p.hash;
@@ -112,6 +115,7 @@ function valueFor(E,p,key){
 
 function displayValue(key,value){
   if(key==='down')return value==='1'?'1st Down':value==='2'?'2nd Down':value==='3'?'3rd Down':'4th Down';
+  if(key==='firstDownSituation')return value==='Ten'?'1st & 10':value==='Long'?'1st & Long':value==='Short'?'1st & Short':'1st & Medium';
   if(key==='exactDistance')return value+' yards to go';
   if(key==='front')return value+' Down';
   if(key==='safeties')return value+' High';
@@ -128,6 +132,12 @@ function aliasesFor(key,value){
     if(value==='2')a=a.concat(['2nd','second','second down']);
     if(value==='3')a=a.concat(['3rd','third','third down']);
     if(value==='4')a=a.concat(['4th','fourth','fourth down']);
+  }
+  if(key==='firstDownSituation'){
+    if(value==='Ten')a=a.concat(['1st 10','1st and 10','first and 10','first 10']);
+    if(value==='Long')a=a.concat(['1st long','1st and long','first and long']);
+    if(value==='Medium')a=a.concat(['1st medium','1st and medium']);
+    if(value==='Short')a=a.concat(['1st short','1st and short']);
   }
   if(key==='distanceBucket'){
     if(value==='Short')a=a.concat(['short','short yardage','1 3']);
@@ -156,6 +166,7 @@ function buildCatalog(E,plays,isExplosive){
   var values={
     quarter:['Q1','Q2','Q3','Q4','OT'],
     down:['1','2','3','4'],
+    firstDownSituation:['Ten','Long','Medium','Short'],
     distanceBucket:['Short','Medium','Long'],
     exactDistance:distinct(plays,function(p){return String(p.distance);}),
     hash:['Left','Middle','Right'],
@@ -282,14 +293,18 @@ function topText(rows,limit){
 function downDistanceRows(E,plays,isExplosive){
   var groups={};
   (plays||[]).forEach(function(p){
-    var k=String(p.down)+'|'+distanceBucket(p.distance);(groups[k]||(groups[k]=[])).push(p);
+    var down=Number(p.down),bucket=down===1?firstDownSituation(down,p.distance):distanceBucket(p.distance),k=String(down)+'|'+bucket;
+    (groups[k]||(groups[k]=[])).push(p);
   });
+  var firstOrder=['Ten','Long','Medium','Short'],otherOrder=['Short','Medium','Long'];
   return Object.keys(groups).sort(function(a,b){
-    var x=a.split('|'),y=b.split('|');return Number(x[0])-Number(y[0])||['Short','Medium','Long'].indexOf(x[1])-['Short','Medium','Long'].indexOf(y[1]);
+    var x=a.split('|'),y=b.split('|'),xd=Number(x[0]),yd=Number(y[0]);
+    if(xd!==yd)return xd-yd;
+    return (xd===1?firstOrder:otherOrder).indexOf(x[1])-(yd===1?firstOrder:otherOrder).indexOf(y[1]);
   }).map(function(k){
-    var a=groups[k],parts=k.split('|'),pressure=a.filter(function(p){return known(p.pressure);});
+    var a=groups[k],parts=k.split('|'),pressure=a.filter(function(p){return known(p.pressure);}),label=parts[0]==='1'?displayValue('firstDownSituation',parts[1]):displayValue('down',parts[0])+' & '+parts[1];
     return{
-      key:k,label:displayValue('down',parts[0])+' & '+parts[1],n:a.length,
+      key:k,label:label,n:a.length,
       front:topText(groupRows(E,a,'front',isExplosive),3),
       coverage:topText(groupRows(E,a,'coverage',isExplosive),3),
       blitzRate:pct(pressure.filter(isBlitz).length,pressure.length),blitzKnown:pressure.length
@@ -409,7 +424,7 @@ function install(A,root){
     box.querySelectorAll('[data-pkey]').forEach(function(b){b.onclick=function(){
       var cat=buildCatalog(A.E,A.state.plays,A.isExplosive),key=b.dataset.pkey,add=[];
       if(priority==='formation')add=cat.filter(function(x){return x.key==='formation'&&x.value===key;});
-      else{var z=key.split('|');add=cat.filter(function(x){return(x.key==='down'&&x.value===z[0])||(x.key==='distanceBucket'&&x.value===z[1]);});}
+      else{var z=key.split('|');if(z[0]==='1')add=cat.filter(function(x){return x.key==='firstDownSituation'&&x.value===z[1];});else add=cat.filter(function(x){return(x.key==='down'&&x.value===z[0])||(x.key==='distanceBucket'&&x.value===z[1]);});}
       filters=[];add.forEach(addFilter);mode='frontCoverage';renderModes();renderFilters();renderSearch();$('iqSearchCard').scrollIntoView({behavior:'smooth',block:'start'});
     };});
   }
@@ -427,6 +442,7 @@ function install(A,root){
 return{
   known:known,
   distanceBucket:distanceBucket,
+  firstDownSituation:firstDownSituation,
   resolvedCoverage:resolvedCoverage,
   isBlitz:isBlitz,
   fieldZone:fieldZone,
