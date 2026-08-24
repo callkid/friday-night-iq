@@ -37,12 +37,22 @@ ctx=Q.contextRows([p(1),p(2),p(3),p(4,{distance:4}),p(5,{down:2,distance:5})],{d
 assert.equal(ctx.broadened,true);
 assert.equal(ctx.label,'1st down');
 
+const deadBall=p(9,{playType:'Penalty',front:'Bear',coverage:'Cover 2',postCoverage:'NA',pressure:'5M',penalty:{status:'Accepted'}});
+assert.equal(Q.cleanStatPlays([deadBall]).length,0,'accepted dead-ball penalty must not enter offensive efficiency');
+assert.equal(Q.defensiveObservations([deadBall]).length,1,'charted dead-ball defensive look must remain usable evidence');
+const dctx=Q.defensiveContextRows([p(1),p(2),p(3),deadBall],{down:1,distance:10});
+assert.equal(dctx.broadened,false);
+assert.equal(dctx.plays.length,4);
+assert(dctx.plays.some(x=>x.number===9),'defensive context must retain the penalty look');
+
 assert.equal(Q.bestCall(E,[p(1),p(2)]),null,'two-play sample must never become a recommendation');
+assert.equal(Q.bestCall(E,[p(1,{yards:1}),p(2,{yards:2}),p(3,{yards:3})]),null,'repeated unsuccessful call must not become a positive recommendation');
 const best=Q.bestCall(E,[p(1,{yards:6}),p(2,{yards:7}),p(3,{yards:8}),p(4,{attackDetail:'Power',yards:2}),p(5,{attackDetail:'Power',yards:2}),p(6,{attackDetail:'Power',yards:2})]);
 assert(best);
 assert.equal(best.label,'Inside Zone');
 assert.equal(best.n,3);
 assert(best.ypp>6.9);
+assert(best.success>=50);
 
 const lean=Q.defensiveLean([
  p(1,{front:'4',coverage:'Cover 3',pressure:'None'}),
@@ -62,4 +72,4 @@ cap=Q.captureScore({hash:'Left',formation:'NA',personnel:'11',front:'4',safeties
 assert.equal(cap.done,7);
 assert.deepEqual(cap.missing,['Formation']);
 
-console.log('QUALITY24 PASS: explicit No Motion semantics, conservative recommendations, context fallback, defensive tendencies, charting health, capture completeness');
+console.log('QUALITY24 PASS: explicit No Motion, dead-ball defensive evidence, positive-only recommendations, context fallback, defensive tendencies, charting health, capture completeness');
