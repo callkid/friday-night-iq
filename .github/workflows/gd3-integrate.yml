@@ -1,0 +1,47 @@
+name: Game-Day 3 integration
+
+on:
+  push:
+    branches: [game-day-3-overhaul]
+
+permissions:
+  contents: write
+
+jobs:
+  integrate:
+    if: github.event.head_commit.message == 'Install Game-Day 3 integration workflow'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Apply audited integration patch
+        run: python tools/gd3_integrate.py
+      - name: Focused pre-commit QA
+        run: |
+          node --check game-engine.js
+          node --check game-day-fixes.js
+          node --check game-day-3.js
+          node --check game-iq-v3.js
+          node --check analytics.js
+          node --check durability.js
+          node --check app.js
+          node qa-game-day-3.js
+          node qa-game-iq-v3.js
+          node qa-smoke.js
+          node qa-game-day-fixes.js
+          node qa-destructive-beta.js
+          grep -q "app.js?v=safety16" index.html
+          grep -q "v=safety16" app.js
+          grep -q "game-day-3.js" app.js
+          grep -q "game-iq-v3.js" app.js
+          grep -q "fniq_prod_v1" state.js
+          ! grep -q "2nd: 70%" index.html
+          ! grep -q "15+ net yards or tagged" analytics.js
+      - name: Commit validated integration
+        run: |
+          git config user.name "Friday Night IQ QA"
+          git config user.email "actions@users.noreply.github.com"
+          git add game-day-3.js game-day-fixes.js index.html durability.js analytics.js
+          git commit -m "Integrate Game-Day 3 speed and state safeguards"
+          git push origin HEAD:game-day-3-overhaul
