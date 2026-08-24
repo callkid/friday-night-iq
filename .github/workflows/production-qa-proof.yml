@@ -61,7 +61,7 @@ jobs:
           printf '\nSOURCE_QA=%s\nBROWSER_QA=%s\nSOURCE_COMMIT=%s\n' "${{ steps.source.outcome }}" "${{ steps.browser.outcome }}" "$GITHUB_SHA" >> qa-quality24-proof.txt
           if [ "${{ steps.source.outcome }}" = "success" ] && [ "${{ steps.browser.outcome }}" = "success" ]; then
             echo "FINAL: PASS" >> qa-quality24-proof.txt
-            sed -i -E 's/app\.js\?v=(safety23-final|quality24)"/app.js?v=quality24-final"/' index.html
+            sed -i 's/app.js?v=safety23-final"/app.js?v=quality24-final"/; s/app.js?v=quality24"/app.js?v=quality24-final"/' index.html
           else
             echo "FINAL: FAIL" >> qa-quality24-proof.txt
           fi
