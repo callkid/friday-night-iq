@@ -6,6 +6,8 @@ const E={
 };
 function p(n,extra={}){return Object.assign({number:n,playType:'Run',down:1,distance:10,yards:5,hash:'Left',formation:'Doubles Right',personnel:'11',front:'4',safeties:'2',coverage:'Cover 3',postCoverage:'Same as pre-snap',pressure:'None',box:'6',motion:'NA',attackDetail:'Inside Zone',conceptFamily:'Run',concept:'NA'},extra);}
 
+assert.equal(Q.known('NA'),false,'legacy N/A must remain unknown');
+assert.equal(Q.known('No Motion'),true,'explicit No Motion must count as charted data');
 assert.equal(Q.distanceBucket(3),'Short');
 assert.equal(Q.distanceBucket(7),'Medium');
 assert.equal(Q.distanceBucket(8),'Long');
@@ -15,14 +17,18 @@ assert.equal(Q.isBlitz(p(1,{pressure:'None'})),false);
 
 const health=Q.chartingHealth([
   p(1,{motion:'H-Jet'}),
-  p(2,{coverage:'NA',postCoverage:'NA',box:'NA',motion:'NA'}),
+  p(2,{coverage:'NA',postCoverage:'NA',box:'NA',motion:'No Motion'}),
   p(3,{playType:'Penalty',penalty:{status:'Accepted'}})
 ]);
 assert.equal(health.plays,2);
 assert.equal(health.front,100);
 assert.equal(health.coverage,50);
 assert.equal(health.box,50);
-assert.equal(health.motion,50);
+assert.equal(health.motion,100,'explicit No Motion must count as intentionally charted');
+assert.equal(health.conceptFamily,100);
+
+const legacyHealth=Q.chartingHealth([p(1,{motion:'NA'})]);
+assert.equal(legacyHealth.motion,0,'legacy N/A cannot be retroactively treated as intentional No Motion');
 
 let ctx=Q.contextRows([p(1),p(2),p(3),p(4),p(5,{down:2,distance:5})],{down:1,distance:10});
 assert.equal(ctx.broadened,false);
@@ -56,4 +62,4 @@ cap=Q.captureScore({hash:'Left',formation:'NA',personnel:'11',front:'4',safeties
 assert.equal(cap.done,7);
 assert.deepEqual(cap.missing,['Formation']);
 
-console.log('QUALITY24 PASS: conservative recommendations, context fallback, defensive tendencies, charting health, capture completeness');
+console.log('QUALITY24 PASS: explicit No Motion semantics, conservative recommendations, context fallback, defensive tendencies, charting health, capture completeness');
