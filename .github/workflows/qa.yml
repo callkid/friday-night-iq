@@ -3,180 +3,40 @@ name: Friday Night IQ QA
 on:
   push:
     branches: [main]
+  pull_request:
 
 jobs:
-  qa:
+  source-regression:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: JavaScript syntax
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Full source regression suite
+        run: bash tools/run_safety18_qa.sh
+
+  browser-regression:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Install browser test runtime
         run: |
-          node --check game-engine.js
-          node --check state.js
-          node --check ui.js
-          node --check durability.js
-          node --check settings-ui.js
-          node --check qb-setup.js
-          node --check game-customization.js
-          node --check booth-workflow.js
-          node --check booth-fixes.js
-          node --check game-day-fixes.js
-          node --check analytics.js
-          node --check analytics-relations.js
-          node --check game-iq-search.js
-          node --check game-iq-facets.js
-          node --check coach-language.js
-          node --check game-iq-pro.js
-          node --check game-iq-polish.js
-          node --check export.js
-          node --check export-extensions.js
-          node --check app.js
-          node --check qa-durability.js
-          node --check qa-settings.js
-          node --check qa-analytics-relations.js
-          node --check qa-booth-workflow.js
-          node --check qa-game-iq-search.js
-          node --check qa-qb-facets.js
-          node --check qa-coach-language.js
-          node --check qa-game-day-fixes.js
-          node --check qa-game-iq-pro.js
-          node --check qa-game-iq-pro-destructive.js
-          node --check qa-game-iq-polish.js
-          node --check qa-game-iq-stability.js
-          node --check qa-destructive-beta.js
-      - name: Game-state smoke tests
-        run: node qa-smoke.js
-      - name: Durability and backup tests
-        run: node qa-durability.js
-      - name: Settings and carry-forward tests
-        run: node qa-settings.js
-      - name: Relational analytics tests
-        run: node qa-analytics-relations.js
-      - name: Booth Workflow 2.0 tests
-        run: node qa-booth-workflow.js
-      - name: Game IQ search tests
-        run: node qa-game-iq-search.js
-      - name: Setup QB and faceted filter tests
-        run: node qa-qb-facets.js
-      - name: Human coach-analysis wording tests
-        run: node qa-coach-language.js
-      - name: Touchdown, interception, layout, and scroll regressions
-        run: node qa-game-day-fixes.js
-      - name: Game IQ 2.0 intelligence tests
-        run: node qa-game-iq-pro.js
-      - name: Game IQ 2.0 destructive question chains
-        run: node qa-game-iq-pro-destructive.js
-      - name: First-down situation and Saved Views tests
-        run: node qa-game-iq-polish.js
-      - name: Game IQ stability stress tests
-        run: node qa-game-iq-stability.js
-      - name: Game-day workflow source checks
+          npm init -y
+          npm install playwright@1.55.0
+          npx playwright install --with-deps chromium
+      - name: Start local app
         run: |
-          grep -q "'Offside':{team:'Defense'" game-customization.js
-          grep -q "First down by penalty" game-engine.js
-          grep -q "Fumble Lost" game-engine.js
-          grep -q "Where does this drive start?" game-customization.js
-          grep -q "Set the new drive starting yard line first" game-customization.js
-          ! grep -q "setTimeout(openDriveStart,80)" game-customization.js
-          grep -q "Next offensive drive needs a starting spot" booth-workflow.js
-          grep -q "3200" booth-workflow.js
-          grep -q "Doubles Right" booth-workflow.js
-          grep -q "H-Jet" booth-workflow.js
-          grep -q "Concept family" booth-workflow.js
-          grep -q "Inside Zone" booth-workflow.js
-          grep -q "Special Teams" booth-workflow.js
-          grep -q "scoreMini" booth-workflow.js
-          grep -q "choice.na.on" booth-workflow.css
-          grep -q "Front + Coverage by Down & Distance" game-iq-search.js
-          grep -q "Front + Coverage by Formation" game-iq-search.js
-          grep -q "3rd short left hash blitz pass" game-iq-search.js
-          grep -q "1st & 10" game-iq-search.js
-          grep -q "1st & Long" game-iq-search.js
-          grep -q "firstDownSituation" game-iq-facets.js
-          grep -q "firstDownSituation" game-iq-pro.js
-          grep -q "Starting quarterback" qb-setup.js
-          grep -q "Active QB:" qb-setup.js
-          grep -q "Car-shopping style drill-down" game-iq-facets.js
-          grep -q "facetCounts" game-iq-facets.js
-          grep -q "humanizeDistribution" coach-language.js
-          grep -q "shortSituation" coach-language.js
-          grep -q "tagInterception" game-day-fixes.js
-          grep -q "scoreAutoPoints" game-day-fixes.js
-          grep -q "resultTagsBelow" game-day-fixes.js
-          grep -q "Blitz / pressure" game-day-fixes.js
-          grep -q "scrollToLiveTop" game-day-fixes.js
-          grep -q "COACH NOW" game-iq-pro.js
-          grep -q "Explore current situation" game-iq-pro.js
-          grep -q "Pin this question" game-iq-pro.js
-          grep -q "WHAT THEY" game-iq-pro.js
-          grep -q "HOW WE" game-iq-pro.js
-          grep -q "EXPLORE DEEPER" game-iq-pro.js
-          grep -q "Use this exact view in search" game-iq-pro.js
-          grep -q "More Analysis" game-iq-pro.js
-          grep -q "vs overall" game-iq-pro.js
-          grep -q "trendSignals" game-iq-pro.js
-          grep -q "bestAnswers" game-iq-pro.js
-          grep -q "Save for quick access" game-iq-polish.js
-          grep -q "SAVED VIEWS" game-iq-polish.js
-          grep -q "bookmarks, not the current situation" game-iq-polish.js
-          ! grep -q "MutationObserver" game-iq-polish.js
-          test ! -f game-iq-firstdown-ui.js
-      - name: Release loader check
-        run: |
-          grep -q "durability.js" app.js
-          grep -q "settings-ui.js" app.js
-          grep -q "qb-setup.js" app.js
-          grep -q "booth-workflow.js" app.js
-          grep -q "booth-fixes.js" app.js
-          grep -q "game-day-fixes.js" app.js
-          grep -q "analytics-relations.js" app.js
-          grep -q "game-iq-search.js" app.js
-          grep -q "game-iq-facets.js" app.js
-          grep -q "coach-language.js" app.js
-          grep -q "game-iq-pro.js" app.js
-          grep -q "game-iq-polish.js" app.js
-          ! grep -q "game-iq-firstdown-ui.js" app.js
-          grep -q "export-extensions.js" app.js
-          grep -q "v=safety15" app.js
-          grep -q "app.js?v=safety15" index.html
-          test -f booth-workflow.css
-          test -f game-iq-search.css
-          test -f game-iq-facets.css
-          test -f game-iq-pro.css
-          test -f game-iq-polish.css
-          test -f qb-setup.css
-          test -f game-day-fixes.css
-          grep -q "Backups & Recovery" durability.js
-          grep -q "Your game is safe" durability.js
-      - name: DOM reference check
-        run: |
-          python - <<'PY'
-          from pathlib import Path
-          import re
-          html=Path('index.html').read_text()
-          ids=set(re.findall(r'id="([^"]+)"',html))
-          refs=set()
-          for f in ['ui.js','analytics.js','export.js']:
-              s=Path(f).read_text()
-              refs.update(re.findall(r"\$\('([^']+)'\)",s))
-              refs.update(re.findall(r'\$\("([^"]+)"\)',s))
-          missing=sorted(refs-ids)
-          dup=[x for x in ids if len(re.findall(r'id="'+re.escape(x)+r'"',html))>1]
-          if missing or dup:
-              raise SystemExit(f'missing={missing} duplicate_ids={dup}')
-          print('Static DOM references clean')
-          PY
-      - name: Second destructive beta simulation
-        run: node qa-destructive-beta.js
-      - name: Code size report
-        run: |
-          PROD="index.html style.css ui-enhancements.css booth-workflow.css game-iq-search.css game-iq-facets.css game-iq-pro.css game-iq-polish.css qb-setup.css game-day-fixes.css app.js game-engine.js state.js ui.js durability.js settings-ui.js qb-setup.js game-customization.js booth-workflow.js booth-fixes.js game-day-fixes.js analytics.js analytics-relations.js game-iq-search.js game-iq-facets.js coach-language.js game-iq-pro.js game-iq-polish.js export.js export-extensions.js"
-          TESTS="qa-smoke.js qa-durability.js qa-settings.js qa-analytics-relations.js qa-booth-workflow.js qa-game-iq-search.js qa-qb-facets.js qa-coach-language.js qa-game-day-fixes.js qa-game-iq-pro.js qa-game-iq-pro-destructive.js qa-game-iq-polish.js qa-game-iq-stability.js qa-destructive-beta.js"
-          echo "PRODUCTION_LINES=$(wc -l $PROD | tail -1 | awk '{print $1}')"
-          echo "PRODUCTION_BYTES=$(wc -c $PROD | tail -1 | awk '{print $1}')"
-          echo "TEST_LINES=$(wc -l $TESTS | tail -1 | awk '{print $1}')"
-          echo "TEST_BYTES=$(wc -c $TESTS | tail -1 | awk '{print $1}')"
-          echo "--- production files ---"
-          wc -l $PROD
-          echo "--- QA files ---"
-          wc -l $TESTS
+          python3 -m http.server 8000 --bind 127.0.0.1 > /tmp/fniq-server.log 2>&1 &
+          sleep 2
+      - name: Core browser E2E
+        run: node qa-browser-e2e.js
+      - name: Quality24 speed and confidence E2E
+        run: node qa-browser-quality24.js
+      - name: Pick-six browser regression
+        run: node qa-browser-pick-six.js
+      - name: Responsive viewport matrix
+        run: node qa-browser-responsive.js
