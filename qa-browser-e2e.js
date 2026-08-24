@@ -61,9 +61,11 @@ const assert=require('assert');
   assert(await page.locator('#quickStatDetail').isVisible(),'quick stat drilldown opens');
 
   await page.waitForSelector('#iqFacetBody');
-  const playTypeGroup=page.locator('#iqFacetBody .facetGroup').filter({hasText:'Play type'});
+  const playTypeGroup=page.locator('#iqFacetBody .facetGroup').filter({hasText:'Play type'}).first();
+  assert.equal(await playTypeGroup.count(),1,'Play type facet group exists');
+  if(!(await playTypeGroup.evaluate(el=>el.open)))await playTypeGroup.locator('summary').click();
   const runFilter=playTypeGroup.locator('.facetOption').filter({hasText:'Run'}).first();
-  assert(await runFilter.isVisible(),'Run facet option visible');
+  await runFilter.waitFor({state:'visible'});
   await runFilter.click();
   await page.waitForFunction(()=>Array.from(document.querySelectorAll('#iqFilterChips .iqFilterChip span')).some(s=>s.textContent.includes('Play type: Run')));
   assert(await page.locator('#iqFilterChips').getByText('Play type: Run',{exact:false}).count()>0,'facet click must create active filter chip');
