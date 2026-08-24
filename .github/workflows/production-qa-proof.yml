@@ -51,13 +51,14 @@ jobs:
           printf '\nSOURCE_QA=%s\nBROWSER_QA=%s\nSOURCE_COMMIT=%s\n' "${{ steps.source.outcome }}" "${{ steps.browser.outcome }}" "$GITHUB_SHA" >> qa-safety22-proof.txt
           if [ "${{ steps.source.outcome }}" = "success" ] && [ "${{ steps.browser.outcome }}" = "success" ]; then
             echo "FINAL: PASS" >> qa-safety22-proof.txt
+            sed -i 's/app.js?v=safety22"/app.js?v=safety22-final"/' index.html
           else
             echo "FINAL: FAIL" >> qa-safety22-proof.txt
           fi
           mv qa-safety22-proof.txt qa-production-proof.txt
           git config user.name "Friday Night IQ QA"
           git config user.email "actions@users.noreply.github.com"
-          git add qa-production-proof.txt
+          git add qa-production-proof.txt index.html
           git commit -m "Record production QA proof"
           git push origin HEAD:main
       - name: Fail if QA failed
