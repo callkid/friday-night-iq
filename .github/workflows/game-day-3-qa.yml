@@ -2,7 +2,7 @@ name: Game-Day 3 full QA
 
 on:
   push:
-    branches: [game-day-3-overhaul]
+    branches: [main, game-day-3-overhaul]
 
 jobs:
   qa:
