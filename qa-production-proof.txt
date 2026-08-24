@@ -26,21 +26,66 @@ Penalty hardening regression tests passed
 PASS: Penalty hardening
 
 === Prior-request regression contract ===
-/home/runner/work/friday-night-iq/friday-night-iq/qa-history-regression.js:3
-function assert(x,m){if(!x)throw new Error(m)}
-                           ^
+Prior-request regression contract passed
+PASS: Prior-request regression contract
 
-Error: Game-day visual polish stylesheet is not loaded
-    at assert (/home/runner/work/friday-night-iq/friday-night-iq/qa-history-regression.js:3:34)
-    at Object.<anonymous> (/home/runner/work/friday-night-iq/friday-night-iq/qa-history-regression.js:13:1)
-    at Module._compile (node:internal/modules/cjs/loader:1521:14)
-    at Module._extensions..js (node:internal/modules/cjs/loader:1623:10)
-    at Module.load (node:internal/modules/cjs/loader:1266:32)
-    at Module._load (node:internal/modules/cjs/loader:1091:12)
-    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:164:12)
-    at node:internal/main/run_main_module:28:49
+=== Game IQ search ===
+Game IQ search tests passed
+PASS: Game IQ search
 
-Node.js v20.20.2
+=== QB facets ===
+Setup QB and Game IQ facet tests passed
+PASS: QB facets
+
+=== Coach language ===
+Human coach-analysis wording tests passed
+PASS: Coach language
+
+=== Game-day regression ===
+Game-day regression fixes passed
+PASS: Game-day regression
+
+=== Game IQ 2 ===
+Game IQ 2.0 tests passed
+PASS: Game IQ 2
+
+=== Game IQ destructive ===
+Game IQ 2.0 destructive question-chain simulation passed
+PASS: Game IQ destructive
+
+=== First-down and Saved Views ===
+First-down native integration and Saved Views QA passed
+PASS: First-down and Saved Views
+
+=== Game IQ 1000-cycle stability ===
+Game IQ stability stress QA passed: 1000 deterministic recomputation cycles
+PASS: Game IQ 1000-cycle stability
+
+=== Destructive beta ===
+Second destructive beta QA passed with 31 plays across five series
+PASS: Destructive beta
+
+=== Live correction ===
+Live correction QA passed
+PASS: Live correction
+
+=== Quick stats drilldowns ===
+Quick Game Stats and drill-down QA passed
+PASS: Quick stats drilldowns
+
+=== Safety23 release architecture ===
+PASS: Safety23 release architecture
+
+=== Football preset contract ===
+PASS: Football preset contract
+
+=== Run Type stability contract ===
+PASS: Run Type stability contract
+
+=== Compact important-field contract ===
+PASS: Compact important-field contract
+
+=== Adaptive viewport contract ===
 === REAL BROWSER BOX + RESPONSIVE QA ===
 Wrote to /home/runner/work/friday-night-iq/friday-night-iq/package.json:
 
@@ -71,15 +116,15 @@ Run `npm audit` for details.
 Installing dependencies...
 Switching to root user to install dependencies...
 Get:1 file:/etc/apt/apt-mirrors.txt Mirrorlist [144 B]
-Hit:6 https://packages.microsoft.com/repos/azure-cli noble InRelease
 Hit:2 http://azure.archive.ubuntu.com/ubuntu noble InRelease
-Get:7 https://packages.microsoft.com/ubuntu/24.04/prod noble InRelease [3600 B]
+Hit:6 https://packages.microsoft.com/repos/azure-cli noble InRelease
 Get:3 http://azure.archive.ubuntu.com/ubuntu noble-updates InRelease [126 kB]
+Get:7 https://packages.microsoft.com/ubuntu/24.04/prod noble InRelease [3600 B]
 Get:4 http://azure.archive.ubuntu.com/ubuntu noble-backports InRelease [126 kB]
 Get:5 http://azure.archive.ubuntu.com/ubuntu noble-security InRelease [126 kB]
 Get:8 https://dl.google.com/linux/chrome-stable/deb stable InRelease [2548 B]
-Get:9 https://packages.microsoft.com/ubuntu/24.04/prod noble/main arm64 Packages [357 kB]
-Get:10 https://packages.microsoft.com/ubuntu/24.04/prod noble/main amd64 Packages [403 kB]
+Get:9 https://packages.microsoft.com/ubuntu/24.04/prod noble/main amd64 Packages [403 kB]
+Get:10 https://packages.microsoft.com/ubuntu/24.04/prod noble/main arm64 Packages [357 kB]
 Get:11 http://azure.archive.ubuntu.com/ubuntu noble-updates/main amd64 Packages [1229 kB]
 Get:12 http://azure.archive.ubuntu.com/ubuntu noble-updates/main Translation-en [286 kB]
 Get:13 http://azure.archive.ubuntu.com/ubuntu noble-updates/main amd64 Components [181 kB]
@@ -102,7 +147,7 @@ Get:29 http://azure.archive.ubuntu.com/ubuntu noble-security/restricted amd64 Pa
 Get:30 http://azure.archive.ubuntu.com/ubuntu noble-security/restricted Translation-en [320 kB]
 Get:31 http://azure.archive.ubuntu.com/ubuntu noble-security/multiverse Translation-en [11.1 kB]
 Get:32 https://dl.google.com/linux/chrome-stable/deb stable/main amd64 Packages [1418 B]
-Fetched 11.6 MB in 1s (7811 kB/s)
+Fetched 11.6 MB in 1s (8271 kB/s)
 Reading package lists...
 Reading package lists...
 Building dependency tree...
@@ -178,7 +223,7 @@ Get:7 http://azure.archive.ubuntu.com/ubuntu noble/main amd64 xfonts-encodings a
 Get:8 http://azure.archive.ubuntu.com/ubuntu noble/main amd64 xfonts-utils amd64 1:7.7+6build3 [94.4 kB]
 Get:9 http://azure.archive.ubuntu.com/ubuntu noble/universe amd64 xfonts-cyrillic all 1:1.0.5+nmu1 [384 kB]
 Get:10 http://azure.archive.ubuntu.com/ubuntu noble/main amd64 xfonts-scalable all 1:1.0.3-1.3 [304 kB]
-Fetched 21.1 MB in 0s (43.3 MB/s)
+Fetched 21.1 MB in 1s (41.9 MB/s)
 Selecting previously unselected package fonts-ipafont-gothic.
 (Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 203124 files and directories currently installed.)
 Preparing to unpack .../0-fonts-ipafont-gothic_00303-21ubuntu1_all.deb ...
@@ -303,17 +348,15 @@ FAIL: Browser box pass 3
 PICK SIX E2E PASS: interception returned for TD scores opponent +6, ends possession, and reverses on undo
 PASS: Pick-six browser path
 --- Responsive viewport matrix ---
-AssertionError [ERR_ASSERTION]: coach-short-laptop still requires excessive main-page scrolling: 918 vs 668
-    at /home/runner/work/friday-night-iq/friday-night-iq/qa-browser-responsive.js:58:7 {
-  generatedMessage: false,
-  code: 'ERR_ASSERTION',
-  actual: false,
-  expected: true,
-  operator: '=='
-}
-FAIL: Responsive viewport matrix
+RESPONSIVE PASS: coach-short-laptop 1475x668 scroll=1475x740
+RESPONSIVE PASS: common-laptop 1366x768 scroll=1366x1215
+RESPONSIVE PASS: large-monitor 1920x1080 scroll=1920x1192
+RESPONSIVE PASS: large-monitor-2k 2560x1440 scroll=2560x1440
+RESPONSIVE PASS: narrow-laptop-tablet 1024x768 scroll=1024x1336
+RESPONSIVE MATRIX PASS: short laptop, common laptop, 1080p monitor, 2K monitor, narrow layout
+PASS: Responsive viewport matrix
 
 SOURCE_QA=failure
 BROWSER_QA=failure
-SOURCE_COMMIT=8f11b2174c93c48785b1144147ac22a0a08fbc3c
+SOURCE_COMMIT=a920d8c4454f7eb57b00c895191d890493877304
 FINAL: FAIL
