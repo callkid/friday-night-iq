@@ -2,7 +2,10 @@
 'use strict';
 var A=root.FNIQ,d=root.document;if(!A||!d||A.__boxUiV19)return;A.__boxUiV19=true;
 function $(id){return d.getElementById(id)}
-function injectCss(){if($('boxUiV19Css'))return;var l=d.createElement('link');l.id='boxUiV19Css';l.rel='stylesheet';l.href='box-ui-v19.css?v=box21';d.head.appendChild(l)}
+function injectCss(){
+ if(!$('boxUiV19Css')){var l=d.createElement('link');l.id='boxUiV19Css';l.rel='stylesheet';l.href='box-ui-v19.css?v=box21';d.head.appendChild(l)}
+ if(!$('visualPolishCss')){var v=d.createElement('link');v.id='visualPolishCss';v.rel='stylesheet';v.href='visual-polish.css?v=visual21';d.head.appendChild(v)}
+}
 function compactPreSnap(){
  var card=$('preSnapCard'),motion=$('motion'),box=d.querySelector('[data-group="box"]'),defGrid=card&&card.querySelector('.speedDefenseGrid');if(!card||!defGrid)return;
  var motionWrap=motion&&motion.parentElement,boxWrap=box&&box.parentElement,row=$('boxSecondaryLookRow');
