@@ -69,14 +69,14 @@
         </div>
 
         <div class="card stepcard">
-          <div class="stephead"><span class="stepnum">2</span><div><h2 class="section">Pre-snap picture</h2><p class="muted">What you know before the ball moves. Formation and personnel stay until you change them.</p></div></div>
+          <div class="stephead"><span class="stepnum">2</span><div><h2 class="section">Pre-snap picture</h2><p class="muted">What you know before the ball moves. Formation resets each play; personnel stays until you change it.</p></div></div>
           <div class="grid3">
             <div><label class="label">Front</label><div class="choices" data-group="front"><button class="choice" data-v="3">3 Down</button><button class="choice" data-v="4">4 Down</button><button class="choice" data-v="5">5 Down</button><button class="choice na" data-v="NA">N/A</button></div></div>
             <div><label class="label">High safeties</label><div class="choices five" data-group="safeties"><button class="choice" data-v="0">0</button><button class="choice" data-v="1">1</button><button class="choice" data-v="2">2</button><button class="choice" data-v="3">3</button><button class="choice na" data-v="NA">N/A</button></div></div>
             <div><label class="label">Box</label><div class="choices five" data-group="box"><button class="choice" data-v="5">5</button><button class="choice" data-v="6">6</button><button class="choice" data-v="7">7</button><button class="choice" data-v="8">8</button><button class="choice" data-v="9+">9+</button><button class="choice na" data-v="NA">N/A</button></div></div>
           </div>
           <div class="grid3 contextrow">
-            <div><label class="label">Formation <span class="optional">stays until changed</span></label><select id="formation"><option value="NA">N/A</option><option>2x2</option><option>3x1</option><option>Trips</option><option>Empty</option><option>Pro</option><option>I</option><option>Pistol</option></select></div>
+            <div><label class="label">Formation <span class="optional">resets each play</span></label><select id="formation"><option value="NA">N/A</option><option>2x2</option><option>3x1</option><option>Trips</option><option>Empty</option><option>Pro</option><option>I</option><option>Pistol</option></select></div>
             <div><label class="label">Personnel <span class="optional">stays until changed</span></label><input id="personnel" placeholder="11, 12, 21..."></div>
             <div><label class="label">Motion <span class="optional">resets each play</span></label><input id="motion" placeholder="Jet, orbit..."></div>
           </div>
@@ -158,6 +158,6 @@
 </div>
 <div id="toast" class="toast hidden"></div>
 <div id="modal" class="modal hidden"><div class="modalbox"><h3 id="mTitle">Confirm</h3><p id="mText" class="muted"></p><div class="right"><button id="mCancel" class="btn">Cancel</button><button id="mYes" class="btn danger">Confirm</button></div></div></div>
-<script src="app.js?v=safety20"></script>
+<script src="app.js?v=safety21"></script>
 </body>
 </html>
