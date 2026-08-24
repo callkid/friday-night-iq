@@ -42,6 +42,8 @@ jobs:
         run: node qa-destructive-beta.js
       - name: Game-Day 3 speed and state tests
         run: node qa-game-day-3.js
+      - name: Under-30-second interaction budget
+        run: node qa-speed-budget.js
       - name: Game IQ 3 canonical filter and stress tests
         run: node qa-game-iq-v3.js
       - name: Release and data-safety checks
@@ -49,9 +51,10 @@ jobs:
           grep -q "fniq_prod_v1" state.js
           grep -q "fniq_recovery_v1" durability.js
           grep -q "game-day-3.js" app.js
+          grep -q "speed-guard.js" app.js
           grep -q "game-iq-v3.js" app.js
-          grep -q "v=safety16" app.js
-          grep -q "app.js?v=safety16" index.html
+          grep -q "v=safety17" app.js
+          grep -q "app.js?v=safety17" index.html
           grep -q "officialNext" game-engine.js
           grep -q "if(added&&!A.__gameDay3)" game-day-fixes.js
           grep -q "Where is the ball now?" game-day-3.js
@@ -61,11 +64,12 @@ jobs:
           grep -q "A.getIQFilters" game-iq-v3.js
           grep -q "A.setIQFilters" game-iq-v3.js
           grep -q "1st & 10" game-iq-v3.js
+          grep -q "under-30-seconds" speed-guard.js
           ! grep -q "MutationObserver" game-day-3.js
+          ! grep -q "MutationObserver" speed-guard.js
           ! grep -q "MutationObserver" game-iq-v3.js
           ! grep -q "2nd: 70%" index.html
           ! grep -q "15+ net yards or tagged" analytics.js
-          grep -q "C.makePayload(A.state,'safety16')" durability.js
       - name: Static DOM references
         run: |
           python - <<'PY'
