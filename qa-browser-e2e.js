@@ -63,7 +63,7 @@ function contrast(a,b){const x=lum(rgb(a)),y=lum(rgb(b)),hi=Math.max(x,y),lo=Mat
   assert(await page.locator('#quickStatsGrid [data-stat-key="third"]').isVisible(),'3rd-down quick stat visible');
   const passBg=await page.locator('#quickStatsGrid [data-stat-key="passing"]').evaluate(el=>getComputedStyle(el).backgroundColor),rushBg=await page.locator('#quickStatsGrid [data-stat-key="rushing"]').evaluate(el=>getComputedStyle(el).backgroundColor),penBg=await page.locator('#quickStatsGrid [data-stat-key="penalties"]').evaluate(el=>getComputedStyle(el).backgroundColor);
   assert.notEqual(passBg,rushBg,'Passing and Rushing must be visually distinct before click');assert.notEqual(penBg,passBg,'Penalty card must carry its own warning color before click');
-  const more=page.locator('#iqMoreAnalysis');assert.equal(await more.count(),1,'More Analysis drawer must exist');if(!(await more.evaluate(el=>el.open)))await more.locator('summary').click();
+  const more=page.locator('#iqMoreAnalysis');assert.equal(await more.count(),1,'More Analysis drawer must exist');if(!(await more.evaluate(el=>el.open)))await page.locator('#iqMoreAnalysis > summary').click();
   await page.waitForFunction(()=>{const m=document.querySelector('#metrics');return m&&m.textContent.includes('Run 12+')&&m.textContent.includes('Pass 16+')});
   const metricText=await page.locator('#metrics').textContent();assert(metricText.includes('Run 12+')&&metricText.includes('Pass 16+'),'More Analysis must honor 12+/16+ explosive thresholds');
   assert(await page.getByText('1st & 10',{exact:true}).count()>0,'Coach Shortcuts must keep a distinct 1st & 10');
