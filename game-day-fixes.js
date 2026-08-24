@@ -80,7 +80,7 @@ function install(A,root){
   }
   function installSaveScroll(){
     var save=$('save');if(!save||save.dataset.gameDayScroll)return;save.dataset.gameDayScroll='1';var old=save.onclick;
-    save.onclick=function(e){var before=A.state.plays.length,r=old&&old.call(this,e),added=A.state.plays.length>before;if(added&&!A.__gameDay3){setTimeout(scrollToLiveTop,160);setTimeout(scrollToLiveTop,380);}return r;};
+    save.onclick=function(e){var before=A.state.plays.length,r=old&&old.call(this,e),added=A.state.plays.length>before;if(added&&!A.__gameDay3&&!A.__noAutoScroll){setTimeout(scrollToLiveTop,160);setTimeout(scrollToLiveTop,380);}return r;};
   }
   injectCss();rearrangeResultArea();installSaveScroll();
   var oldRender=A.renderAll;if(oldRender)A.renderAll=function(){var r=oldRender.apply(A,arguments);rearrangeResultArea();return r;};
