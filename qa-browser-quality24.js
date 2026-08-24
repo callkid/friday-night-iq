@@ -7,11 +7,12 @@ const assert=require('assert');
   await page.addInitScript(()=>localStorage.clear());
   await page.goto('http://127.0.0.1:8000/?quality24qa=1',{waitUntil:'networkidle'});
   await page.fill('#team','Quality24 QA');await page.fill('#opp','Test Defense');await page.click('#start');
-  await page.waitForSelector('#live.on');await page.waitForSelector('#q24CoverageQuick');await page.waitForSelector('#q24Hurry');await page.waitForSelector('#q24Capture');await page.waitForSelector('#q24ConceptQuick');await page.waitForSelector('#q24AttackQuick');
+  await page.waitForSelector('#live.on');await page.waitForSelector('#q24CoverageQuick');await page.waitForSelector('#q24Hurry');await page.waitForSelector('#q24Capture');await page.waitForSelector('#q24ConceptQuick');await page.waitForSelector('#q24AttackQuick',{state:'attached'});
   assert(await page.locator('#q24CoverageQuick button[data-value="Cover 3"]').isVisible(),'pre-snap coverage quick buttons missing');
   assert(await page.locator('#q24MotionQuick button[data-value="No Motion"]').isVisible(),'explicit No Motion quick button missing');
   assert(await page.locator('#q24Hurry').isVisible(),'Hurry-up toggle missing');
   assert(await page.locator('#q24ConceptQuick').isVisible(),'Concept Family quick buttons missing');
+  assert.equal(await page.locator('#q24AttackQuick').isVisible(),false,'Run/Pass detail shortcuts must stay hidden until play type is chosen');
   assert.equal(await page.locator('#motion option[value="No Motion"]').count(),1,'explicit No Motion option missing from saved field');
 
   await page.click('#speedHashButtons button[data-value="Left"]');
@@ -57,6 +58,6 @@ const assert=require('assert');
 
   const overflow=await page.evaluate(()=>({sw:document.documentElement.scrollWidth,iw:innerWidth}));assert(overflow.sw<=overflow.iw+2,'quality24 introduced horizontal overflow');
   assert.equal(errors.length,0,'Browser errors: '+errors.join(' | '));
-  console.log('QUALITY24 BROWSER PASS: quick coverage, explicit No Motion, one-tap run/pass detail, quick concept family, capture completeness, hurry-up essentials, recent motion, reset/carry behavior, conservative headset snapshot, no overflow');
+  console.log('QUALITY24 BROWSER PASS: hidden-before-selection and one-tap run/pass detail, quick coverage, explicit No Motion, quick concept family, capture completeness, hurry-up essentials, recent motion, reset/carry behavior, conservative headset snapshot, no overflow');
   await browser.close();
 })().catch(e=>{console.error(e);process.exit(1)});
