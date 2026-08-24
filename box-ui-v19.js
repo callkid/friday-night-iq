@@ -5,7 +5,7 @@ function $(id){return d.getElementById(id)}
 function injectCss(){
  if(!$('boxUiV19Css')){var l=d.createElement('link');l.id='boxUiV19Css';l.rel='stylesheet';l.href='box-ui-v19.css?v=box23';d.head.appendChild(l)}
  if(!$('visualPolishCss')){var v=d.createElement('link');v.id='visualPolishCss';v.rel='stylesheet';v.href='visual-polish.css?v=visual23';d.head.appendChild(v)}
- if(!$('adaptiveLayoutCss')){var a=d.createElement('link');a.id='adaptiveLayoutCss';a.rel='stylesheet';a.href='adaptive-layout.css?v=adaptive23';d.head.appendChild(a)}
+ if(!$('adaptiveLayoutCss')){var a=d.createElement('link');a.id='adaptiveLayoutCss';a.rel='stylesheet';a.href='adaptive-layout.css?v=adaptive23b';d.head.appendChild(a)}
 }
 function compactPreSnap(){
  var card=$('preSnapCard'),motion=$('motion'),box=d.querySelector('[data-group="box"]'),defGrid=card&&card.querySelector('.speedDefenseGrid');if(!card||!defGrid)return;
@@ -21,10 +21,23 @@ function compactPreSnap(){
  var head=card.querySelector('.stephead .muted');if(head)head.textContent='Hash, formation and personnel first. Formation resets after Save; personnel carries forward.';
  var more=$('speedPreMore');if(more)more.remove();
 }
+function dockSave(result){
+ var summary=d.querySelector('#live .entrysummary');if(!result||!summary)return;
+ if(summary.parentElement!==result)result.appendChild(summary);
+ summary.classList.add('boxDockedSummary');
+}
+function shortSituationControl(){
+ var snap=$('headline')&&$('headline').closest('.snapbar'),right=snap&&snap.querySelector('.snapright'),original=$('speedSituationEdit');if(!right||!original)return;
+ var b=$('shortSituationEdit');
+ if(!b){b=d.createElement('button');b.id='shortSituationEdit';b.type='button';b.className='btn smallbtn shortSituationEdit';b.onclick=function(){original.click();setTimeout(sync,0)};right.insertBefore(b,right.firstChild);}
+ function sync(){var card=$('situationCard'),open=card&&card.classList.contains('speedSituationOpen');b.textContent=open?'Done':'Edit Situation';b.classList.toggle('on',!!open)}
+ sync();
+}
 function compactMain(){
  var main=$('live')&&$('live').querySelector('main'),play=d.querySelector('[data-group="playType"]');if(!main||!play)return;
  main.classList.add('boxMainGrid');var result=play.closest('.stepcard');if(result)result.classList.add('boxResultCard');
  if($('situationCard'))$('situationCard').classList.add('boxSituationCard');if($('preSnapCard'))$('preSnapCard').classList.add('boxPreSnapCard');
+ dockSave(result);shortSituationControl();
 }
 function inlinePenalty(){
  var panel=$('penaltyPanel'),group=d.querySelector('[data-group="playType"]'),pen=d.querySelector('[data-group="playType"] [data-v="Penalty"]');if(!panel||!group||!pen)return;
@@ -35,5 +48,5 @@ function inlinePenalty(){
 }
 function tightenLabels(){var spot=$('speedSpotCalc');if(spot){var s=spot.querySelector('summary');if(s)s.innerHTML='Need help calculating yards? <span>optional</span>'}var save=$('save');if(save)save.setAttribute('title','Save this play and advance the situation automatically')}
 function prepare(){d.documentElement.classList.add('fniqBoxCompact');compactPreSnap();compactMain();inlinePenalty();tightenLabels()}
-injectCss();prepare();
+injectCss();prepare();var old=A.renderAll;if(old&&!A.__boxUiRenderWrap){A.__boxUiRenderWrap=true;A.renderAll=function(){var r=old.apply(A,arguments);prepare();return r}}
 })(window);
