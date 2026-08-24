@@ -28,12 +28,13 @@ async function boot(browser,c){
     const metrics=await page.evaluate(()=>({
       innerW:innerWidth,innerH:innerHeight,scrollW:document.documentElement.scrollWidth,scrollH:document.documentElement.scrollHeight,
       app:document.querySelector('.app').getBoundingClientRect(),
+      snap:document.querySelector('#live .snapbar').getBoundingClientRect(),
       live:document.querySelector('#live .live').getBoundingClientRect(),
       main:document.querySelector('#live main').getBoundingClientRect(),
       aside:document.querySelector('#live aside.sticky').getBoundingClientRect(),
       asideDisplay:getComputedStyle(document.querySelector('#live aside.sticky')).display,
-      asideOverflow:getComputedStyle(document.querySelector('#live aside.sticky')).overflowY,
       situation:document.querySelector('#situationCard').getBoundingClientRect(),
+      situationDisplay:getComputedStyle(document.querySelector('#situationCard')).display,
       pre:document.querySelector('#preSnapCard').getBoundingClientRect(),
       result:document.querySelector('.boxResultCard').getBoundingClientRect(),
       summary:document.querySelector('.entrysummary').getBoundingClientRect(),
@@ -42,14 +43,17 @@ async function boot(browser,c){
     }));
     assert(metrics.scrollW<=metrics.innerW+2,c.name+' has horizontal page overflow: '+metrics.scrollW+' > '+metrics.innerW);
     if(c.width>=1181){
-      const nextTop=Math.min(metrics.pre.top,metrics.result.top),gap=nextTop-metrics.situation.bottom;
-      assert(gap<=20,c.name+' has dead vertical gap after situation: '+Math.round(gap)+'px');
+      const nextTop=Math.min(metrics.pre.top,metrics.result.top);
+      const anchor=metrics.situationDisplay==='none'?metrics.snap.bottom:metrics.situation.bottom;
+      const gap=nextTop-anchor;
+      assert(gap<=20,c.name+' has dead vertical gap before charting cards: '+Math.round(gap)+'px');
       assert(Math.abs(metrics.pre.top-metrics.result.top)<=8,c.name+' charting cards are vertically misaligned');
     }
     if(c.short){
       assert.equal(metrics.summaryPosition,'static','short laptop Save row must not float over controls');
-      assert(metrics.aside.bottom<=metrics.innerH+2,'short laptop sidebar exceeds viewport instead of scrolling independently');
-      assert(['auto','scroll'].includes(metrics.asideOverflow),'short laptop sidebar must scroll independently');
+      assert.equal(metrics.asideDisplay,'none','short laptop should devote the surface to charting; Game IQ stays available in its tab');
+      assert(await page.locator('#shortSituationEdit').isVisible(),'short laptop needs an Edit Situation control in the snap bar');
+      assert.equal(metrics.situationDisplay,'none','collapsed duplicate Situation card should disappear on the short laptop');
       const selectors=['#speedHashButtons','#formation','#personnel','[data-group="front"]','[data-group="safeties"]','#coverage','[data-group="box"]','#motion','[data-group="playType"]','#yards','#speedBlitzQuick','#save'];
       const rects=[];
       for(const s of selectors){const loc=page.locator(s).first();assert(await loc.isVisible(),c.name+' missing primary control '+s);const r=await loc.evaluate(el=>{const x=el.getBoundingClientRect();return{left:x.left,right:x.right,top:x.top,bottom:x.bottom}});rects.push([s,r]);assert(r.top>=-1&&r.bottom<=c.height+2,c.name+' primary control off-screen without scrolling: '+s+' bottom='+Math.round(r.bottom));}
