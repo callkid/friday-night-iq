@@ -11,7 +11,8 @@ let f=E.nextSituation({quarter:'Q1',down:2,distance:5,fieldSide:'OWN',yardLine:3
 assert(live.includes('speedHashButtons')&&live.includes('removeNoPlay'),'Hash-first / No Play removal regressed');
 assert(box.includes('resets each play')&&box.includes('stays until changed'),'Formation reset / personnel carry UI contract regressed');
 assert(box.includes('visual-polish.css?v=visual23'),'Game-day visual polish stylesheet is not loaded');
-assert(box.includes('adaptive-layout.css?v=adaptive23b'),'Adaptive press-box stylesheet is not loaded');
+assert(box.includes('adaptive-layout.css?v=adaptive23c'),'Adaptive press-box stylesheet is not loaded');
+assert(box.includes('boxHeaderSave')&&box.includes('shortSituationEdit'),'Adaptive Save / short-screen situation controls regressed');
 assert(adaptive.includes('grid-auto-rows:max-content')&&adaptive.includes('max-height:700px'),'Adaptive layout regression protection missing');
 assert(visual.includes('#iq .action.good')&&visual.includes('#iq .action.bad'),'Working / Not Working Game IQ colors regressed');
 assert(visual.includes('html[data-theme="light"] #iq .action.good')&&visual.includes('html[data-theme="light"] #iq .action.bad'),'Working / Not Working light-mode colors regressed');
