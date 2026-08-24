@@ -57,19 +57,25 @@ PASS: Game IQ 1000-cycle stability
 Second destructive beta QA passed with 31 plays across five series
 PASS: Destructive beta
 
-=== Safety18 live correction ===
+=== Live correction ===
 Live correction QA passed
-PASS: Safety18 live correction
+PASS: Live correction
 
-=== Safety18 quick stats drilldowns ===
+=== Quick stats drilldowns ===
 Quick Game Stats and drill-down QA passed
-PASS: Safety18 quick stats drilldowns
+PASS: Quick stats drilldowns
 
-=== Safety18 release architecture ===
-PASS: Safety18 release architecture
+=== Safety19 release architecture ===
+PASS: Safety19 release architecture
 
 === Football preset contract ===
 PASS: Football preset contract
+
+=== Compact important-field contract ===
+PASS: Compact important-field contract
+
+=== Pre-click color contract ===
+PASS: Pre-click color contract
 
 === No observer regression in new layers ===
 PASS: No observer regression in new layers
@@ -79,7 +85,7 @@ Static DOM references clean
 PASS: Static DOM references
 
 === Code size ===
-  2969 total
+  3032 total
 PASS: Code size
 
 FINAL: PASS
@@ -113,8 +119,8 @@ Run `npm audit` for details.
 Installing dependencies...
 Switching to root user to install dependencies...
 Get:1 file:/etc/apt/apt-mirrors.txt Mirrorlist [144 B]
-Hit:6 https://packages.microsoft.com/repos/azure-cli noble InRelease
 Hit:2 http://azure.archive.ubuntu.com/ubuntu noble InRelease
+Hit:6 https://packages.microsoft.com/repos/azure-cli noble InRelease
 Get:7 https://packages.microsoft.com/ubuntu/24.04/prod noble InRelease [3600 B]
 Get:3 http://azure.archive.ubuntu.com/ubuntu noble-updates InRelease [126 kB]
 Get:4 http://azure.archive.ubuntu.com/ubuntu noble-backports InRelease [126 kB]
@@ -144,7 +150,7 @@ Get:29 http://azure.archive.ubuntu.com/ubuntu noble-security/restricted amd64 Pa
 Get:30 http://azure.archive.ubuntu.com/ubuntu noble-security/restricted Translation-en [320 kB]
 Get:31 http://azure.archive.ubuntu.com/ubuntu noble-security/multiverse Translation-en [11.1 kB]
 Get:32 https://dl.google.com/linux/chrome-stable/deb stable/main amd64 Packages [1418 B]
-Fetched 11.6 MB in 1s (8478 kB/s)
+Fetched 11.6 MB in 1s (9147 kB/s)
 Reading package lists...
 Reading package lists...
 Building dependency tree...
@@ -220,7 +226,7 @@ Get:7 http://azure.archive.ubuntu.com/ubuntu noble/main amd64 xfonts-encodings a
 Get:8 http://azure.archive.ubuntu.com/ubuntu noble/main amd64 xfonts-utils amd64 1:7.7+6build3 [94.4 kB]
 Get:9 http://azure.archive.ubuntu.com/ubuntu noble/universe amd64 xfonts-cyrillic all 1:1.0.5+nmu1 [384 kB]
 Get:10 http://azure.archive.ubuntu.com/ubuntu noble/main amd64 xfonts-scalable all 1:1.0.3-1.3 [304 kB]
-Fetched 21.1 MB in 0s (67.9 MB/s)
+Fetched 21.1 MB in 1s (21.3 MB/s)
 Selecting previously unselected package fonts-ipafont-gothic.
 (Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 203124 files and directories currently installed.)
 Preparing to unpack .../0-fonts-ipafont-gothic_00303-21ubuntu1_all.deb ...
@@ -312,16 +318,37 @@ Downloading Chromium Headless Shell 140.0.7339.16 (playwright build v1187) from 
 |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■| 100% of 104.3 MiB
 Chromium Headless Shell 140.0.7339.16 (playwright build v1187) downloaded to /home/runner/.cache/ms-playwright/chromium_headless_shell-1187
 --- Browser box pass 1 ---
-BOX E2E PASS: automatic situation, false-start preset, optional spot math, semantic colors, quick-stat drilldown, live filter click
-PASS: Browser box pass 1
+AssertionError [ERR_ASSERTION]: common Penalty controls must appear immediately inside the viewport
+    at /home/runner/work/friday-night-iq/friday-night-iq/qa-browser-e2e.js:45:3 {
+  generatedMessage: false,
+  code: 'ERR_ASSERTION',
+  actual: false,
+  expected: true,
+  operator: '=='
+}
+FAIL: Browser box pass 1
 --- Browser box pass 2 ---
-BOX E2E PASS: automatic situation, false-start preset, optional spot math, semantic colors, quick-stat drilldown, live filter click
-PASS: Browser box pass 2
+AssertionError [ERR_ASSERTION]: common Penalty controls must appear immediately inside the viewport
+    at /home/runner/work/friday-night-iq/friday-night-iq/qa-browser-e2e.js:45:3 {
+  generatedMessage: false,
+  code: 'ERR_ASSERTION',
+  actual: false,
+  expected: true,
+  operator: '=='
+}
+FAIL: Browser box pass 2
 --- Browser box pass 3 ---
-BOX E2E PASS: automatic situation, false-start preset, optional spot math, semantic colors, quick-stat drilldown, live filter click
-PASS: Browser box pass 3
+AssertionError [ERR_ASSERTION]: common Penalty controls must appear immediately inside the viewport
+    at /home/runner/work/friday-night-iq/friday-night-iq/qa-browser-e2e.js:45:3 {
+  generatedMessage: false,
+  code: 'ERR_ASSERTION',
+  actual: false,
+  expected: true,
+  operator: '=='
+}
+FAIL: Browser box pass 3
 
 SOURCE_QA=success
-BROWSER_QA=success
-SOURCE_COMMIT=212f6f974b76e1559807e44f8a7315ade30ee9a2
-FINAL: PASS
+BROWSER_QA=failure
+SOURCE_COMMIT=375087c2353329d785fd623add95c17f378bc845
+FINAL: FAIL
