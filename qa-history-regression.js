@@ -10,7 +10,7 @@ assert(B.isExplosive({playType:'Run',yards:12},{explosiveRun:12,explosivePass:16
 let f=E.nextSituation({quarter:'Q1',down:2,distance:5,fieldSide:'OWN',yardLine:30,drive:1,playType:'Run',yards:3,tags:['Fumble','Fumble Lost']});assert(f.possessionEnded,'Fumble Lost must end possession');
 assert(live.includes('speedHashButtons')&&live.includes('removeNoPlay'),'Hash-first / No Play removal regressed');
 assert(box.includes('resets each play')&&box.includes('stays until changed'),'Formation reset / personnel carry UI contract regressed');
-assert(box.includes('visual-polish.css?v=visual21'),'Game-day visual polish stylesheet is not loaded');
+assert(box.includes('visual-polish.css?v=visual22'),'Game-day visual polish stylesheet is not loaded');
 assert(visual.includes('#iq .action.good')&&visual.includes('#iq .action.bad'),'Working / Not Working Game IQ colors regressed');
 assert(visual.includes('html[data-theme="light"] #iq .action.good')&&visual.includes('html[data-theme="light"] #iq .action.bad'),'Working / Not Working light-mode colors regressed');
 assert(tips.includes('DELAY=3200'),'3.2 second tooltip delay regressed');
