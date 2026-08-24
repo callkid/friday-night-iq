@@ -36,8 +36,9 @@ run_case "First-down/Saved Views" node qa-game-iq-polish.js
 run_case "Legacy IQ stability" node qa-game-iq-stability.js
 run_case "Destructive beta" node qa-destructive-beta.js
 run_case "Game-Day 3 speed/state" node qa-game-day-3.js
+run_case "Under-30-second speed budget" node qa-speed-budget.js
 run_case "Game IQ 3 canonical/stress" node qa-game-iq-v3.js
-run_shell "Release/data safety" 'grep -q "fniq_prod_v1" state.js && grep -q "fniq_recovery_v1" durability.js && grep -q "game-day-3.js" app.js && grep -q "game-iq-v3.js" app.js && grep -q "v=safety16" app.js && grep -q "app.js?v=safety16" index.html && grep -q "officialNext" game-engine.js && grep -q "if(added&&!A.__gameDay3)" game-day-fixes.js && grep -q "Where is the ball now?" game-day-3.js && grep -q "Pick Six / INT returned for TD" game-day-3.js && grep -q "OFFICIAL NEXT SNAP" game-day-3.js && grep -q "One-glance game stats" game-iq-v3.js && grep -q "A.getIQFilters" game-iq-v3.js && grep -q "A.setIQFilters" game-iq-v3.js && grep -q "1st & 10" game-iq-v3.js && ! grep -q "MutationObserver" game-day-3.js && ! grep -q "MutationObserver" game-iq-v3.js && ! grep -q "2nd: 70%" index.html && ! grep -q "15+ net yards or tagged" analytics.js && grep -q "C.makePayload(A.state,'"'"'safety16'"'"')" durability.js'
+run_shell "Release/data safety" 'grep -q "fniq_prod_v1" state.js && grep -q "fniq_recovery_v1" durability.js && grep -q "game-day-3.js" app.js && grep -q "speed-guard.js" app.js && grep -q "game-iq-v3.js" app.js && grep -q "v=safety17" app.js && grep -q "app.js?v=safety17" index.html && grep -q "officialNext" game-engine.js && grep -q "if(added&&!A.__gameDay3)" game-day-fixes.js && grep -q "Where is the ball now?" game-day-3.js && grep -q "Pick Six / INT returned for TD" game-day-3.js && grep -q "OFFICIAL NEXT SNAP" game-day-3.js && grep -q "One-glance game stats" game-iq-v3.js && grep -q "A.getIQFilters" game-iq-v3.js && grep -q "A.setIQFilters" game-iq-v3.js && grep -q "1st & 10" game-iq-v3.js && grep -q "under-30-seconds" speed-guard.js && ! grep -q "MutationObserver" game-day-3.js && ! grep -q "MutationObserver" speed-guard.js && ! grep -q "MutationObserver" game-iq-v3.js && ! grep -q "2nd: 70%" index.html && ! grep -q "15+ net yards or tagged" analytics.js'
 run_shell "Static DOM refs" 'python - <<"PY"
 from pathlib import Path
 import re
@@ -52,6 +53,7 @@ missing=sorted(refs-ids)
 if missing: raise SystemExit("missing="+str(missing))
 print("Static DOM references clean")
 PY'
+run_shell "Code size report" 'wc -l *.js *.css index.html | tail -1'
 if [ $FAIL -eq 0 ]; then
   echo "FINAL: PASS" | tee -a "$REPORT"
 else
