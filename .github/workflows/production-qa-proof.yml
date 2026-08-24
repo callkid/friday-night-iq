@@ -40,6 +40,10 @@ jobs:
             CODE=$?
             if [ $CODE -ne 0 ]; then FAIL=1; echo "FAIL: Browser box pass $i" >> qa-safety21-proof.txt; else echo "PASS: Browser box pass $i" >> qa-safety21-proof.txt; fi
           done
+          echo "--- Pick-six browser path ---" >> qa-safety21-proof.txt
+          node qa-browser-pick-six.js >> qa-safety21-proof.txt 2>&1
+          CODE=$?
+          if [ $CODE -ne 0 ]; then FAIL=1; echo "FAIL: Pick-six browser path" >> qa-safety21-proof.txt; else echo "PASS: Pick-six browser path" >> qa-safety21-proof.txt; fi
           exit $FAIL
       - name: Publish auditable QA result
         if: always()
