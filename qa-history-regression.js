@@ -1,7 +1,7 @@
 const fs=require('fs');
 const E=require('./game-engine.js'),B=require('./booth-workflow.js'),S=require('./game-iq-summary.js');
 function assert(x,m){if(!x)throw new Error(m)}
-const app=fs.readFileSync('app.js','utf8'),live=fs.readFileSync('live-correction.js','utf8'),box=fs.readFileSync('box-ui-v19.js','utf8'),css=fs.readFileSync('box-ui-v19.css','utf8'),visual=fs.readFileSync('visual-polish.css','utf8'),tips=fs.readFileSync('tooltip-polish.js','utf8'),pins=fs.readFileSync('game-iq-polish.js','utf8'),pick=fs.readFileSync('pick-six.js','utf8'),gameday=fs.readFileSync('game-day-fixes.js','utf8');
+const app=fs.readFileSync('app.js','utf8'),live=fs.readFileSync('live-correction.js','utf8'),box=fs.readFileSync('box-ui-v19.js','utf8'),css=fs.readFileSync('box-ui-v19.css','utf8'),visual=fs.readFileSync('visual-polish.css','utf8'),adaptive=fs.readFileSync('adaptive-layout.css','utf8'),tips=fs.readFileSync('tooltip-polish.js','utf8'),pins=fs.readFileSync('game-iq-polish.js','utf8'),pick=fs.readFileSync('pick-six.js','utf8'),gameday=fs.readFileSync('game-day-fixes.js','utf8');
 assert(B.FORMATIONS.length===12&&B.FORMATIONS.includes('Doubles Right')&&B.FORMATIONS.includes('Toronto Left'),'Skyridge formation vocabulary regressed');
 assert(B.MOTIONS.length===12&&B.MOTIONS.includes('H-Jet')&&B.MOTIONS.includes('T-Laser'),'Skyridge motion vocabulary regressed');
 assert(B.RUN_TYPES.join('|')==='Inside Zone|Outside Zone|Counter|Power|Draw','Run Type vocabulary regressed');
@@ -10,7 +10,9 @@ assert(B.isExplosive({playType:'Run',yards:12},{explosiveRun:12,explosivePass:16
 let f=E.nextSituation({quarter:'Q1',down:2,distance:5,fieldSide:'OWN',yardLine:30,drive:1,playType:'Run',yards:3,tags:['Fumble','Fumble Lost']});assert(f.possessionEnded,'Fumble Lost must end possession');
 assert(live.includes('speedHashButtons')&&live.includes('removeNoPlay'),'Hash-first / No Play removal regressed');
 assert(box.includes('resets each play')&&box.includes('stays until changed'),'Formation reset / personnel carry UI contract regressed');
-assert(box.includes('visual-polish.css?v=visual22'),'Game-day visual polish stylesheet is not loaded');
+assert(box.includes('visual-polish.css?v=visual23'),'Game-day visual polish stylesheet is not loaded');
+assert(box.includes('adaptive-layout.css?v=adaptive23b'),'Adaptive press-box stylesheet is not loaded');
+assert(adaptive.includes('grid-auto-rows:max-content')&&adaptive.includes('max-height:700px'),'Adaptive layout regression protection missing');
 assert(visual.includes('#iq .action.good')&&visual.includes('#iq .action.bad'),'Working / Not Working Game IQ colors regressed');
 assert(visual.includes('html[data-theme="light"] #iq .action.good')&&visual.includes('html[data-theme="light"] #iq .action.bad'),'Working / Not Working light-mode colors regressed');
 assert(tips.includes('DELAY=3200'),'3.2 second tooltip delay regressed');
