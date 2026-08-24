@@ -1,0 +1,16 @@
+const assert=require('assert');
+const fs=require('fs');
+const C=require('./live-correction.js');
+assert.equal(C.yardsBetween('OWN',37,'OPP',22),41);
+assert.equal(C.yardsBetween('OPP',40,'OPP',20),20);
+assert.equal(C.yardsBetween('OWN',30,'OWN',25),-5);
+const src=fs.readFileSync(__dirname+'/live-correction.js','utf8');
+const css=fs.readFileSync(__dirname+'/live-correction.css','utf8');
+assert(src.includes("['False Start','Offside','Encroachment','Delay of Game']"));
+assert(src.includes("setSelect('penType',name)"),'quick penalty presets must use existing football preset engine');
+assert(src.includes('Yards remains the saved input'),'ball spot must be optional calculator only');
+assert(!src.includes('function buildOfficialNext'),'correction layer must not replace automatic game-state logic');
+assert(src.includes('[data-v="No Play"]'),'No Play must be removed from live surface');
+assert(css.includes('[data-pass].semanticGood'),'semantic green must exist before selection');
+assert(css.includes('[data-pass].semanticBad'),'semantic red must exist before selection');
+console.log('Live correction QA passed');
