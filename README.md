@@ -2,14 +2,15 @@
 
 Live offensive charting and Game IQ for high-school football staffs.
 
-Current production release: **safety22 regression-audit + press-box polish release**.
+Candidate production release: **safety23 adaptive press-box layout**.
 
-Safety22 restores formation reset behavior, hardens penalty repeat-down rules, adds light-mode coverage, restores pick-six scoring, preserves prior Game IQ/Skyridge charting features, keeps saved Game 1 data compatible, and condenses the main live tracker without replacing the proven football state engine.
+Safety23 keeps the certified safety22 football logic and adds responsive layout by both viewport width and height. It specifically targets the coach's short laptop viewport, prevents the live IQ sidebar from stretching the charting grid, removes dead vertical gaps, keeps the Save row from covering controls on short screens, expands deliberately on 1080p/2K monitors, and preserves all tracked football fields.
 
-Final QA certification: **PASS**.
-- Source/regression QA: PASS
-- Real browser press-box QA: 3/3 PASS
-- Pick-six browser path: PASS
-- Production cache: `safety22-final`
-
-Deployment commit intentionally follows the passing QA proof so GitHub Pages rebuilds from the certified release.
+Certification requires:
+- full source/regression QA
+- real browser press-box QA: 3/3
+- pick-six browser path
+- responsive matrix: 1475x668, 1366x768, 1920x1080, 2560x1440, 1024x768
+- no horizontal overflow
+- no dead gap after Situation
+- no Save-row overlap at the short-laptop viewport
