@@ -9,9 +9,10 @@ function revised(v,remove,add){return Math.max(0,(Number(v)||0)-(Number(remove)|
 function install(A,root){
  if(!A||!root.document||A.__pickSix)return A;A.__pickSix=true;var d=root.document;
  function $(id){return d.getElementById(id)}
+ function injectCss(){if($('pickSixCss'))return;var l=d.createElement('link');l.id='pickSixCss';l.rel='stylesheet';l.href='pick-six.css?v=pick21';d.head.appendChild(l)}
  function ensure(){var pass=$('passArea'),buttons=$('passButtons');if(!pass||!buttons||$('pickSixToggle'))return;var b=d.createElement('button');b.id='pickSixToggle';b.type='button';b.className='pickSixToggle hidden';b.textContent='Returned for TD • +6 OPP';b.setAttribute('aria-pressed','false');b.onclick=function(){b.classList.toggle('on');b.setAttribute('aria-pressed',b.classList.contains('on')?'true':'false')};buttons.insertAdjacentElement('afterend',b);d.querySelectorAll('[data-pass]').forEach(function(x){x.addEventListener('click',function(){setTimeout(sync,0)})});var sel=$('passResult');if(sel)sel.addEventListener('change',function(){setTimeout(sync,0)});var edit=$('editLast');if(edit)edit.addEventListener('click',function(){setTimeout(function(){var p=A.state.plays[A.state.plays.length-1];if(p&&p.pickSix){b.classList.remove('hidden');b.classList.add('on');b.setAttribute('aria-pressed','true')}},0)})}
  function sync(){var b=$('pickSixToggle');if(!b)return;var isInt=$('passResult')&&$('passResult').value==='Interception'&&A.sel&&A.sel.playType==='Pass';b.classList.toggle('hidden',!isInt);if(!isInt){b.classList.remove('on');b.setAttribute('aria-pressed','false')}}
- ensure();
+ injectCss();ensure();
  var oldBuild=A.buildPlay;if(oldBuild)A.buildPlay=function(){var p=oldBuild.apply(A,arguments),b=$('pickSixToggle');p.pickSix=!!(p.passResult==='Interception'&&b&&b.classList.contains('on'));return p};
  A.state.score=A.state.score||{us:0,them:0};
  var oldApply=A.applyPlay;if(oldApply)A.applyPlay=function(p){var before=Number(A.state.score.them)||0,n=oldApply.call(A,p),saved=A.state.plays[A.state.plays.length-1],pts=p&&p.pickSix?6:0;if(pts){A.state.score.them=before+pts;if(saved){saved.pickSix=true;saved.scoreAutoOpponentPoints=pts;saved.scoreAfter={us:Number(A.state.score.us)||0,them:Number(A.state.score.them)||0}}A.save('pick-six-score')}return n};
