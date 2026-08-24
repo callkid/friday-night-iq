@@ -11,9 +11,10 @@
 .fniqBoxCompact #live main.boxMainGrid>.safetyrow{grid-area:safety}
 .fniqBoxCompact #live aside.sticky{align-self:start;max-height:calc(100dvh - 92px);overflow-y:auto;overscroll-behavior:contain;scrollbar-width:thin;padding-right:2px}
 
-/* Save belongs to the result card, not as an overlay across the whole screen. */
-.fniqBoxCompact #live .boxResultCard>.entrysummary.boxDockedSummary{position:static!important;bottom:auto!important;margin:6px 0 0!important;padding:7px 8px!important;border-radius:12px;box-shadow:none;grid-template-columns:minmax(0,1fr) auto}
-.fniqBoxCompact #live .boxResultCard>.entrysummary.boxDockedSummary #save{min-height:42px;min-width:180px;padding:8px 13px}
+/* Save lives in the What Happened header so it is always visible without covering controls. */
+.fniqBoxCompact #live .boxHeaderSave{margin-left:auto!important;flex:0 0 auto;min-height:38px!important;min-width:150px!important;padding:7px 11px!important;font-size:12px!important;border-radius:10px}
+.fniqBoxCompact #live .boxResultCard>.entrysummary.boxDockedSummary{position:static!important;bottom:auto!important;margin:5px 0 0!important;padding:5px 7px!important;border-radius:10px;box-shadow:none;display:block;min-height:0}
+.fniqBoxCompact #live .boxResultCard>.entrysummary.boxDockedSummary strong{font-size:11px;margin-top:1px}
 .shortSituationEdit{display:none!important}
 
 @media (min-width:1181px){
@@ -96,10 +97,10 @@
   .fniqBoxCompact #live .speedSpotCalc summary{font-size:8px}
   .fniqBoxCompact #live .drawer{margin-top:2px;padding-top:3px}
 
-  .fniqBoxCompact #live .boxResultCard>.entrysummary.boxDockedSummary{padding:4px 6px!important;margin-top:4px!important;min-height:40px}
-  .fniqBoxCompact #live .boxResultCard>.entrysummary strong{font-size:10px;margin-top:0}
+  .fniqBoxCompact #live .boxHeaderSave{min-height:31px!important;min-width:126px!important;padding:4px 8px!important;font-size:10px!important}
+  .fniqBoxCompact #live .boxResultCard>.entrysummary.boxDockedSummary{padding:3px 5px!important;margin-top:3px!important}
+  .fniqBoxCompact #live .boxResultCard>.entrysummary strong{font-size:9px;margin-top:0}
   .fniqBoxCompact #live .boxResultCard>.entrysummary .summarylabel,.fniqBoxCompact #live .boxResultCard>.entrysummary .sub{font-size:7px}
-  .fniqBoxCompact #live .boxResultCard>.entrysummary #save{min-height:34px;min-width:160px;padding:5px 10px;font-size:11px}
   .fniqBoxCompact #live .safetyrow{margin:1px 1px 0;min-height:26px}
   .fniqBoxCompact #live .safetyrow .muted{display:none}
   .fniqBoxCompact #live .safetyrow .btn{padding:4px 7px;font-size:9px}
@@ -124,6 +125,7 @@
   .fniqBoxCompact #live .shortSituationEdit{display:inline-flex!important;align-items:center;min-height:28px;padding:4px 7px;font-size:9px}
   .fniqBoxCompact #live .snapbar{top:42px;min-height:58px}
   .fniqBoxCompact #live .boxPreSnapCard,.fniqBoxCompact #live .boxResultCard{min-height:0}
+  .fniqBoxCompact #live .boxResultCard>.entrysummary.boxDockedSummary{display:none!important}
 }
 
 /* Ultra-short projector/window: keep the same full-width charting approach. */
@@ -149,7 +151,12 @@
   .fniqBoxCompact #live main.boxMainGrid{display:block}
   .fniqBoxCompact #live main.boxMainGrid>*{margin-bottom:7px}
   .fniqBoxCompact #live aside.sticky{display:none}
+  .fniqBoxCompact #live .boxHeaderSave{min-width:120px!important;padding:6px 8px!important;font-size:10px!important}
   .fniqBoxCompact #live .boxResultCard>.entrysummary.boxDockedSummary{margin-bottom:2px!important}
+}
+@media (max-width:620px){
+  .fniqBoxCompact #live .boxResultCard .stephead{flex-wrap:wrap}
+  .fniqBoxCompact #live .boxHeaderSave{margin-left:33px!important}
 }
 
 /* Never allow an accidental horizontal page scroll at any viewport. */
