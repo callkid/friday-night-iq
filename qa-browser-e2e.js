@@ -57,7 +57,7 @@ function contrast(a,b){const x=lum(rgb(a)),y=lum(rgb(b)),hi=Math.max(x,y),lo=Mat
   const completeBg=await page.locator('[data-pass="Complete"]').evaluate(el=>getComputedStyle(el).backgroundColor),incompleteBg=await page.locator('[data-pass="Incomplete"]').evaluate(el=>getComputedStyle(el).backgroundColor);
   assert.notEqual(completeBg,incompleteBg,'complete/incomplete must be semantically color-coded before click');assert(await page.locator('[data-pass="Incomplete"]').evaluate(el=>el.classList.contains('semanticBad')),'incomplete pre-colored red');
   await page.click('[data-group="playType"] [data-v="Run"]');await page.locator('#speedSpotCalc summary').click();await page.selectOption('#speedEndSide','OPP');await page.fill('#speedEndYard','30');await page.click('#speedUseSpot');
-  assert.equal(await page.inputValue('#yards'),'50','optional spot calculator should fill yards only from Own 20 to Opp 30');assert.equal(await page.inputValue('#down'),'2','spot calculator must not alter situation');
+  assert.equal(await page.inputValue('#yards'),'42','optional spot calculator should fill yards only from Own 28 to Opp 30');assert.equal(await page.inputValue('#down'),'2','spot calculator must not alter situation');
 
   await page.click('.nav button[data-screen="iq"]');await page.waitForSelector('#iq.on #quickGameStats');
   assert(await page.locator('#quickStatsGrid [data-stat-key="third"]').isVisible(),'3rd-down quick stat visible');
