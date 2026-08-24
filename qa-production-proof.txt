@@ -127,7 +127,7 @@ added 2 packages, and audited 3 packages in 2s
 1 high severity vulnerability
 
 To address all issues, run:
-  npm audit fix --force
+  npm audit fix
 
 Run `npm audit` for details.
 Installing dependencies...
@@ -164,7 +164,7 @@ Get:29 http://azure.archive.ubuntu.com/ubuntu noble-security/restricted amd64 Pa
 Get:30 http://azure.archive.ubuntu.com/ubuntu noble-security/restricted Translation-en [320 kB]
 Get:31 http://azure.archive.ubuntu.com/ubuntu noble-security/multiverse Translation-en [11.1 kB]
 Get:32 https://dl.google.com/linux/chrome-stable/deb stable/main amd64 Packages [1418 B]
-Fetched 11.6 MB in 1s (8728 kB/s)
+Fetched 11.6 MB in 2s (7214 kB/s)
 Reading package lists...
 Reading package lists...
 Building dependency tree...
@@ -240,7 +240,7 @@ Get:7 http://azure.archive.ubuntu.com/ubuntu noble/main amd64 xfonts-encodings a
 Get:8 http://azure.archive.ubuntu.com/ubuntu noble/main amd64 xfonts-utils amd64 1:7.7+6build3 [94.4 kB]
 Get:9 http://azure.archive.ubuntu.com/ubuntu noble/universe amd64 xfonts-cyrillic all 1:1.0.5+nmu1 [384 kB]
 Get:10 http://azure.archive.ubuntu.com/ubuntu noble/main amd64 xfonts-scalable all 1:1.0.3-1.3 [304 kB]
-Fetched 21.1 MB in 1s (25.1 MB/s)
+Fetched 21.1 MB in 0s (42.3 MB/s)
 Selecting previously unselected package fonts-ipafont-gothic.
 (Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 203124 files and directories currently installed.)
 Preparing to unpack .../0-fonts-ipafont-gothic_00303-21ubuntu1_all.deb ...
@@ -332,37 +332,34 @@ Downloading Chromium Headless Shell 140.0.7339.16 (playwright build v1187) from 
 |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■| 100% of 104.3 MiB
 Chromium Headless Shell 140.0.7339.16 (playwright build v1187) downloaded to /home/runner/.cache/ms-playwright/chromium_headless_shell-1187
 --- Browser box pass 1 ---
-locator.click: Error: strict mode violation: locator('#iqMoreAnalysis').locator('summary') resolved to 3 elements:
-    1) <summary>…</summary> aka getByText('More AnalysisRun/pass, player production, shell breakdowns and data coverageOpen')
-    2) <summary>How success rate works</summary> aka getByText('How success rate works')
-    3) <summary>…</summary> aka getByText('Data coverageHow complete was')
-
+page.waitForSelector: Timeout 30000ms exceeded.
 Call log:
-  - waiting for locator('#iqMoreAnalysis').locator('summary')
+  - waiting for locator('#themeToggle') to be visible
+    65 × locator resolved to hidden <input type="checkbox" id="themeToggle"/>
 
-    at /home/runner/work/friday-night-iq/friday-night-iq/qa-browser-e2e.js:66:184
+    at /home/runner/work/friday-night-iq/friday-night-iq/qa-browser-e2e.js:73:70 {
+  name: 'TimeoutError'
+}
 FAIL: Browser box pass 1
 --- Browser box pass 2 ---
-locator.click: Error: strict mode violation: locator('#iqMoreAnalysis').locator('summary') resolved to 3 elements:
-    1) <summary>…</summary> aka getByText('More AnalysisRun/pass, player production, shell breakdowns and data coverageOpen')
-    2) <summary>How success rate works</summary> aka getByText('How success rate works')
-    3) <summary>…</summary> aka getByText('Data coverageHow complete was')
-
+page.waitForSelector: Timeout 30000ms exceeded.
 Call log:
-  - waiting for locator('#iqMoreAnalysis').locator('summary')
+  - waiting for locator('#themeToggle') to be visible
+    65 × locator resolved to hidden <input type="checkbox" id="themeToggle"/>
 
-    at /home/runner/work/friday-night-iq/friday-night-iq/qa-browser-e2e.js:66:184
+    at /home/runner/work/friday-night-iq/friday-night-iq/qa-browser-e2e.js:73:70 {
+  name: 'TimeoutError'
+}
 FAIL: Browser box pass 2
 --- Browser box pass 3 ---
-locator.click: Error: strict mode violation: locator('#iqMoreAnalysis').locator('summary') resolved to 3 elements:
-    1) <summary>…</summary> aka getByText('More AnalysisRun/pass, player production, shell breakdowns and data coverageOpen')
-    2) <summary>How success rate works</summary> aka getByText('How success rate works')
-    3) <summary>…</summary> aka getByText('Data coverageHow complete was')
-
+page.waitForSelector: Timeout 30000ms exceeded.
 Call log:
-  - waiting for locator('#iqMoreAnalysis').locator('summary')
+  - waiting for locator('#themeToggle') to be visible
+    65 × locator resolved to hidden <input type="checkbox" id="themeToggle"/>
 
-    at /home/runner/work/friday-night-iq/friday-night-iq/qa-browser-e2e.js:66:184
+    at /home/runner/work/friday-night-iq/friday-night-iq/qa-browser-e2e.js:73:70 {
+  name: 'TimeoutError'
+}
 FAIL: Browser box pass 3
 --- Pick-six browser path ---
 PICK SIX E2E PASS: interception returned for TD scores opponent +6, ends possession, and reverses on undo
@@ -370,5 +367,5 @@ PASS: Pick-six browser path
 
 SOURCE_QA=success
 BROWSER_QA=failure
-SOURCE_COMMIT=b9874023ecae2e20ad5180f930b8512aaa513279
+SOURCE_COMMIT=e574d784ac6e91d7eaeee2ae8d97da2486c21852
 FINAL: FAIL
