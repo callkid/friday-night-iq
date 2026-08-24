@@ -5,7 +5,7 @@ function $(id){return d.getElementById(id)}
 function injectCss(){
  if(!$('boxUiV19Css')){var l=d.createElement('link');l.id='boxUiV19Css';l.rel='stylesheet';l.href='box-ui-v19.css?v=box23';d.head.appendChild(l)}
  if(!$('visualPolishCss')){var v=d.createElement('link');v.id='visualPolishCss';v.rel='stylesheet';v.href='visual-polish.css?v=visual23';d.head.appendChild(v)}
- if(!$('adaptiveLayoutCss')){var a=d.createElement('link');a.id='adaptiveLayoutCss';a.rel='stylesheet';a.href='adaptive-layout.css?v=adaptive23b';d.head.appendChild(a)}
+ if(!$('adaptiveLayoutCss')){var a=d.createElement('link');a.id='adaptiveLayoutCss';a.rel='stylesheet';a.href='adaptive-layout.css?v=adaptive23c';d.head.appendChild(a)}
 }
 function compactPreSnap(){
  var card=$('preSnapCard'),motion=$('motion'),box=d.querySelector('[data-group="box"]'),defGrid=card&&card.querySelector('.speedDefenseGrid');if(!card||!defGrid)return;
@@ -22,9 +22,10 @@ function compactPreSnap(){
  var more=$('speedPreMore');if(more)more.remove();
 }
 function dockSave(result){
- var summary=d.querySelector('#live .entrysummary');if(!result||!summary)return;
+ var summary=d.querySelector('#live .entrysummary'),save=$('save'),head=result&&result.querySelector('.stephead');if(!result||!summary)return;
  if(summary.parentElement!==result)result.appendChild(summary);
  summary.classList.add('boxDockedSummary');
+ if(save&&head&&save.parentElement!==head){save.classList.add('boxHeaderSave');save.innerHTML='Save & Next <span>↵</span>';head.appendChild(save);}
 }
 function shortSituationControl(){
  var snap=$('headline')&&$('headline').closest('.snapbar'),right=snap&&snap.querySelector('.snapright'),original=$('speedSituationEdit');if(!right||!original)return;
@@ -44,7 +45,8 @@ function inlinePenalty(){
  var card=group.closest('.stepcard');if(card&&panel.parentElement!==card)group.insertAdjacentElement('afterend',panel);
  panel.classList.add('boxPenaltyInline');
  var adv=$('penaltyAdvanced');if(adv)adv.open=false;
- if(!pen.dataset.boxInline){pen.dataset.boxInline='1';pen.addEventListener('click',function(){root.requestAnimationFrame(function(){panel.classList.add('boxPenaltyJustOpened')})})}
+ if(!pen.dataset.boxInline){pen.dataset.boxInline='1';pen.addEventListener('click',function(){root.requestAnimationFrame(function(){panel.classList.add('boxPenaltyJustOpened')})})
+ }
 }
 function tightenLabels(){var spot=$('speedSpotCalc');if(spot){var s=spot.querySelector('summary');if(s)s.innerHTML='Need help calculating yards? <span>optional</span>'}var save=$('save');if(save)save.setAttribute('title','Save this play and advance the situation automatically')}
 function prepare(){d.documentElement.classList.add('fniqBoxCompact');compactPreSnap();compactMain();inlinePenalty();tightenLabels()}
