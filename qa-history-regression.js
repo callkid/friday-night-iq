@@ -1,0 +1,20 @@
+const fs=require('fs');
+const E=require('./game-engine.js'),B=require('./booth-workflow.js'),S=require('./game-iq-summary.js');
+function assert(x,m){if(!x)throw new Error(m)}
+const app=fs.readFileSync('app.js','utf8'),live=fs.readFileSync('live-correction.js','utf8'),box=fs.readFileSync('box-ui-v19.js','utf8'),css=fs.readFileSync('box-ui-v19.css','utf8'),tips=fs.readFileSync('tooltip-polish.js','utf8'),pins=fs.readFileSync('game-iq-polish.js','utf8'),pick=fs.readFileSync('pick-six.js','utf8');
+assert(B.FORMATIONS.length===12&&B.FORMATIONS.includes('Doubles Right')&&B.FORMATIONS.includes('Toronto Left'),'Skyridge formation vocabulary regressed');
+assert(B.MOTIONS.length===12&&B.MOTIONS.includes('H-Jet')&&B.MOTIONS.includes('T-Laser'),'Skyridge motion vocabulary regressed');
+assert(B.RUN_TYPES.join('|')==='Inside Zone|Outside Zone|Counter|Power|Draw','Run Type vocabulary regressed');
+assert(B.CONCEPT_FAMILIES.includes('RPO')&&B.CONCEPT_FAMILIES.includes('Play Action'),'Concept Family regressed');
+assert(B.isExplosive({playType:'Run',yards:12},{explosiveRun:12,explosivePass:16})&&!B.isExplosive({playType:'Pass',yards:15},{explosiveRun:12,explosivePass:16}),'12/16 explosive rules regressed');
+let f=E.nextSituation({quarter:'Q1',down:2,distance:5,fieldSide:'OWN',yardLine:30,drive:1,playType:'Run',yards:3,tags:['Fumble','Fumble Lost']});assert(f.possessionEnded,'Fumble Lost must end possession');
+assert(live.includes('speedHashButtons')&&live.includes('removeNoPlay'),'Hash-first / No Play removal regressed');
+assert(box.includes('resets each play')&&box.includes('stays until changed'),'Formation reset / personnel carry UI contract regressed');
+assert(tips.includes('DELAY=3200'),'3.2 second tooltip delay regressed');
+assert(pins.includes('Save for quick access')&&pins.includes('SAVED VIEWS'),'Saved Views wording regressed');
+assert(css.includes('html[data-theme="light"] #penaltyPanel.boxPenaltyInline'),'Light-mode penalty treatment regressed');
+assert(pick.includes('Returned for TD')&&pick.includes('scoreAutoOpponentPoints'),'Pick-six workflow regressed');
+assert(app.includes('penalty-hardening.js')&&app.includes('pick-six.js')&&app.includes('game-iq-summary.js'),'required safety modules missing from loader');
+const fake={playType:'Run',down:2,distance:10,yards:5,tags:[]};assert(E.success(fake)===true,'2nd-down success must be 50% of yards needed');
+const th=S.thresholds({explosiveRun:12,explosivePass:16});assert(th.run===12&&th.pass===16,'Quick Game Stats explosive thresholds regressed');
+console.log('Prior-request regression contract passed');
