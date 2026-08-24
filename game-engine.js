@@ -19,6 +19,11 @@
   function sameSituation(p){return{quarter:p.quarter,down:p.down,distance:p.distance,fieldSide:p.fieldSide,yardLine:p.yardLine,drive:p.drive,possessionEnded:false,reason:''}}
   function endedSituation(p,endAbs,reason){var f=fromAbs(endAbs);return{quarter:p.quarter,down:1,distance:10,fieldSide:f.fieldSide,yardLine:f.yardLine,drive:num(p.drive,1)+1,possessionEnded:true,reason:reason}}
   function firstDownAt(p,end,reason){var f=fromAbs(end);return{quarter:p.quarter,down:1,distance:Math.max(1,Math.min(10,Math.round(100-end))),fieldSide:f.fieldSide,yardLine:f.yardLine,drive:p.drive,possessionEnded:false,reason:reason||'First down'}}
+  function officialNext(p){
+    var x=p&&p.officialNext;if(!x||typeof x!=='object')return null;
+    var s=normalizeSituation({quarter:x.quarter||p.quarter,down:x.down,distance:x.distance,fieldSide:x.fieldSide,yardLine:x.yardLine});
+    return{quarter:s.quarter,down:s.down,distance:s.distance,fieldSide:s.fieldSide,yardLine:s.yardLine,drive:num(x.drive,num(p.drive,1)),possessionEnded:!!x.possessionEnded,reason:x.reason||'Official next snap'};
+  }
   function normalNext(p){
     if(p.playType==='No Play'||p.playType==='Penalty')return sameSituation(p);
     var start=fieldAbs(p.fieldSide,p.yardLine), line=lineToGainAbs(p), gain=num(p.yards,0), end=start+gain;
@@ -32,6 +37,7 @@
     return{quarter:p.quarter,down:Math.min(4,p.down+1),distance:distanceFromLine(line,end),fieldSide:f.fieldSide,yardLine:f.yardLine,drive:p.drive,possessionEnded:false,reason:''};
   }
   function penaltyNext(p){
+    var forced=officialNext(p);if(forced)return forced;
     var pen=p.penalty||{},status=pen.status||'';
     if(!status)return p.playType==='Penalty'?sameSituation(p):normalNext(p);
     if(status==='Declined')return p.playType==='Penalty'?sameSituation(p):normalNext(p);
@@ -60,15 +66,17 @@
   }
   function nextSituation(p){
     p=Object.assign({quarter:'Q1',down:1,distance:10,fieldSide:'OWN',yardLine:25,drive:1,playType:'No Play',yards:0,tags:[]},p||{});
+    var forced=officialNext(p);if(forced)return forced;
     return p.penalty?penaltyNext(p):normalNext(p);
   }
   function isFirstDownResult(p){var n=nextSituation(p);return !n.possessionEnded&&n.down===1&&!(p.down===1&&n.distance===p.distance&&n.fieldSide===p.fieldSide&&n.yardLine===p.yardLine)}
   function success(p){
     if(!p||!['Run','Pass'].includes(p.playType))return false;
     var st=penaltyStatus(p);if(st==='Offsetting')return false;
-    var y=officialNetYards(p),need=p.down===1?.5:p.down===2?.7:1;
     if(p.penalty&&st==='Accepted'&&p.penalty.effect==='AUTO1')return true;
+    var n=nextSituation(p);if((p.down===3||p.down===4))return n.reason==='Touchdown'||(!n.possessionEnded&&n.down===1);
+    var y=officialNetYards(p),need=.5;
     return y>=Math.max(1,num(p.distance,10))*need;
   }
-  return{fieldAbs:fieldAbs,fromAbs:fromAbs,normalizeSituation:normalizeSituation,nextSituation:nextSituation,officialNetYards:officialNetYards,isFirstDownResult:isFirstDownResult,success:success};
+  return{fieldAbs:fieldAbs,fromAbs:fromAbs,normalizeSituation:normalizeSituation,nextSituation:nextSituation,officialNetYards:officialNetYards,isFirstDownResult:isFirstDownResult,success:success,officialNext:officialNext};
 });
