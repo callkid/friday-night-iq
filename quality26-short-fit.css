@@ -12,10 +12,10 @@
  html.fniqFootballFlow26 #q26Outcome button{min-height:31px!important;padding:3px 6px!important;font-size:10.5px!important}
  html.fniqFootballFlow26 #q26Outcome>span{font-size:9.5px!important}
 }
-/* Common 768px laptop: N/A remains in the real dropdown, so don't spend a game-speed quick target on it. */
+/* Common-height laptops have a narrower result column. Use two readable rows instead of squeezing five full football terms into tiny targets. */
 @media(min-width:1181px) and (min-height:701px) and (max-height:820px){
- html.fniqFootballFlow26 .q24AttackQuick{grid-template-columns:minmax(0,1.15fr) minmax(0,1.15fr) minmax(0,1.1fr) minmax(0,.8fr) minmax(0,.8fr)!important;gap:4px!important}
- html.fniqFootballFlow26 .q24AttackQuick .q24Quick{padding-left:3px!important;padding-right:3px!important}
+ html.fniqFootballFlow26 .q24AttackQuick{grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:4px!important}
+ html.fniqFootballFlow26 .q24AttackQuick .q24Quick{padding-left:5px!important;padding-right:5px!important}
  html.fniqFootballFlow26 .q24AttackQuick .q24Quick[data-value="NA"],
  html.fniqFootballFlow26 .q24AttackQuick .q24Quick[data-value="Unknown"]{display:none!important}
  html.fniqFootballFlow26 #q26Outcome{margin-top:3px!important;padding-top:3px!important}
