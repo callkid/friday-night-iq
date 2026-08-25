@@ -1,6 +1,7 @@
 (function(root){
 'use strict';
 var A=root.FNIQ,d=root.document;if(!A||!d||A.__quality26ContextResults)return;A.__quality26ContextResults=true;
+function injectCss(){if(d.getElementById('quality26ShortFitCss'))return;var l=d.createElement('link');l.id='quality26ShortFitCss';l.rel='stylesheet';l.href='quality26-short-fit.css?v=quality26';d.head.appendChild(l);}
 function ensure(){
  var row=d.getElementById('q26Outcome');if(!row)return;
  var label=row.querySelector(':scope > span');if(label)label.textContent='Play results';
@@ -15,6 +16,6 @@ function ensure(){
  }
  var real=d.querySelector('.tag[data-tag="Penalty"]');button.classList.toggle('on',!!(real&&real.classList.contains('on')));
 }
-ensure();
+injectCss();ensure();
 var old=A.renderAll;if(old&&!A.__quality26ContextResultsRender){A.__quality26ContextResultsRender=true;A.renderAll=function(){var r=old.apply(A,arguments);ensure();return r;};}
 })(window);
