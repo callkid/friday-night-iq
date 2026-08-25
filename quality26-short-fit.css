@@ -16,3 +16,7 @@
  html.fniqFootballFlow26 .q24AttackQuick .q24Quick[data-value="NA"]{display:none!important}
  html.fniqFootballFlow26 #q26Outcome{margin-top:3px!important;padding-top:3px!important}
 }
+/* Very wide monitors should use extra width, not manufacture blank card height. */
+@media(min-width:2000px) and (min-height:1000px){
+ html.fniqFootballFlow26 #preSnapCard{padding-bottom:6px!important}
+}
