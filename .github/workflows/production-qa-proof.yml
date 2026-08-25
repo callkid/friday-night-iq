@@ -22,7 +22,7 @@ jobs:
         id: source
         continue-on-error: true
         run: bash tools/run_safety18_qa.sh
-      - name: Run browser box, quality24, pick-six, and responsive QA
+      - name: Run browser box, tracker workflow, quality24, pick-six, and responsive QA
         id: browser
         continue-on-error: true
         run: |
@@ -45,6 +45,12 @@ jobs:
             node qa-browser-quality24.js >> qa-quality24-proof.txt 2>&1
             CODE=$?
             if [ $CODE -ne 0 ]; then FAIL=1; echo "FAIL: Quality24 browser pass $i" >> qa-quality24-proof.txt; else echo "PASS: Quality24 browser pass $i" >> qa-quality24-proof.txt; fi
+          done
+          for i in 1 2 3; do
+            echo "--- Press-box tracker workflow pass $i ---" >> qa-quality24-proof.txt
+            node qa-browser-tracker-workflow.js >> qa-quality24-proof.txt 2>&1
+            CODE=$?
+            if [ $CODE -ne 0 ]; then FAIL=1; echo "FAIL: Press-box tracker workflow pass $i" >> qa-quality24-proof.txt; else echo "PASS: Press-box tracker workflow pass $i" >> qa-quality24-proof.txt; fi
           done
           echo "--- Pick-six browser path ---" >> qa-quality24-proof.txt
           node qa-browser-pick-six.js >> qa-quality24-proof.txt 2>&1
