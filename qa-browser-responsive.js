@@ -28,29 +28,30 @@ async function boot(browser,c){
   const browser=await chromium.launch({headless:true});
   for(const c of CASES){
     const {page,context}=await boot(browser,c);
-    const metrics=await page.evaluate(()=>({
+    const metrics=await page.evaluate(()=>{
+      function rect(sel){const el=document.querySelector(sel);return el?el.getBoundingClientRect():null}
+      function shown(sel){const el=document.querySelector(sel);return el&&getComputedStyle(el).display!=='none'}
+      return{
       innerW:innerWidth,innerH:innerHeight,scrollW:document.documentElement.scrollWidth,scrollH:document.documentElement.scrollHeight,
-      app:document.querySelector('.app').getBoundingClientRect(),
-      snap:document.querySelector('#live .snapbar').getBoundingClientRect(),
-      live:document.querySelector('#live .live').getBoundingClientRect(),
-      main:document.querySelector('#live main').getBoundingClientRect(),
-      aside:document.querySelector('#live aside.sticky').getBoundingClientRect(),
-      asideDisplay:getComputedStyle(document.querySelector('#live aside.sticky')).display,
-      situation:document.querySelector('#situationCard').getBoundingClientRect(),
-      situationDisplay:getComputedStyle(document.querySelector('#situationCard')).display,
-      pre:document.querySelector('#preSnapCard').getBoundingClientRect(),
-      result:document.querySelector('.boxResultCard').getBoundingClientRect(),
-      summary:document.querySelector('.entrysummary').getBoundingClientRect(),
+      app:rect('.app'),snap:rect('#live .snapbar'),live:rect('#live .live'),main:rect('#live main'),
+      fastbar:rect('#live .fastbar'),fastbarDisplay:shown('#live .fastbar')?'shown':'none',
+      driveGate:rect('#driveGate'),driveGateDisplay:shown('#driveGate')&&!document.querySelector('#driveGate').classList.contains('hidden')?'shown':'none',
+      aside:rect('#live aside.sticky'),asideDisplay:getComputedStyle(document.querySelector('#live aside.sticky')).display,
+      situation:rect('#situationCard'),situationDisplay:getComputedStyle(document.querySelector('#situationCard')).display,
+      pre:rect('#preSnapCard'),result:rect('.boxResultCard'),summary:rect('.entrysummary'),
       summaryPosition:getComputedStyle(document.querySelector('.entrysummary')).position,
       savePosition:getComputedStyle(document.querySelector('#save')).position,
       mainDisplay:getComputedStyle(document.querySelector('#live main')).display
-    }));
+    }});
     assert(metrics.scrollW<=metrics.innerW+2,c.name+' has horizontal page overflow: '+metrics.scrollW+' > '+metrics.innerW);
     if(c.width>=1181){
       const nextTop=Math.min(metrics.pre.top,metrics.result.top);
-      const anchor=metrics.situationDisplay==='none'?metrics.snap.bottom:metrics.situation.bottom;
-      const gap=nextTop-anchor;
-      assert(gap<=20,c.name+' has dead vertical gap before charting cards: '+Math.round(gap)+'px');
+      const anchors=[metrics.snap.bottom];
+      if(metrics.fastbarDisplay==='shown'&&metrics.fastbar)anchors.push(metrics.fastbar.bottom);
+      if(metrics.driveGateDisplay==='shown'&&metrics.driveGate)anchors.push(metrics.driveGate.bottom);
+      if(metrics.situationDisplay!=='none'&&metrics.situation)anchors.push(metrics.situation.bottom);
+      const anchor=Math.max.apply(Math,anchors),gap=nextTop-anchor;
+      assert(gap<=20,c.name+' has dead vertical gap after the last real control before charting cards: '+Math.round(gap)+'px');
       assert(Math.abs(metrics.pre.top-metrics.result.top)<=8,c.name+' charting cards are vertically misaligned');
     }
     if(c.short){
