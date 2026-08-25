@@ -6,7 +6,7 @@ const assert=require('assert');
  page.on('pageerror',e=>errors.push(e.message));page.on('console',m=>{if(m.type()==='error')errors.push(m.text())});
  await page.addInitScript(()=>localStorage.clear());
  await page.goto('http://127.0.0.1:8000/?q27=1',{waitUntil:'networkidle'});
- await page.fill('#team','Quality27 QA');await page.fill('#opp','Tracker Test');await page.click('#start');await page.waitForSelector('#live.on');await page.waitForSelector('#q27SavedBar');
+ await page.fill('#team','Quality27 QA');await page.fill('#opp','Tracker Test');await page.click('#start');await page.waitForSelector('#live.on');await page.waitForSelector('#q27SavedBar',{state:'attached'});
  assert(await page.locator('html').evaluate(el=>el.classList.contains('fniqQ27SizeStandard')),'Standard control size should be default');
  // Settings: size preference and coach-defined pins save outside football state.
  await page.click('#settingsNav');await page.waitForSelector('#settings.on');await page.waitForSelector('#q27Settings');
