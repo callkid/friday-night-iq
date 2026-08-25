@@ -3,6 +3,7 @@ html.fniqFootballFlow26 #live main.boxMainGrid{align-items:start!important}
 html.fniqFootballFlow26 #preSnapCard,html.fniqFootballFlow26 #live .boxResultCard{align-self:start!important;height:auto!important;min-height:0!important}
 html.fniqFootballFlow26 .q26RedundantConcept,html.fniqFootballFlow26 .q26RedundantTags{display:none!important}
 html.fniqFootballFlow26 .q26MotionSingle{display:flex!important;align-items:center;margin:4px 0 6px!important}
+html.fniqFootballFlow26 .q26MotionSingle .q24Quick:not([data-value="No Motion"]){display:none!important}
 html.fniqFootballFlow26 .q26MotionSingle .q24Quick[data-value="No Motion"]{display:inline-flex!important;align-items:center;justify-content:center;min-width:126px}
 html.fniqFootballFlow26 #trackerFinishCard .trackerFinishBody{grid-template-columns:minmax(0,1.35fr) minmax(0,1fr)!important;gap:8px 12px!important;align-items:end}
 html.fniqFootballFlow26 #trackerFinishCard .trackerPostCoverage{grid-column:1!important}
