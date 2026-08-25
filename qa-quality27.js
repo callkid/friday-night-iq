@@ -1,0 +1,14 @@
+const assert=require('assert');
+const Q=require('./quality27-qol.js');
+assert.equal(Q.normalizeSize('standard'),'standard');
+assert.equal(Q.normalizeSize('large'),'large');
+assert.equal(Q.normalizeSize('xl'),'xl');
+assert.equal(Q.normalizeSize('bogus'),'standard');
+assert.equal(Q.PIN_KEY,'fniq_q27_pins_v1');
+assert.equal(Q.SIZE_KEY,'fniq_q27_control_size_v1');
+const d=Q.defaults();
+assert.deepStrictEqual(d.coverage,['Cover 1','Cover 2','Cover 3']);
+assert.deepStrictEqual(d.runType,['Inside Zone','Outside Zone','Counter']);
+assert.deepStrictEqual(d.formation,[]);
+assert.deepStrictEqual(d.motion,[]);
+console.log('QUALITY27 SOURCE PASS: QoL preferences are separate from football state and use stable normalized defaults');
