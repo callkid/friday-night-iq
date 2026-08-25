@@ -72,6 +72,12 @@ html.fniqBoxUx25 .q24Hurry span{font-size:9px}html.fniqBoxUx25 .q24Hurry b{font-
  html.fniqBoxUx25 #live aside.sticky .contextbtn{font-size:10px!important;min-height:29px!important;padding:4px 7px!important}
 }
 
+/* 701-800px laptops: reclaim chrome spacing, not football-control size. */
+@media(min-width:1181px) and (min-height:701px) and (max-height:800px){
+ html.fniqBoxUx25 #live .fastbar{padding:1px 4px!important;min-height:34px!important}
+ html.fniqBoxUx25 #live main.boxMainGrid{gap:3px 8px!important}
+}
+
 /* Short press-box laptop: reduce chrome, never reduce important charting text below game-readable size. */
 @media(min-width:1000px) and (max-height:700px){
  html.fniqBoxUx25 #live .label{font-size:9.5px!important}
