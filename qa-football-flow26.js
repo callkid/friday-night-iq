@@ -28,10 +28,10 @@ assert.deepStrictEqual([n.down,n.distance,n.fieldSide,n.yardLine],[2,7,'OWN',20]
 p=Q.normalizePenaltyPlay(play({down:1,distance:10,fieldSide:'OWN',yardLine:8},accepted('Holding')));
 assert.strictEqual(p.penalty.yards,-4);assert.strictEqual(p.penalty.halfDistance,true);
 n=E.nextSituation(p);assert.deepStrictEqual([n.down,n.distance,n.fieldSide,n.yardLine],[2,14,'OWN',4]);
-// Half the distance for defensive 5-yard dead-ball foul near opponent goal.
+// Half the distance for defensive 5-yard dead-ball foul near opponent goal: 2nd & 4 at Opp 6 -> 2nd & 1 at Opp 3.
 p=Q.normalizePenaltyPlay(play({down:2,distance:4,fieldSide:'OPP',yardLine:6},accepted('Offside')));
 assert.strictEqual(p.penalty.yards,3);assert.strictEqual(p.penalty.halfDistance,true);
-n=E.nextSituation(p);assert.deepStrictEqual([n.down,n.distance,n.fieldSide,n.yardLine],[1,3,'OPP',3]);
+n=E.nextSituation(p);assert.deepStrictEqual([n.down,n.distance,n.fieldSide,n.yardLine],[2,1,'OPP',3]);
 // Official net override is authoritative for weird spot enforcement.
 p=Q.normalizePenaltyPlay(play({down:1,distance:10,fieldSide:'OWN',yardLine:25},accepted('Holding',{netOverride:-7})));
 assert.strictEqual(p.penalty.yards,-7);assert.strictEqual(p.penalty.officialOverride,true);
