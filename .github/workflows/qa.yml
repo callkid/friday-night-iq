@@ -38,6 +38,10 @@ jobs:
         run: node qa-browser-quality24.js
       - name: Quality26 football and correction E2E
         run: node qa-browser-football-flow26-release.js
+      - name: Quality27 tracker QoL E2E
+        run: node qa-browser-quality27.js
+      - name: Quality27 multi-device visual gate
+        run: node qa-browser-quality27-visual.js
       - name: Press-box tracker workflow and dead-space gate
         run: node qa-browser-tracker-workflow.js
       - name: Box ergonomics readability and color gate
@@ -48,7 +52,7 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: quality26-box-screenshots
+          name: quality27-box-screenshots
           path: qa-screenshots
           if-no-files-found: ignore
           retention-days: 5
