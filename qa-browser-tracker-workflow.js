@@ -2,6 +2,7 @@ const {chromium}=require('playwright');
 const assert=require('assert');
 const CASES=[
   {name:'coach-short',width:1475,height:668,maxScroll:45,short:true},
+  {name:'common-laptop',width:1366,height:768,maxScroll:24},
   {name:'screenshot-workstation',width:1660,height:900,maxScroll:24,wide:true},
   {name:'coach-1080p',width:1920,height:1080,maxScroll:24,wide:true}
 ];
@@ -47,10 +48,25 @@ async function boot(browser,c){const context=await browser.newContext({viewport:
   assert.equal(await page.inputValue('#personnel'),'11',c.name+' personnel must carry after Save');
   assert.notEqual(await page.inputValue('#motion'),'No Motion',c.name+' motion must reset after Save');
   assert(Math.abs(await page.evaluate(()=>scrollY))<=2,c.name+' Save left tracker scrolled away from next snap');
+
+  if(c.short){
+    await clickVisible(page,'[data-group="playType"] [data-v="Penalty"]',c.name+' penalty');
+    await page.waitForSelector('#penaltyPanel:not(.hidden)');
+    const pen=await page.locator('#penaltyPanel').evaluate(el=>{const r=el.getBoundingClientRect();return{top:r.top,bottom:r.bottom,h:innerHeight}});assert(pen.top>=0&&pen.bottom<=pen.h,c.name+' penalty controls leave viewport');
+    await page.waitForFunction(()=>document.querySelector('#save').parentElement&&document.querySelector('#save').parentElement.id==='trackerPenaltySaveDock');
+    await visibleRect(page,'#save',c.name+' penalty Save');
+    await clickVisible(page,'#speedPenaltyPresets button[data-pen-quick="False Start"]',c.name+' false start');
+    await page.waitForFunction(()=>document.querySelector('#penaltyPreview').textContent.includes('2nd & 9'));
+    await clickVisible(page,'#save',c.name+' save false start');
+    await page.waitForFunction(()=>document.querySelector('#headline').textContent.includes('2nd & 9'));
+    await page.waitForFunction(()=>document.querySelector('#save').parentElement&&document.querySelector('#save').parentElement.id!=='trackerPenaltySaveDock');
+    assert(Math.abs(await page.evaluate(()=>scrollY))<=2,c.name+' penalty workflow moved page');
+  }
+
   assert.equal(errors.length,0,c.name+' browser errors: '+errors.join(' | '));
   console.log('TRACKER WORKFLOW PASS:',c.name,c.width+'x'+c.height,'deadGap='+Math.round(deadGap)+' scroll='+m.scrollH+'x'+m.innerH);
   await context.close();
  }
  await browser.close();
- console.log('TRACKER QA PASS: dead space is a failure, normal run path stays in one viewport, and reset/carry behavior survives the repack');
+ console.log('TRACKER QA PASS: dead space is a failure, normal run path stays in one viewport, penalty Save stays reachable, and reset/carry behavior survives the repack');
 })().catch(e=>{console.error(e);process.exit(1)});
