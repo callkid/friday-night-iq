@@ -4,7 +4,7 @@ const assert=require('assert');
  const browser=await chromium.launch({headless:true});
  const context=await browser.newContext({viewport:{width:1475,height:668}}),page=await context.newPage(),errors=[];
  page.on('pageerror',e=>errors.push(e.message));page.on('console',m=>{if(m.type()==='error')errors.push(m.text())});
- await page.addInitScript(()=>localStorage.clear());
+ await page.addInitScript(()=>{if(!sessionStorage.getItem('q27QaBoot')){localStorage.clear();sessionStorage.setItem('q27QaBoot','1');}});
  await page.goto('http://127.0.0.1:8000/?q27=1',{waitUntil:'networkidle'});
  await page.fill('#team','Quality27 QA');await page.fill('#opp','Tracker Test');await page.click('#start');await page.waitForSelector('#live.on');await page.waitForSelector('#q27SavedBar',{state:'attached'});
  assert(await page.locator('html').evaluate(el=>el.classList.contains('fniqQ27SizeStandard')),'Standard control size should be default');
