@@ -1,0 +1,123 @@
+/* Quality25 box ergonomics: readable at game speed, no dead lower-right tracker cell. */
+html.fniqBoxUx25 #live .label{font-size:10px!important;line-height:1.15}
+html.fniqBoxUx25 #live .optional,html.fniqBoxUx25 #live .speedCritical{font-size:9px!important;line-height:1.15}
+html.fniqBoxUx25 #live .fastbtn{min-height:32px!important;padding:5px 8px!important;font-size:11px!important}
+html.fniqBoxUx25 #live .speedQuick button{min-height:32px!important;padding:5px 8px!important;font-size:11px!important;background:var(--panel2);border-color:var(--line);color:var(--text)}
+html.fniqBoxUx25 #live .speedBlitzQuick .danger{background:var(--panel2)!important;border-color:var(--line)!important;color:var(--text)!important}
+html.fniqBoxUx25 #live .speedBlitzQuick .danger.on{background:color-mix(in srgb,var(--warn) 16%,var(--panel))!important;border-color:var(--warn)!important;color:var(--text)!important;box-shadow:inset 0 0 0 1px var(--warn)!important}
+html.fniqBoxUx25 #live .speedBlitzQuick .neutral{background:var(--panel2)!important;border-color:var(--line)!important;color:var(--text)!important}
+html.fniqBoxUx25 #live .speedBlitzQuick .neutral.on{background:color-mix(in srgb,var(--good) 14%,var(--panel))!important;border-color:var(--good)!important;color:var(--text)!important}
+html.fniqBoxUx25 #live .speedBlitzQuick .unknown{opacity:1!important;background:var(--panel2)!important;color:var(--muted)!important}
+html.fniqBoxUx25 #live .speedBlitzQuick .unknown.on{border-color:var(--muted)!important;color:var(--text)!important}
+
+html.fniqBoxUx25 .q24Quick{min-height:32px;padding:5px 8px;border-radius:9px;border:1px solid var(--line);background:var(--panel2);color:var(--text);font-size:10.5px;font-weight:900;opacity:1}
+html.fniqBoxUx25 .q24Quick.muted{opacity:1;color:var(--text)}
+html.fniqBoxUx25 .q24Quick.on{background:color-mix(in srgb,var(--a) 13%,var(--panel));border-color:var(--a);color:var(--text);box-shadow:inset 3px 0 0 var(--a)}
+html.fniqBoxUx25 .q24QuickRow{gap:5px;margin:3px 0 5px}
+html.fniqBoxUx25 .q24CoverageQuick{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:4px}
+html.fniqBoxUx25 .q24CoverageQuick .q24Quick{min-width:0}
+html.fniqBoxUx25 .q24MotionQuick{display:flex;flex-wrap:wrap;gap:4px}
+html.fniqBoxUx25 .q24ConceptQuick,html.fniqBoxUx25 .q24AttackQuick{display:grid;grid-template-columns:repeat(auto-fit,minmax(54px,1fr));gap:4px;margin-top:3px;flex-wrap:initial}
+html.fniqBoxUx25 .q24ConceptQuick .q24Quick,html.fniqBoxUx25 .q24AttackQuick .q24Quick{min-height:30px;padding:4px 6px;font-size:10px;min-width:0}
+html.fniqBoxUx25 .q24Capture{padding:5px 8px;margin:3px 0 6px;border-color:var(--line);background:var(--panel3)}
+html.fniqBoxUx25 .q24CaptureLabel{font-size:8.5px}
+html.fniqBoxUx25 .q24Capture strong{font-size:11px}
+html.fniqBoxUx25 .q24Capture small,html.fniqBoxUx25 .q24CaptureMode{font-size:9px}
+html.fniqBoxUx25 .q24Hurry{min-height:32px!important;padding:5px 8px!important}
+html.fniqBoxUx25 .q24Hurry span{font-size:9px}html.fniqBoxUx25 .q24Hurry b{font-size:10px}
+
+/* The prior QA forced Finish the picture into the left column. Quality25 makes it use the empty right side too. */
+@media(min-width:1181px){
+ html.fniqBoxUx25 #live main.boxMainGrid{grid-template-areas:"fast fast" "drive drive" "situation situation" "presnap result" "finish finish" "safety safety"!important;grid-template-columns:minmax(0,1fr) minmax(0,1fr)!important;align-content:start!important;grid-auto-rows:max-content!important}
+ html.fniqBoxUx25 #live main.boxMainGrid>#trackerFinishCard{grid-area:finish!important;grid-column:1/-1!important;width:100%;max-width:none}
+ html.fniqBoxUx25 #live main.boxMainGrid>.safetyrow{grid-area:safety!important;grid-column:1/-1!important}
+ html.fniqBoxUx25 #trackerFinishCard{padding:9px 11px!important}
+ html.fniqBoxUx25 .trackerFinishHead{margin-bottom:7px}
+ html.fniqBoxUx25 .trackerFinishHead span{font-size:9px}
+ html.fniqBoxUx25 .trackerFinishHead strong{font-size:13px}
+ html.fniqBoxUx25 .trackerFinishHead small{font-size:9px}
+ html.fniqBoxUx25 .trackerFinishBody{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1.15fr) minmax(0,1fr);gap:7px 10px;align-items:end}
+ html.fniqBoxUx25 .trackerPostCoverage{grid-column:1!important}
+ html.fniqBoxUx25 .trackerConceptFamily{grid-column:2!important}
+ html.fniqBoxUx25 .trackerConcept{grid-column:3!important}
+ html.fniqBoxUx25 .trackerResultTags{grid-column:1/3!important;padding-top:6px!important;align-self:end}
+ html.fniqBoxUx25 .trackerMoreResult{grid-column:3!important;padding-top:4px!important;align-self:end;margin-bottom:2px!important}
+ html.fniqBoxUx25 .trackerFinishBody .speedCoverageQuick{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:4px}
+ html.fniqBoxUx25 .trackerFinishBody .speedCoverageQuick button{min-height:31px!important;padding:4px 6px!important;font-size:10px!important;min-width:0}
+ html.fniqBoxUx25 .trackerFinishBody .speedDetailSelect{min-height:34px!important;padding:6px 8px!important;font-size:11px!important;opacity:1!important}
+ html.fniqBoxUx25 .trackerFinishBody input{min-height:34px!important;padding:6px 8px!important;font-size:11px!important}
+ html.fniqBoxUx25 .trackerFinishBody .tagwrap{gap:5px}
+ html.fniqBoxUx25 .trackerFinishBody .tagwrap .chip{min-height:30px!important;padding:4px 8px!important;font-size:10px!important}
+ html.fniqBoxUx25 .trackerFinishBody .trackerMoreResult summary{font-size:10px!important}
+}
+
+/* Normal laptop/workstation: preserve legibility instead of shrinking the interface simply to fill a test. */
+@media(min-width:1181px) and (max-height:1100px){
+ html.fniqBoxUx25 .nav button{font-size:12px!important;padding:7px 10px!important}
+ html.fniqBoxUx25 #live .stephead .section{font-size:14px!important}
+ html.fniqBoxUx25 #live .stepnum{width:25px!important;height:25px!important;font-size:11px!important}
+ html.fniqBoxUx25 #live .speedPreSnap select,html.fniqBoxUx25 #live .speedPreSnap input{min-height:34px!important;padding:6px 8px!important;font-size:12px!important}
+ html.fniqBoxUx25 #live .speedHashButtons button{min-height:31px!important;font-size:13px!important}
+ html.fniqBoxUx25 #live .speedDefenseGrid .choice,html.fniqBoxUx25 #live .boxSecondaryLookRow [data-group="box"] .choice{min-height:31px!important;padding:4px 6px!important;font-size:11px!important}
+ html.fniqBoxUx25 #live .boxSecondaryLookRow #motion{min-height:34px!important;padding:6px 8px!important;font-size:11px!important}
+ html.fniqBoxUx25 #live .choices.playtype .choice{min-height:38px!important;padding:6px!important;font-size:13px!important}
+ html.fniqBoxUx25 #live .yardbox input{min-height:38px!important;font-size:18px!important}
+ html.fniqBoxUx25 #live .yardstep{min-height:38px!important}
+ html.fniqBoxUx25 #live .yardchips .chip{min-height:28px!important;padding:4px 7px!important;font-size:10px!important}
+ html.fniqBoxUx25 #live .boxHeaderSave{min-height:36px!important;min-width:140px!important;padding:6px 10px!important;font-size:12px!important}
+ html.fniqBoxUx25 #live aside.sticky .section{font-size:14px!important}
+ html.fniqBoxUx25 #live aside.sticky .muted{font-size:10px!important;line-height:1.35!important}
+ html.fniqBoxUx25 #live aside.sticky .tendencyline{font-size:10px!important;grid-template-columns:72px 1fr auto!important;padding:6px 0!important}
+ html.fniqBoxUx25 #live aside.sticky .tendencyline strong{font-size:10px!important}
+ html.fniqBoxUx25 #live aside.sticky .contextbtn{font-size:10px!important;min-height:29px!important;padding:4px 7px!important}
+}
+
+/* 701-800px laptops: reclaim chrome spacing, not football-control size. */
+@media(min-width:1181px) and (min-height:701px) and (max-height:800px){
+ html.fniqBoxUx25 #live .fastbar{padding:1px 4px!important;min-height:34px!important}
+ html.fniqBoxUx25 #live main.boxMainGrid{gap:3px 8px!important}
+}
+
+/* Short press-box laptop: reduce chrome, never reduce important charting text below game-readable size. */
+@media(min-width:1000px) and (max-height:700px){
+ html.fniqBoxUx25 #live .label{font-size:9.5px!important}
+ html.fniqBoxUx25 #live .optional,html.fniqBoxUx25 #live .speedCritical{font-size:8.5px!important}
+ html.fniqBoxUx25 .q24Capture{position:absolute;right:8px;top:5px;z-index:2;padding:4px 6px;margin:0;min-width:116px}
+ html.fniqBoxUx25 .q24Capture small,html.fniqBoxUx25 .q24CaptureMode,html.fniqBoxUx25 .q24CaptureLabel{display:none}
+ html.fniqBoxUx25 .q24Capture>div{display:block}
+ html.fniqBoxUx25 .q24Capture strong{font-size:10px}
+ html.fniqBoxUx25 #preSnapCard{position:relative}
+ html.fniqBoxUx25 .boxSecondaryLookRow>div:has(#motion){position:static}
+ html.fniqBoxUx25 .q24MotionQuick{position:static!important;display:flex!important;margin:2px 0 4px!important}
+ html.fniqBoxUx25 .q24MotionQuick .q24Quick{display:none!important;min-height:27px!important;padding:3px 6px!important;font-size:9.5px!important}
+ html.fniqBoxUx25 .q24MotionQuick .q24Quick.muted,html.fniqBoxUx25 .q24MotionQuick .q24Quick:nth-child(2){display:inline-flex!important;align-items:center}
+ html.fniqBoxUx25 .q24CoverageQuick{grid-template-columns:repeat(5,minmax(0,1fr));gap:3px;margin:2px 0 4px}
+ html.fniqBoxUx25 .q24CoverageQuick .q24Quick{min-height:27px!important;padding:3px 4px!important;font-size:9.5px!important}
+ html.fniqBoxUx25 .q24CoverageQuick .q24Quick[data-value="Cover 6"],html.fniqBoxUx25 .q24CoverageQuick .q24Quick[data-value="Man"],html.fniqBoxUx25 .q24CoverageQuick .q24Quick[data-value="Match"]{display:none}
+ html.fniqBoxUx25 .q24ConceptQuick,html.fniqBoxUx25 .q24AttackQuick{grid-template-columns:repeat(auto-fit,minmax(48px,1fr));gap:3px}
+ html.fniqBoxUx25 .q24ConceptQuick .q24Quick,html.fniqBoxUx25 .q24AttackQuick .q24Quick{min-height:27px!important;padding:3px 4px!important;font-size:9.5px!important}
+ html.fniqBoxUx25 #live .speedQuick button{min-height:29px!important;padding:4px 6px!important;font-size:10px!important}
+ html.fniqBoxUx25 #live .fastbtn{font-size:10px!important}
+ html.fniqBoxUx25 #trackerFinishCard{padding:6px 8px!important}
+ html.fniqBoxUx25 .trackerFinishHead{display:none}
+ html.fniqBoxUx25 .trackerFinishBody{grid-template-columns:minmax(0,1fr) minmax(0,1fr) minmax(0,1fr);gap:4px 7px}
+ html.fniqBoxUx25 .trackerFinishBody .speedCoverageQuick{grid-template-columns:repeat(6,minmax(0,1fr));gap:3px}
+ html.fniqBoxUx25 .trackerFinishBody .speedCoverageQuick button{min-height:27px!important;padding:3px 4px!important;font-size:9.5px!important}
+ html.fniqBoxUx25 .trackerFinishBody .speedDetailSelect,html.fniqBoxUx25 .trackerFinishBody input{min-height:30px!important;font-size:10px!important}
+ html.fniqBoxUx25 .trackerFinishBody .tagwrap .chip{min-height:26px!important;padding:3px 6px!important;font-size:9px!important}
+ html.fniqBoxUx25 .trackerFinishBody .trackerMoreResult{padding-top:2px!important}
+ html.fniqBoxUx25 .trackerFinishBody .trackerMoreResult summary{font-size:9px!important}
+}
+
+/* Light mode uses neutral controls; semantic color appears only when it communicates state. */
+html[data-theme="light"].fniqBoxUx25 .q24Quick,html[data-theme="light"].fniqBoxUx25 #live .speedQuick button{background:#f2f5f9!important;border-color:#c9d3df!important;color:#172033!important}
+html[data-theme="light"].fniqBoxUx25 .q24Quick.on{background:#fff8ed!important;border-color:var(--a)!important;color:#172033!important;box-shadow:inset 3px 0 0 var(--a)!important}
+html[data-theme="light"].fniqBoxUx25 #live .speedBlitzQuick .danger{background:#f2f5f9!important;border-color:#c9d3df!important;color:#172033!important}
+html[data-theme="light"].fniqBoxUx25 #live .speedBlitzQuick .danger.on{background:#fff5dc!important;border-color:#c6922f!important;color:#5c4308!important;box-shadow:inset 3px 0 0 #c6922f!important}
+html[data-theme="light"].fniqBoxUx25 #live .speedBlitzQuick .neutral.on{background:#edf8f2!important;border-color:#68aa87!important;color:#235d41!important}
+html[data-theme="light"].fniqBoxUx25 #live .speedBlitzQuick .unknown{background:#f2f5f9!important;color:#65748a!important}
+html[data-theme="light"].fniqBoxUx25 .q24Capture{background:#f7f9fc!important;border-color:#d4dde8!important}
+html[data-theme="light"].fniqBoxUx25 #trackerFinishCard{background:linear-gradient(180deg,#fff,#f8fafc)}
+
+@media(max-width:1180px){html.fniqBoxUx25 .trackerFinishBody{grid-template-columns:1fr 1fr}html.fniqBoxUx25 .trackerPostCoverage,html.fniqBoxUx25 .trackerConceptFamily,html.fniqBoxUx25 .trackerConcept{grid-column:auto!important}html.fniqBoxUx25 .trackerResultTags,html.fniqBoxUx25 .trackerMoreResult{grid-column:1/-1!important}}
+@media(max-width:620px){html.fniqBoxUx25 .trackerFinishBody{grid-template-columns:1fr}html.fniqBoxUx25 .trackerResultTags,html.fniqBoxUx25 .trackerMoreResult{grid-column:1!important}}

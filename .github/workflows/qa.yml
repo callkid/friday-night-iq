@@ -38,6 +38,18 @@ jobs:
         run: node qa-browser-quality24.js
       - name: Press-box tracker workflow and dead-space gate
         run: node qa-browser-tracker-workflow.js
+      - name: Box ergonomics readability and color gate
+        run: node qa-browser-box-ergonomics.js
+      - name: Multi-team accent matrix gate
+        run: node qa-browser-brand-colors.js
+      - name: Upload box QA screenshots
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: quality25-box-screenshots
+          path: qa-screenshots
+          if-no-files-found: ignore
+          retention-days: 5
       - name: Pick-six browser regression
         run: node qa-browser-pick-six.js
       - name: Responsive viewport matrix

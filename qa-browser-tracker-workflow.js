@@ -18,9 +18,12 @@ async function boot(browser,c){const context=await browser.newContext({viewport:
   console.log('TRACKER GEOMETRY',c.name,JSON.stringify(m));
   assert(m.pre&&m.result&&m.finish,c.name+' missing packed tracker geometry');
   assert(Math.abs(m.pre.top-m.result.top)<=8,c.name+' pre-snap/result tops drifted by '+Math.round(Math.abs(m.pre.top-m.result.top))+'px');
-  const deadGap=m.finish.top-m.pre.bottom;assert(deadGap<=18,c.name+' DEAD SPACE FAIL: '+Math.round(deadGap)+'px empty below Pre-snap before next tracker work');
-  assert(Math.abs(m.finish.left-m.pre.left)<=4,c.name+' finish card no longer uses the left charting column');
-  assert(m.finish.right<=m.result.left+3,c.name+' finish card intrudes into primary result column');
+  const primaryBottom=Math.max(m.pre.bottom,m.result.bottom),deadGap=m.finish.top-primaryBottom;
+  assert(deadGap<=18,c.name+' DEAD SPACE FAIL: '+Math.round(deadGap)+'px empty below primary charting before Finish the picture');
+  assert(deadGap>=-3,c.name+' Finish the picture overlaps primary charting by '+Math.round(-deadGap)+'px');
+  assert(Math.abs(m.finish.left-m.pre.left)<=4,c.name+' finish card no longer starts with the left charting edge');
+  assert(Math.abs(m.finish.right-m.result.right)<=4,c.name+' DEAD LOWER-RIGHT FAIL: Finish the picture does not reach the right charting edge');
+  assert(m.finish.width>=m.main.width-8,c.name+' DEAD LOWER-RIGHT FAIL: Finish the picture uses only '+Math.round(m.finish.width)+'px of '+Math.round(m.main.width)+'px main width');
   if(m.safety){const safetyGap=m.safety.top-m.finish.bottom;assert(safetyGap<=20,c.name+' DEAD SPACE FAIL: '+Math.round(safetyGap)+'px before Undo row');}
   if(c.wide&&m.situationDisplay!=='none')assert(m.situation.width>=m.main.width-12,c.name+' Situation should use the full main width instead of leaving a blank right cell');
   if(m.aside&&m.aside.width>0)assert(m.aside.bottom<=m.innerH-2,c.name+' IQ sidebar extends below the viewport instead of scrolling internally: '+Math.round(m.aside.bottom)+'px > '+m.innerH+'px');
@@ -65,9 +68,9 @@ async function boot(browser,c){const context=await browser.newContext({viewport:
   }
 
   assert.equal(errors.length,0,c.name+' browser errors: '+errors.join(' | '));
-  console.log('TRACKER WORKFLOW PASS:',c.name,c.width+'x'+c.height,'deadGap='+Math.round(deadGap)+' scroll='+m.scrollH+'x'+m.innerH);
+  console.log('TRACKER WORKFLOW PASS:',c.name,c.width+'x'+c.height,'deadGap='+Math.round(deadGap)+' finishWidth='+Math.round(m.finish.width)+'/'+Math.round(m.main.width)+' scroll='+m.scrollH+'x'+m.innerH);
   await context.close();
  }
  await browser.close();
- console.log('TRACKER QA PASS: dead space is a failure, normal run path stays in one viewport, desktop page scroll is zero, penalty Save stays reachable, and reset/carry behavior survives the repack');
+ console.log('TRACKER QA PASS: dead lower-right space is a failure, Finish the picture spans both columns, normal run path stays in one viewport, desktop page scroll is zero, penalty Save stays reachable, and reset/carry behavior survives the repack');
 })().catch(e=>{console.error(e);process.exit(1)});
