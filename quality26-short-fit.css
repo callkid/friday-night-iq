@@ -11,4 +11,6 @@
  html.fniqFootballFlow26 .q24AttackQuick{grid-template-columns:repeat(5,minmax(0,1fr))!important;gap:4px!important}
  html.fniqFootballFlow26 .q24AttackQuick .q24Quick[data-value="NA"]{display:none!important}
  html.fniqFootballFlow26 #q26Outcome{margin-top:3px!important;padding-top:3px!important}
+ /* Save is already in the What Happened header; this dark recap only duplicates the entered play. */
+ html.fniqFootballFlow26 #live .entrysummary.boxDockedSummary{display:none!important}
 }
