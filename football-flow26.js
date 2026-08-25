@@ -11,7 +11,7 @@ var RULES={
  'Offside':{team:'Defense',status:'Accepted',distance:5,effect:'REPEAT',timing:'DEAD'},
  'Encroachment':{team:'Defense',status:'Accepted',distance:5,effect:'REPEAT',timing:'DEAD'},
  'Delay of Game':{team:'Offense',status:'Accepted',distance:5,effect:'REPEAT',timing:'DEAD'},
- 'Holding':{team:'Offense',status:'Accepted',distance:10,effect:'REPEAT',timing:'LIVE'}
+ 'Holding':{team:'Offense',status:'Accepted',distance:10,effect:'COUNT',timing:'LIVE'}
 };
 function num(v,d){var n=Number(v);return Number.isFinite(n)?n:d;}
 function fieldAbs(side,yard){if(side==='50')return 50;return side==='OWN'?num(yard,25):100-num(yard,25);}
