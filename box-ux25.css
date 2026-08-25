@@ -111,7 +111,7 @@ html.fniqBoxUx25 .q24Hurry span{font-size:9px}html.fniqBoxUx25 .q24Hurry b{font-
 
 /* Light mode uses neutral controls; semantic color appears only when it communicates state. */
 html[data-theme="light"].fniqBoxUx25 .q24Quick,html[data-theme="light"].fniqBoxUx25 #live .speedQuick button{background:#f2f5f9!important;border-color:#c9d3df!important;color:#172033!important}
-html[data-theme="light"].fniqBoxUx25 .q24Quick.on{background:color-mix(in srgb,var(--a) 14%,#fff)!important;border-color:var(--a)!important;color:#172033!important;box-shadow:inset 3px 0 0 var(--a)!important}
+html[data-theme="light"].fniqBoxUx25 .q24Quick.on{background:#fff8ed!important;border-color:var(--a)!important;color:#172033!important;box-shadow:inset 3px 0 0 var(--a)!important}
 html[data-theme="light"].fniqBoxUx25 #live .speedBlitzQuick .danger{background:#f2f5f9!important;border-color:#c9d3df!important;color:#172033!important}
 html[data-theme="light"].fniqBoxUx25 #live .speedBlitzQuick .danger.on{background:#fff5dc!important;border-color:#c6922f!important;color:#5c4308!important;box-shadow:inset 3px 0 0 #c6922f!important}
 html[data-theme="light"].fniqBoxUx25 #live .speedBlitzQuick .neutral.on{background:#edf8f2!important;border-color:#68aa87!important;color:#235d41!important}
