@@ -78,3 +78,5 @@ jobs:
       - name: Fail if QA failed
         if: steps.source.outcome != 'success' || steps.browser.outcome != 'success'
         run: exit 1
+
+# Quality26 production proof trigger
