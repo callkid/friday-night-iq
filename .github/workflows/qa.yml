@@ -37,7 +37,7 @@ jobs:
       - name: Quality24 speed and confidence E2E
         run: node qa-browser-quality24.js
       - name: Quality26 football and correction E2E
-        run: node qa-browser-football-flow26.js
+        run: node qa-browser-football-flow26-release.js
       - name: Press-box tracker workflow and dead-space gate
         run: node qa-browser-tracker-workflow.js
       - name: Box ergonomics readability and color gate
