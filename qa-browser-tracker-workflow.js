@@ -1,0 +1,55 @@
+const {chromium}=require('playwright');
+const assert=require('assert');
+const CASES=[
+  {name:'coach-short',width:1475,height:668,maxScroll:45,short:true},
+  {name:'screenshot-workstation',width:1660,height:900,maxScroll:24,wide:true},
+  {name:'coach-1080p',width:1920,height:1080,maxScroll:24,wide:true}
+];
+function rectInViewport(r,h){return r.top>=-1&&r.bottom<=h+2}
+async function visibleRect(page,selector,label){const loc=page.locator(selector).first();assert(await loc.isVisible(),label+' not visible: '+selector);const r=await loc.evaluate(el=>{const x=el.getBoundingClientRect();return{left:x.left,right:x.right,top:x.top,bottom:x.bottom,width:x.width,height:x.height}});assert(rectInViewport(r,await page.evaluate(()=>innerHeight)),label+' requires scroll: '+selector+' bottom='+Math.round(r.bottom));return r}
+async function clickVisible(page,selector,label){await visibleRect(page,selector,label);await page.click(selector);assert(Math.abs(await page.evaluate(()=>scrollY))<=2,label+' caused page scroll')}
+async function boot(browser,c){const context=await browser.newContext({viewport:{width:c.width,height:c.height}});const page=await context.newPage();const errors=[];page.on('pageerror',e=>errors.push(e.message));page.on('console',m=>{if(m.type()==='error')errors.push(m.text())});await page.addInitScript(()=>localStorage.clear());await page.goto('http://127.0.0.1:8000/?trackerqa='+c.name,{waitUntil:'networkidle'});await page.fill('#team','Tracker QA');await page.fill('#opp','Box Test');await page.click('#start');await page.waitForSelector('#live.on');await page.waitForSelector('#trackerFinishCard');assert.equal(errors.length,0,c.name+' startup errors: '+errors.join(' | '));return{page,context,errors}}
+(async()=>{
+ const browser=await chromium.launch({headless:true});
+ for(const c of CASES){
+  const {page,context,errors}=await boot(browser,c);
+  const m=await page.evaluate(()=>{function r(s){const e=document.querySelector(s),x=e&&e.getBoundingClientRect();return x?{left:x.left,right:x.right,top:x.top,bottom:x.bottom,width:x.width,height:x.height}:null}const sit=document.querySelector('#situationCard');return{innerH:innerHeight,scrollH:document.documentElement.scrollHeight,main:r('#live main'),pre:r('#preSnapCard'),result:r('.boxResultCard'),finish:r('#trackerFinishCard'),safety:r('.safetyrow'),situation:r('#situationCard'),situationDisplay:sit?getComputedStyle(sit).display:'none'};});
+  assert(m.pre&&m.result&&m.finish,c.name+' missing packed tracker geometry');
+  assert(Math.abs(m.pre.top-m.result.top)<=8,c.name+' pre-snap/result tops drifted by '+Math.round(Math.abs(m.pre.top-m.result.top))+'px');
+  const deadGap=m.finish.top-m.pre.bottom;assert(deadGap<=18,c.name+' DEAD SPACE FAIL: '+Math.round(deadGap)+'px empty below Pre-snap before next tracker work');
+  assert(Math.abs(m.finish.left-m.pre.left)<=4,c.name+' finish card no longer uses the left charting column');
+  assert(m.finish.right<=m.result.left+3,c.name+' finish card intrudes into primary result column');
+  if(m.safety){const safetyGap=m.safety.top-m.finish.bottom;assert(safetyGap<=20,c.name+' DEAD SPACE FAIL: '+Math.round(safetyGap)+'px before Undo row');}
+  if(c.wide&&m.situationDisplay!=='none')assert(m.situation.width>=m.main.width-12,c.name+' Situation should use the full main width instead of leaving a blank right cell');
+  assert(m.scrollH<=m.innerH+c.maxScroll,c.name+' SCROLL FAIL: page '+m.scrollH+'px vs viewport '+m.innerH+'px');
+
+  for(const [s,label] of [['#speedHashButtons','hash'],['#formation','formation'],['#personnel','personnel'],['[data-group="front"]','front'],['[data-group="safeties"]','safeties'],['#q24CoverageQuick','initial coverage'],['[data-group="box"]','box'],['#motion','motion'],['[data-group="playType"]','play type'],['#yards','yards'],['#speedBlitzQuick','blitz'],['#speedCoverageQuick','post-snap coverage'],['#q24ConceptQuick','concept family'],['#save','save']])await visibleRect(page,s,c.name+' '+label);
+
+  await clickVisible(page,'#speedHashButtons button[data-value="Left"]',c.name+' hash');
+  await page.selectOption('#formation','Doubles Right');assert(Math.abs(await page.evaluate(()=>scrollY))<=2,c.name+' formation caused scroll');
+  await page.fill('#personnel','11');
+  await clickVisible(page,'[data-group="front"] [data-v="4"]',c.name+' front');
+  await clickVisible(page,'[data-group="safeties"] [data-v="2"]',c.name+' safeties');
+  await clickVisible(page,'#q24CoverageQuick button[data-value="Cover 3"]',c.name+' initial coverage');
+  await clickVisible(page,'[data-group="box"] [data-v="6"]',c.name+' box');
+  await clickVisible(page,'#q24MotionQuick button[data-value="No Motion"]',c.name+' no motion');
+  await clickVisible(page,'[data-group="playType"] [data-v="Run"]',c.name+' run');
+  await page.waitForSelector('#q24AttackQuick button[data-value="Inside Zone"]',{state:'visible'});
+  await clickVisible(page,'#q24AttackQuick button[data-value="Inside Zone"]',c.name+' run type');
+  await clickVisible(page,'#q24ConceptQuick button[data-value="Run"]',c.name+' concept family');
+  await page.fill('#yards','6');assert(Math.abs(await page.evaluate(()=>scrollY))<=2,c.name+' yards caused scroll');
+  await clickVisible(page,'#speedBlitzQuick button[data-value="None"]',c.name+' no blitz');
+  await clickVisible(page,'#speedCoverageQuick button[data-value="Same as pre-snap"]',c.name+' post coverage');
+  await clickVisible(page,'#save',c.name+' save');
+  await page.waitForFunction(()=>document.querySelector('#headline').textContent.includes('2nd'));
+  assert.equal(await page.inputValue('#formation'),'NA',c.name+' formation must reset after Save');
+  assert.equal(await page.inputValue('#personnel'),'11',c.name+' personnel must carry after Save');
+  assert.notEqual(await page.inputValue('#motion'),'No Motion',c.name+' motion must reset after Save');
+  assert(Math.abs(await page.evaluate(()=>scrollY))<=2,c.name+' Save left tracker scrolled away from next snap');
+  assert.equal(errors.length,0,c.name+' browser errors: '+errors.join(' | '));
+  console.log('TRACKER WORKFLOW PASS:',c.name,c.width+'x'+c.height,'deadGap='+Math.round(deadGap)+' scroll='+m.scrollH+'x'+m.innerH);
+  await context.close();
+ }
+ await browser.close();
+ console.log('TRACKER QA PASS: dead space is a failure, normal run path stays in one viewport, and reset/carry behavior survives the repack');
+})().catch(e=>{console.error(e);process.exit(1)});
