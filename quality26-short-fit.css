@@ -1,6 +1,6 @@
 /* Quality26 short-height release fit: preserve readable game-speed targets while avoiding post-selection page scroll. */
-/* Save already lives in the What Happened header. On press-box screens through 900px tall, the dark THIS PLAY recap is duplicate display, not charting data. */
-@media(min-width:1181px) and (max-height:900px){
+/* Save already lives in the What Happened header. On desktop live tracking, the dark THIS PLAY recap duplicates the entered play and costs charting space. */
+@media(min-width:1181px){
  html.fniqFootballFlow26 #live .entrysummary.boxDockedSummary{display:none!important}
 }
 @media(min-width:1300px) and (max-height:700px){
