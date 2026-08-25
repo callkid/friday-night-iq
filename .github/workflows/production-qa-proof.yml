@@ -18,60 +18,57 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 20
-      - name: Run full quality24 source QA
+      - name: Run full Quality25 source QA
         id: source
         continue-on-error: true
         run: bash tools/run_safety18_qa.sh
-      - name: Run browser box, tracker workflow, quality24, pick-six, and responsive QA
+      - name: Run repeated production browser QA
         id: browser
         continue-on-error: true
         run: |
           set +e
-          echo "=== REAL BROWSER QUALITY24 QA ===" >> qa-quality24-proof.txt
-          npm init -y >> qa-quality24-proof.txt 2>&1
-          npm install playwright@1.55.0 >> qa-quality24-proof.txt 2>&1
-          npx playwright install --with-deps chromium >> qa-quality24-proof.txt 2>&1
+          echo "=== REAL BROWSER QUALITY25 QA ===" >> qa-quality25-proof.txt
+          npm init -y >> qa-quality25-proof.txt 2>&1
+          npm install playwright@1.55.0 >> qa-quality25-proof.txt 2>&1
+          npx playwright install --with-deps chromium >> qa-quality25-proof.txt 2>&1
           python3 -m http.server 8000 --bind 127.0.0.1 >> /tmp/fniq-server.log 2>&1 &
           sleep 2
           FAIL=0
-          for i in 1 2 3; do
-            echo "--- Browser box pass $i ---" >> qa-quality24-proof.txt
-            node qa-browser-e2e.js >> qa-quality24-proof.txt 2>&1
-            CODE=$?
-            if [ $CODE -ne 0 ]; then FAIL=1; echo "FAIL: Browser box pass $i" >> qa-quality24-proof.txt; else echo "PASS: Browser box pass $i" >> qa-quality24-proof.txt; fi
-          done
-          for i in 1 2 3; do
-            echo "--- Quality24 browser pass $i ---" >> qa-quality24-proof.txt
-            node qa-browser-quality24.js >> qa-quality24-proof.txt 2>&1
-            CODE=$?
-            if [ $CODE -ne 0 ]; then FAIL=1; echo "FAIL: Quality24 browser pass $i" >> qa-quality24-proof.txt; else echo "PASS: Quality24 browser pass $i" >> qa-quality24-proof.txt; fi
-          done
-          for i in 1 2 3; do
-            echo "--- Press-box tracker workflow pass $i ---" >> qa-quality24-proof.txt
-            node qa-browser-tracker-workflow.js >> qa-quality24-proof.txt 2>&1
-            CODE=$?
-            if [ $CODE -ne 0 ]; then FAIL=1; echo "FAIL: Press-box tracker workflow pass $i" >> qa-quality24-proof.txt; else echo "PASS: Press-box tracker workflow pass $i" >> qa-quality24-proof.txt; fi
-          done
-          echo "--- Pick-six browser path ---" >> qa-quality24-proof.txt
-          node qa-browser-pick-six.js >> qa-quality24-proof.txt 2>&1
+          run_three() {
+            LABEL="$1"
+            SCRIPT="$2"
+            for i in 1 2 3; do
+              echo "--- $LABEL pass $i ---" >> qa-quality25-proof.txt
+              node "$SCRIPT" >> qa-quality25-proof.txt 2>&1
+              CODE=$?
+              if [ $CODE -ne 0 ]; then FAIL=1; echo "FAIL: $LABEL pass $i" >> qa-quality25-proof.txt; else echo "PASS: $LABEL pass $i" >> qa-quality25-proof.txt; fi
+            done
+          }
+          run_three "Browser box" qa-browser-e2e.js
+          run_three "Quality24 speed/confidence" qa-browser-quality24.js
+          run_three "Press-box tracker workflow" qa-browser-tracker-workflow.js
+          run_three "Box ergonomics/readability" qa-browser-box-ergonomics.js
+          run_three "Multi-team accent matrix" qa-browser-brand-colors.js
+          echo "--- Pick-six browser path ---" >> qa-quality25-proof.txt
+          node qa-browser-pick-six.js >> qa-quality25-proof.txt 2>&1
           CODE=$?
-          if [ $CODE -ne 0 ]; then FAIL=1; echo "FAIL: Pick-six browser path" >> qa-quality24-proof.txt; else echo "PASS: Pick-six browser path" >> qa-quality24-proof.txt; fi
-          echo "--- Responsive viewport matrix ---" >> qa-quality24-proof.txt
-          node qa-browser-responsive.js >> qa-quality24-proof.txt 2>&1
+          if [ $CODE -ne 0 ]; then FAIL=1; echo "FAIL: Pick-six browser path" >> qa-quality25-proof.txt; else echo "PASS: Pick-six browser path" >> qa-quality25-proof.txt; fi
+          echo "--- Responsive viewport matrix ---" >> qa-quality25-proof.txt
+          node qa-browser-responsive.js >> qa-quality25-proof.txt 2>&1
           CODE=$?
-          if [ $CODE -ne 0 ]; then FAIL=1; echo "FAIL: Responsive viewport matrix" >> qa-quality24-proof.txt; else echo "PASS: Responsive viewport matrix" >> qa-quality24-proof.txt; fi
+          if [ $CODE -ne 0 ]; then FAIL=1; echo "FAIL: Responsive viewport matrix" >> qa-quality25-proof.txt; else echo "PASS: Responsive viewport matrix" >> qa-quality25-proof.txt; fi
           exit $FAIL
       - name: Publish auditable QA result
         if: always()
         run: |
-          printf '\nSOURCE_QA=%s\nBROWSER_QA=%s\nSOURCE_COMMIT=%s\n' "${{ steps.source.outcome }}" "${{ steps.browser.outcome }}" "$GITHUB_SHA" >> qa-quality24-proof.txt
+          printf '\nSOURCE_QA=%s\nBROWSER_QA=%s\nSOURCE_COMMIT=%s\n' "${{ steps.source.outcome }}" "${{ steps.browser.outcome }}" "$GITHUB_SHA" >> qa-quality25-proof.txt
           if [ "${{ steps.source.outcome }}" = "success" ] && [ "${{ steps.browser.outcome }}" = "success" ]; then
-            echo "FINAL: PASS" >> qa-quality24-proof.txt
-            sed -i 's/app.js?v=safety23-final"/app.js?v=quality24-final"/; s/app.js?v=quality24"/app.js?v=quality24-final"/' index.html
+            echo "FINAL: PASS" >> qa-quality25-proof.txt
+            sed -i -E 's/app\.js\?v=[^"]+"/app.js?v=quality25-final"/' index.html
           else
-            echo "FINAL: FAIL" >> qa-quality24-proof.txt
+            echo "FINAL: FAIL" >> qa-quality25-proof.txt
           fi
-          mv qa-quality24-proof.txt qa-production-proof.txt
+          mv qa-quality25-proof.txt qa-production-proof.txt
           git config user.name "Friday Night IQ QA"
           git config user.email "actions@users.noreply.github.com"
           git add qa-production-proof.txt index.html
