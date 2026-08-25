@@ -69,6 +69,28 @@ html.fniqFootballFlow26 #shortSituationEdit.q26SituationEdit,html.fniqFootballFl
  html.fniqFootballFlow26 .q24AttackQuick .q24Quick{min-height:44px!important;font-size:13.5px!important}
  html.fniqFootballFlow26 #q26Outcome button{min-height:42px;font-size:13px}
 }
+/* Common 768px press-box laptop: keep game-speed targets, reclaim height from duplicate chrome. */
+@media(min-width:1181px) and (min-height:701px) and (max-height:820px){
+ .fniqBoxCompact #live .fastbar{display:none!important}
+ html.fniqFootballFlow26 .q26MotionSingle{margin:2px 0 4px!important}
+ html.fniqFootballFlow26 #live .speedHashButtons button,
+ html.fniqFootballFlow26 #live .speedDefenseGrid .choice,
+ html.fniqFootballFlow26 #live .boxSecondaryLookRow [data-group="box"] .choice,
+ html.fniqFootballFlow26 #live .q24CoverageQuick .q24Quick,
+ html.fniqFootballFlow26 #live .q26MotionSingle .q24Quick,
+ html.fniqFootballFlow26 #live .speedBlitzQuick button,
+ html.fniqFootballFlow26 #live .speedCoverageQuick button{min-height:35px!important;padding:5px 7px!important;font-size:11.5px!important}
+ html.fniqFootballFlow26 #live .speedPreSnap select,html.fniqFootballFlow26 #live .speedPreSnap input,html.fniqFootballFlow26 #live .boxSecondaryLookRow #motion{min-height:36px!important;padding:5px 7px!important;font-size:12px!important}
+ html.fniqFootballFlow26 #live .choices.playtype .choice{min-height:40px!important;padding:6px!important;font-size:13px!important}
+ html.fniqFootballFlow26 #live .passbuttons button{min-height:35px!important;padding:5px 7px!important;font-size:11.5px!important}
+ html.fniqFootballFlow26 .q24AttackQuick{gap:4px!important}
+ html.fniqFootballFlow26 .q24AttackQuick .q24Quick{min-height:35px!important;padding:5px 7px!important;font-size:11.5px!important}
+ html.fniqFootballFlow26 #q26Outcome{gap:4px;margin-top:5px;padding-top:5px}
+ html.fniqFootballFlow26 #q26Outcome button{min-height:35px;padding:5px 8px;font-size:11.5px}
+ html.fniqFootballFlow26 #q26Outcome small{display:none}
+ html.fniqFootballFlow26 #trackerFinishCard .trackerFinishBody{gap:4px 7px!important}
+ html.fniqFootballFlow26 #live .boxHeaderSave{min-height:38px!important;padding:6px 10px!important;font-size:12px!important}
+}
 /* Short laptops keep readable targets; space savings come from removed duplicate rows. */
 @media(min-width:1000px) and (max-height:700px){
  html.fniqFootballFlow26 #live .label{font-size:10.5px!important}
