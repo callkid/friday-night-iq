@@ -1,0 +1,27 @@
+/* Quality26 short-height release fit: preserve readable game-speed targets while avoiding post-selection page scroll. */
+/* Save already lives in the What Happened header. On desktop live tracking, the dark THIS PLAY recap duplicates the entered play and costs charting space. */
+@media(min-width:1181px){
+ html.fniqFootballFlow26 #live .entrysummary.boxDockedSummary{display:none!important}
+}
+@media(min-width:1300px) and (max-height:700px){
+ html.fniqFootballFlow26 .q24AttackQuick{grid-template-columns:minmax(0,1.15fr) minmax(0,1.15fr) minmax(0,1.1fr) minmax(0,.8fr) minmax(0,.8fr)!important;gap:3px!important}
+ html.fniqFootballFlow26 .q24AttackQuick .q24Quick[data-value="NA"],
+ html.fniqFootballFlow26 .q24AttackQuick .q24Quick[data-value="Unknown"]{display:none!important}
+ html.fniqFootballFlow26 .q24AttackQuick .q24Quick{min-height:31px!important;padding:3px 4px!important;font-size:10.5px!important;line-height:1.05!important}
+ html.fniqFootballFlow26 #q26Outcome{gap:3px!important;margin-top:2px!important;padding-top:2px!important}
+ html.fniqFootballFlow26 #q26Outcome button{min-height:31px!important;padding:3px 6px!important;font-size:10.5px!important}
+ html.fniqFootballFlow26 #q26Outcome>span{font-size:9.5px!important}
+}
+/* Common-height laptops have a narrower result column. Use two readable rows instead of squeezing five full football terms into tiny targets. */
+@media(min-width:1181px) and (min-height:701px) and (max-height:820px){
+ html.fniqFootballFlow26 .q24AttackQuick{grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:4px!important}
+ html.fniqFootballFlow26 .q24AttackQuick .q24Quick{padding-left:5px!important;padding-right:5px!important}
+ html.fniqFootballFlow26 .q24AttackQuick .q24Quick[data-value="NA"],
+ html.fniqFootballFlow26 .q24AttackQuick .q24Quick[data-value="Unknown"]{display:none!important}
+ html.fniqFootballFlow26 #q26Outcome{margin-top:3px!important;padding-top:3px!important}
+}
+/* Very wide monitors should use extra room for easier targets instead of blank card height. */
+@media(min-width:2000px) and (min-height:1000px){
+ html.fniqFootballFlow26 #preSnapCard{padding-bottom:0!important}
+ html.fniqFootballFlow26 #live .boxSecondaryLookRow #motion{min-height:41px!important}
+}

@@ -19,17 +19,19 @@ async function boot(browser,c){const context=await browser.newContext({viewport:
   assert(m.pre&&m.result&&m.finish,c.name+' missing packed tracker geometry');
   assert(Math.abs(m.pre.top-m.result.top)<=8,c.name+' pre-snap/result tops drifted by '+Math.round(Math.abs(m.pre.top-m.result.top))+'px');
   const primaryBottom=Math.max(m.pre.bottom,m.result.bottom),deadGap=m.finish.top-primaryBottom;
-  assert(deadGap<=18,c.name+' DEAD SPACE FAIL: '+Math.round(deadGap)+'px empty below primary charting before Finish the picture');
-  assert(deadGap>=-3,c.name+' Finish the picture overlaps primary charting by '+Math.round(-deadGap)+'px');
-  assert(Math.abs(m.finish.left-m.pre.left)<=4,c.name+' finish card no longer starts with the left charting edge');
-  assert(Math.abs(m.finish.right-m.result.right)<=4,c.name+' DEAD LOWER-RIGHT FAIL: Finish the picture does not reach the right charting edge');
-  assert(m.finish.width>=m.main.width-8,c.name+' DEAD LOWER-RIGHT FAIL: Finish the picture uses only '+Math.round(m.finish.width)+'px of '+Math.round(m.main.width)+'px main width');
+  assert(deadGap<=18,c.name+' DEAD SPACE FAIL: '+Math.round(deadGap)+'px empty below primary charting before post-snap detail');
+  assert(deadGap>=-3,c.name+' post-snap detail overlaps primary charting by '+Math.round(-deadGap)+'px');
+  assert(Math.abs(m.finish.left-m.pre.left)<=4,c.name+' post-snap card no longer starts with the left charting edge');
+  assert(Math.abs(m.finish.right-m.result.right)<=4,c.name+' DEAD LOWER-RIGHT FAIL: post-snap detail does not reach the right charting edge');
+  assert(m.finish.width>=m.main.width-8,c.name+' DEAD LOWER-RIGHT FAIL: post-snap detail uses only '+Math.round(m.finish.width)+'px of '+Math.round(m.main.width)+'px main width');
   if(m.safety){const safetyGap=m.safety.top-m.finish.bottom;assert(safetyGap<=20,c.name+' DEAD SPACE FAIL: '+Math.round(safetyGap)+'px before Undo row');}
   if(c.wide&&m.situationDisplay!=='none')assert(m.situation.width>=m.main.width-12,c.name+' Situation should use the full main width instead of leaving a blank right cell');
   if(m.aside&&m.aside.width>0)assert(m.aside.bottom<=m.innerH-2,c.name+' IQ sidebar extends below the viewport instead of scrolling internally: '+Math.round(m.aside.bottom)+'px > '+m.innerH+'px');
   assert(m.scrollH<=m.innerH+c.maxScroll,c.name+' SCROLL FAIL: page '+m.scrollH+'px vs viewport '+m.innerH+'px');
 
-  for(const [s,label] of [['#speedHashButtons','hash'],['#formation','formation'],['#personnel','personnel'],['[data-group="front"]','front'],['[data-group="safeties"]','safeties'],['#q24CoverageQuick','initial coverage'],['[data-group="box"]','box'],['#motion','motion'],['[data-group="playType"]','play type'],['#yards','yards'],['#speedBlitzQuick','blitz'],['#speedCoverageQuick','post-snap coverage'],['#q24ConceptQuick','concept family'],['#save','save']])await visibleRect(page,s,c.name+' '+label);
+  for(const [s,label] of [['#speedHashButtons','hash'],['#formation','formation'],['#personnel','personnel'],['[data-group="front"]','front'],['[data-group="safeties"]','safeties'],['#q24CoverageQuick','initial coverage'],['[data-group="box"]','box'],['#motion','motion'],['[data-group="playType"]','play type'],['#yards','yards'],['#speedBlitzQuick','blitz'],['#speedCoverageQuick','post-snap coverage'],['#save','save']])await visibleRect(page,s,c.name+' '+label);
+  assert(!(await page.locator('.q26RedundantConcept').isVisible()),c.name+' duplicate Concept Family should not be live-charting UI');
+  assert(!(await page.locator('.trackerResultTags').isVisible()),c.name+' duplicate Result Tags should not be live-charting UI');
 
   await clickVisible(page,'#speedHashButtons button[data-value="Left"]',c.name+' hash');
   await page.selectOption('#formation','Doubles Right');assert(Math.abs(await page.evaluate(()=>scrollY))<=2,c.name+' formation caused scroll');
@@ -42,7 +44,7 @@ async function boot(browser,c){const context=await browser.newContext({viewport:
   await clickVisible(page,'[data-group="playType"] [data-v="Run"]',c.name+' run');
   await page.waitForSelector('#q24AttackQuick button[data-value="Inside Zone"]',{state:'visible'});
   await clickVisible(page,'#q24AttackQuick button[data-value="Inside Zone"]',c.name+' run type');
-  await clickVisible(page,'#q24ConceptQuick button[data-value="Run"]',c.name+' concept family');
+  assert(await page.locator('#q26Outcome').isVisible(),c.name+' contextual result controls are missing after Run');
   await page.fill('#yards','6');assert(Math.abs(await page.evaluate(()=>scrollY))<=2,c.name+' yards caused scroll');
   await clickVisible(page,'#speedBlitzQuick button[data-value="None"]',c.name+' no blitz');
   await clickVisible(page,'#speedCoverageQuick button[data-value="Same as pre-snap"]',c.name+' post coverage');
@@ -72,5 +74,5 @@ async function boot(browser,c){const context=await browser.newContext({viewport:
   await context.close();
  }
  await browser.close();
- console.log('TRACKER QA PASS: dead lower-right space is a failure, Finish the picture spans both columns, normal run path stays in one viewport, desktop page scroll is zero, penalty Save stays reachable, and reset/carry behavior survives the repack');
+ console.log('TRACKER QA PASS: dead lower-right space is a failure, post-snap detail spans both columns, normal run path stays in one viewport, desktop page scroll is zero, penalty Save stays reachable, and duplicate live tracking is removed');
 })().catch(e=>{console.error(e);process.exit(1)});
