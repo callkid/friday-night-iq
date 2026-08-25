@@ -40,8 +40,8 @@ html.fniqBoxUx25 .q24Hurry span{font-size:9px}html.fniqBoxUx25 .q24Hurry b{font-
  html.fniqBoxUx25 .trackerPostCoverage{grid-column:1!important}
  html.fniqBoxUx25 .trackerConceptFamily{grid-column:2!important}
  html.fniqBoxUx25 .trackerConcept{grid-column:3!important}
- html.fniqBoxUx25 .trackerResultTags{grid-column:1/-1!important;padding-top:6px!important}
- html.fniqBoxUx25 .trackerMoreResult{grid-column:1/-1!important;padding-top:4px!important}
+ html.fniqBoxUx25 .trackerResultTags{grid-column:1/3!important;padding-top:6px!important;align-self:end}
+ html.fniqBoxUx25 .trackerMoreResult{grid-column:3!important;padding-top:4px!important;align-self:end;margin-bottom:2px!important}
  html.fniqBoxUx25 .trackerFinishBody .speedCoverageQuick{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:4px}
  html.fniqBoxUx25 .trackerFinishBody .speedCoverageQuick button{min-height:31px!important;padding:4px 6px!important;font-size:10px!important;min-width:0}
  html.fniqBoxUx25 .trackerFinishBody .speedDetailSelect{min-height:34px!important;padding:6px 8px!important;font-size:11px!important;opacity:1!important}
