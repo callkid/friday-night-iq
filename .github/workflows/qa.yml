@@ -40,7 +40,7 @@ jobs:
         run: node qa-browser-tracker-workflow.js
       - name: Box ergonomics readability and color gate
         run: node qa-browser-box-ergonomics.js
-      - name: Orange-brand wide-screen visual gate
+      - name: Multi-team accent matrix gate
         run: node qa-browser-brand-colors.js
       - name: Upload box QA screenshots
         if: always()
