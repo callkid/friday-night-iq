@@ -1,10 +1,10 @@
 const {chromium}=require('playwright');
 const assert=require('assert');
 const CASES=[
-  {name:'coach-short',width:1475,height:668,maxScroll:45,short:true},
-  {name:'common-laptop',width:1366,height:768,maxScroll:24},
-  {name:'screenshot-workstation',width:1660,height:900,maxScroll:24,wide:true},
-  {name:'coach-1080p',width:1920,height:1080,maxScroll:24,wide:true}
+  {name:'coach-short',width:1475,height:668,maxScroll:2,short:true},
+  {name:'common-laptop',width:1366,height:768,maxScroll:2},
+  {name:'screenshot-workstation',width:1660,height:900,maxScroll:2,wide:true},
+  {name:'coach-1080p',width:1920,height:1080,maxScroll:2,wide:true}
 ];
 function rectInViewport(r,h){return r.top>=-1&&r.bottom<=h+2}
 async function visibleRect(page,selector,label){const loc=page.locator(selector).first();assert(await loc.isVisible(),label+' not visible: '+selector);const r=await loc.evaluate(el=>{const x=el.getBoundingClientRect();return{left:x.left,right:x.right,top:x.top,bottom:x.bottom,width:x.width,height:x.height}});assert(rectInViewport(r,await page.evaluate(()=>innerHeight)),label+' requires scroll: '+selector+' bottom='+Math.round(r.bottom));return r}
@@ -23,6 +23,7 @@ async function boot(browser,c){const context=await browser.newContext({viewport:
   assert(m.finish.right<=m.result.left+3,c.name+' finish card intrudes into primary result column');
   if(m.safety){const safetyGap=m.safety.top-m.finish.bottom;assert(safetyGap<=20,c.name+' DEAD SPACE FAIL: '+Math.round(safetyGap)+'px before Undo row');}
   if(c.wide&&m.situationDisplay!=='none')assert(m.situation.width>=m.main.width-12,c.name+' Situation should use the full main width instead of leaving a blank right cell');
+  if(m.aside&&m.aside.width>0)assert(m.aside.bottom<=m.innerH-2,c.name+' IQ sidebar extends below the viewport instead of scrolling internally: '+Math.round(m.aside.bottom)+'px > '+m.innerH+'px');
   assert(m.scrollH<=m.innerH+c.maxScroll,c.name+' SCROLL FAIL: page '+m.scrollH+'px vs viewport '+m.innerH+'px');
 
   for(const [s,label] of [['#speedHashButtons','hash'],['#formation','formation'],['#personnel','personnel'],['[data-group="front"]','front'],['[data-group="safeties"]','safeties'],['#q24CoverageQuick','initial coverage'],['[data-group="box"]','box'],['#motion','motion'],['[data-group="playType"]','play type'],['#yards','yards'],['#speedBlitzQuick','blitz'],['#speedCoverageQuick','post-snap coverage'],['#q24ConceptQuick','concept family'],['#save','save']])await visibleRect(page,s,c.name+' '+label);
@@ -68,5 +69,5 @@ async function boot(browser,c){const context=await browser.newContext({viewport:
   await context.close();
  }
  await browser.close();
- console.log('TRACKER QA PASS: dead space is a failure, normal run path stays in one viewport, penalty Save stays reachable, and reset/carry behavior survives the repack');
+ console.log('TRACKER QA PASS: dead space is a failure, normal run path stays in one viewport, desktop page scroll is zero, penalty Save stays reachable, and reset/carry behavior survives the repack');
 })().catch(e=>{console.error(e);process.exit(1)});
