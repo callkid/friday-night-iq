@@ -3,6 +3,7 @@
  html.fniqQ27SizeXl{--q27Target:46px;--q27Font:15px;--q27Field:48px}
  html.fniqQ27SizeStandard #live .q27PinnedField-runType{column-gap:2px!important}
  html.fniqQ27SizeStandard #live #q27Pins-runType{grid-template-columns:minmax(0,1.05fr) minmax(0,1.20fr) minmax(0,1.24fr) minmax(0,.84fr) minmax(0,.67fr)!important;gap:2px!important}
+ html.fniqQ27SizeStandard #live main.boxMainGrid:has(.boxResultCard #q27Pins-runType:not(.hidden))>#preSnapCard{align-self:start!important;min-height:0!important}
  html.fniqQ27SizeXl body>.app,html.fniqQ27SizeXl .app{padding-top:8px!important;padding-bottom:8px!important}
  html.fniqQ27SizeXl .top{padding-top:2px!important;padding-bottom:3px!important}
  html.fniqQ27SizeXl .top .logo{width:32px!important;height:32px!important}
