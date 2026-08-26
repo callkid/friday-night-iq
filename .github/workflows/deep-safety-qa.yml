@@ -22,6 +22,9 @@ jobs:
       - name: Durability and backup protection
         run: node qa-durability.js
 
+      - name: Quality27 penalty and size hotfix contract
+        run: node qa-quality27-hotfix.js
+
       - name: Repeated destructive state chains
         run: |
           set -euo pipefail
@@ -66,6 +69,7 @@ jobs:
           grep -q "quality26-context-results.js" app.js
           grep -q "quality26-penalty-save-guard.js" app.js
           grep -q "quality27-qol.js" app.js
+          grep -q "quality27-hotfix.js" app.js
           ! grep -q "game-day-3.js" app.js
           ! grep -q "speed-guard.js" app.js
           ! grep -q "game-iq-v3.js" app.js
@@ -79,7 +83,7 @@ jobs:
             penalty-hardening.js run-type-stability.js game-iq-summary.js \
             quality24.js tracker-layout-polish.js box-ux25.js \
             football-flow26.js quality26-context-results.js \
-            quality26-penalty-save-guard.js quality27-qol.js; do
+            quality26-penalty-save-guard.js quality27-qol.js quality27-hotfix.js; do
             if grep -q "MutationObserver" "$f"; then
               echo "Unexpected broad observer in $f"
               exit 1
