@@ -157,6 +157,38 @@
   font-size:12px!important;
  }
 
+ /* The Run buttons are the active decision now. Keep their Large hit height, but spend
+    horizontal room so five common run families fit in one row instead of two. */
+ html.fniqQ27SizeLarge #live .boxResultCard:has(#q27Pins-runType:not(.hidden)){
+  padding-top:4px!important;
+  padding-bottom:4px!important;
+ }
+ html.fniqQ27SizeLarge #live .boxResultCard:has(#q27Pins-runType:not(.hidden)) .stephead{
+  margin-bottom:3px!important;
+ }
+ html.fniqQ27SizeLarge #live #detail:has(#q27Pins-runType:not(.hidden)){
+  margin-top:3px!important;
+  padding-top:3px!important;
+  padding-bottom:3px!important;
+ }
+ html.fniqQ27SizeLarge #live #q27Pins-runType{
+  grid-template-columns:minmax(0,1.05fr) minmax(0,1.2fr) minmax(0,1.08fr) minmax(0,.9fr) minmax(0,.78fr)!important;
+  gap:3px!important;
+ }
+ html.fniqQ27SizeLarge #live #q27Pins-runType .q27PinnedBtn{
+  padding-left:2px!important;
+  padding-right:2px!important;
+  line-height:1!important;
+ }
+ html.fniqQ27SizeLarge #live .boxResultCard:has(#q27Pins-runType:not(.hidden)) .resultgrid{
+  margin-top:3px!important;
+  gap:5px!important;
+ }
+ html.fniqQ27SizeLarge #live .boxResultCard:has(#q27Pins-runType:not(.hidden)) .contextrow{
+  margin-top:3px!important;
+  padding-top:3px!important;
+ }
+
  /* Run makes the two primary cards nearly the same height. Put Post-snap across the
     full work surface instead of stacking it under only the right column. This removes
     the empty left floor and lets coverage/concept controls use width instead of height. */
