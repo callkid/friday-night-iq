@@ -91,4 +91,4 @@ jobs:
         if: steps.source.outcome != 'success' || steps.browser.outcome != 'success'
         run: exit 1
 
-# Quality27 density production proof trigger — 2026-08-26
+# Quality27 density production proof trigger — server-side merge
