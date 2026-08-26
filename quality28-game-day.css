@@ -72,17 +72,17 @@
  html.fniqQ27SizeStandard #live #preSnapCard .speedPreSnap select,
  html.fniqQ27SizeStandard #live #preSnapCard .speedPreSnap input,
  html.fniqQ27SizeStandard #live #preSnapCard #motion{
-  min-height:50px!important;
-  height:50px!important;
+  min-height:52px!important;
+  height:52px!important;
   font-size:13px!important;
  }
  html.fniqQ27SizeStandard #live #preSnapCard .speedHashButtons button,
  html.fniqQ27SizeStandard #live #preSnapCard .speedDefenseGrid .choice,
  html.fniqQ27SizeStandard #live #preSnapCard .boxSecondaryLookRow [data-group="box"] .choice{
-  min-height:48px!important;
-  font-size:12.5px!important;
-  padding-top:8px!important;
-  padding-bottom:8px!important;
+  min-height:54px!important;
+  font-size:13px!important;
+  padding-top:9px!important;
+  padding-bottom:9px!important;
  }
  html.fniqQ27SizeStandard #live #preSnapCard .speedQuick button{
   min-height:38px!important;
