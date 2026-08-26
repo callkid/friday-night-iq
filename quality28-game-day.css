@@ -78,7 +78,7 @@
  html.fniqQ27SizeLarge #live #detail:has(#q27Pins-runType:not(.hidden)),
  html.fniqQ27SizeXl #live #detail:has(#q27Pins-runType:not(.hidden)){margin-top:3px!important;padding-top:3px!important;padding-bottom:3px!important}
  html.fniqQ27SizeLarge #live #q27Pins-runType{grid-template-columns:minmax(0,1.05fr) minmax(0,1.2fr) minmax(0,1.08fr) minmax(0,.9fr) minmax(0,.78fr)!important;gap:3px!important}
- html.fniqQ27SizeXl #live #q27Pins-runType{grid-template-columns:minmax(0,1.10fr) minmax(0,1.30fr) minmax(0,1fr) minmax(0,.80fr) minmax(0,.80fr)!important;gap:3px!important}
+ html.fniqQ27SizeXl #live #q27Pins-runType{grid-template-columns:minmax(0,1.08fr) minmax(0,1.28fr) minmax(0,1.08fr) minmax(0,.90fr) minmax(0,.66fr)!important;gap:3px!important}
  html.fniqQ27SizeLarge #live #q27Pins-runType .q27PinnedBtn,
  html.fniqQ27SizeXl #live #q27Pins-runType .q27PinnedBtn{padding-left:2px!important;padding-right:2px!important;line-height:1!important}
  html.fniqQ27SizeLarge #live .boxResultCard:has(#q27Pins-runType:not(.hidden)) .resultgrid,
