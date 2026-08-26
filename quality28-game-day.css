@@ -64,30 +64,52 @@
  }
 }
 
-/* 768px-class laptops: spend the otherwise-empty left-column floor on the
-   single-row controls coaches hit every snap. Keep pinned Motion/Formation rows
-   on their proven two-row packing so larger targets never create a third row. */
+/* 768px-class laptops: spend the otherwise-empty left-column floor on the controls
+   coaches hit every snap. Standard no longer means tiny just because the screen is short.
+   Keep Motion pinned choices on a deterministic two-row grid so accessibility does not
+   accidentally create a third row. */
 @media (min-width:1181px) and (min-height:701px) and (max-height:820px){
  html.fniqQ27SizeStandard #live #preSnapCard .speedPreSnap select,
  html.fniqQ27SizeStandard #live #preSnapCard .speedPreSnap input,
  html.fniqQ27SizeStandard #live #preSnapCard #motion{
-  min-height:46px!important;
-  height:46px!important;
+  min-height:50px!important;
+  height:50px!important;
   font-size:13px!important;
  }
  html.fniqQ27SizeStandard #live #preSnapCard .speedHashButtons button,
  html.fniqQ27SizeStandard #live #preSnapCard .speedDefenseGrid .choice,
  html.fniqQ27SizeStandard #live #preSnapCard .boxSecondaryLookRow [data-group="box"] .choice{
-  min-height:44px!important;
+  min-height:48px!important;
   font-size:12.5px!important;
-  padding-top:7px!important;
-  padding-bottom:7px!important;
+  padding-top:8px!important;
+  padding-bottom:8px!important;
  }
  html.fniqQ27SizeStandard #live #preSnapCard .speedQuick button{
-  min-height:36px!important;
+  min-height:38px!important;
   font-size:11.5px!important;
  }
+ html.fniqQ27SizeStandard #live #preSnapCard .q27PinnedField-motion{
+  grid-template-columns:minmax(0,1fr) 92px!important;
+  column-gap:5px!important;
+ }
  html.fniqQ27SizeStandard #live #preSnapCard #q27Pins-motion{
+  display:grid!important;
   grid-template-columns:repeat(3,minmax(0,1fr))!important;
+  grid-auto-flow:row!important;
+  gap:4px!important;
+  width:100%!important;
+  max-width:none!important;
+  flex-wrap:initial!important;
+  align-items:stretch!important;
+  margin:0!important;
+ }
+ html.fniqQ27SizeStandard #live #preSnapCard #q27Pins-motion .q27PinnedBtn{
+  width:100%!important;
+  min-width:0!important;
+  min-height:38px!important;
+  padding:4px 3px!important;
+  font-size:11.5px!important;
+  line-height:1.05!important;
+  white-space:normal!important;
  }
 }
