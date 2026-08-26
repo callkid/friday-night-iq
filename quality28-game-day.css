@@ -113,19 +113,19 @@
   white-space:normal!important;
  }
 
- /* Large mode gets the same treatment, but only on always-visible snap controls.
-    Pinned rows keep their established sizing/packing so they do not gain extra rows. */
+ /* Large mode gets visibly larger always-on controls while pinned rows retain their
+    proven two-row packing. This uses the available floor for ergonomics, not filler. */
  html.fniqQ27SizeLarge #live #preSnapCard .speedPreSnap select,
  html.fniqQ27SizeLarge #live #preSnapCard .speedPreSnap input,
  html.fniqQ27SizeLarge #live #preSnapCard #motion{
-  min-height:54px!important;
-  height:54px!important;
+  min-height:60px!important;
+  height:60px!important;
   font-size:15px!important;
  }
  html.fniqQ27SizeLarge #live #preSnapCard .speedHashButtons button,
  html.fniqQ27SizeLarge #live #preSnapCard .speedDefenseGrid .choice,
  html.fniqQ27SizeLarge #live #preSnapCard .boxSecondaryLookRow [data-group="box"] .choice{
-  min-height:54px!important;
+  min-height:58px!important;
   font-size:15px!important;
  }
 
