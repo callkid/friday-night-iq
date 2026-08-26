@@ -20,7 +20,7 @@ function sizeClass(v){return v==='xl'?'fniqQ27SizeXl':v==='large'?'fniqQ27SizeLa
   },size);
   await page.goto('http://127.0.0.1:8000/?q27density='+size,{waitUntil:'networkidle'});
   await page.fill('#team','Density QA');await page.fill('#opp',size);await page.click('#start');await page.waitForSelector('#live.on');
-  await page.waitForSelector('#quality27DensityCss');await page.waitForTimeout(120);
+  await page.waitForSelector('#quality27DensityCss',{state:'attached'});await page.waitForTimeout(120);
   assert(await page.locator('html').evaluate((el,cls)=>el.classList.contains(cls),sizeClass(size)),size+' control-size class missing');
   const geom=await page.evaluate(()=>{
    const pick=s=>document.querySelector(s),R=e=>{const r=e.getBoundingClientRect();return{left:r.left,right:r.right,top:r.top,bottom:r.bottom,width:r.width,height:r.height}};
