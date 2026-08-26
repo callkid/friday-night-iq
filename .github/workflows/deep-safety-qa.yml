@@ -44,13 +44,16 @@ jobs:
             node qa-game-iq-stability.js
           done
 
-      - name: Game-speed state compatibility
+      - name: Current game-speed contracts
         run: |
-          node qa-game-day-3.js
-          node qa-speed-budget.js
+          node qa-quality24.js
+          node qa-booth-workflow.js
 
-      - name: Canonical Game IQ filters and stress
-        run: node qa-game-iq-v3.js
+      - name: Current Game IQ contracts
+        run: |
+          node qa-game-iq-summary.js
+          node qa-game-iq-search.js
+          node qa-game-iq-pro.js
 
       - name: Current production architecture and data-safety contract
         run: |
@@ -79,7 +82,7 @@ jobs:
           test ! -e game-day-3.js
           test ! -e speed-guard.js
           test ! -e game-iq-v3.js
-          grep -Eq 'app.js\?v=quality(27-density-final|28-game-day)' index.html
+          grep -Eq 'app.js\?v=quality(27-density-final|28-game-day|28-game-day-final)' index.html
 
       - name: Current-layer observer safety
         run: |

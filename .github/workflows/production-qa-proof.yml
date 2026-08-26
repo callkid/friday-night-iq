@@ -9,7 +9,7 @@ permissions:
   contents: write
 
 concurrency:
-  group: production-proof-main
+  group: production-proof-${{ github.event.workflow_run.head_branch }}
   cancel-in-progress: true
 
 jobs:
@@ -73,20 +73,19 @@ jobs:
           printf '\nSOURCE_QA=%s\nBROWSER_QA=%s\nSOURCE_COMMIT=%s\n' "${{ steps.source.outcome }}" "${{ steps.browser.outcome }}" "${{ github.event.workflow_run.head_sha }}" >> "$PROOF"
           if [ "${{ steps.source.outcome }}" = "success" ] && [ "${{ steps.browser.outcome }}" = "success" ]; then
             echo "FINAL: PASS" >> "$PROOF"
+            mv "$PROOF" qa-production-proof.txt
+            git fetch origin main
+            git checkout main
+            sed -i -E 's/app\.js\?v=[^"]+/app.js?v=quality28-game-day-final/' index.html
+            git config user.name "Friday Night IQ QA"
+            git config user.email "actions@users.noreply.github.com"
+            git add qa-production-proof.txt index.html
+            git commit -m "Record production QA proof"
+            git push origin HEAD:main
           else
             echo "FINAL: FAIL" >> "$PROOF"
+            echo "Production proof did not pass; leaving main unchanged."
           fi
-          mv "$PROOF" qa-production-proof.txt
-          git fetch origin main
-          git checkout main
-          if [ "${{ steps.source.outcome }}" = "success" ] && [ "${{ steps.browser.outcome }}" = "success" ]; then
-            sed -i -E 's/app\.js\?v=[^"]+/app.js?v=quality28-game-day-final/' index.html
-          fi
-          git config user.name "Friday Night IQ QA"
-          git config user.email "actions@users.noreply.github.com"
-          git add qa-production-proof.txt index.html
-          git commit -m "Record production QA proof" || exit 0
-          git push origin HEAD:main
       - name: Fail if QA failed
         if: steps.source.outcome != 'success' || steps.browser.outcome != 'success'
         run: exit 1
