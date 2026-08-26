@@ -52,8 +52,10 @@
  html.fniqBoxCompact #live main.boxMainGrid{column-gap:8px!important;row-gap:4px!important}
  html.fniqBoxCompact #live .boxSecondaryLookRow{gap:5px!important;margin-top:2px!important;margin-bottom:1px!important}
  html.fniqBoxCompact #live #q27Pins-motion{gap:4px!important}
- html.fniqBoxCompact #live #detail:has(#q27Pins-runType:not(.hidden))>.grid2{grid-template-columns:minmax(0,1.55fr) minmax(150px,.45fr)!important;gap:5px!important}
- html.fniqBoxCompact #live .q27PinnedField-runType{grid-template-columns:minmax(0,1fr) 92px!important}
+ html.fniqBoxCompact #live #detail:has(#q27Pins-runType:not(.hidden))>.grid2{grid-template-columns:minmax(0,1fr) 96px!important;gap:5px!important;align-items:end!important}
+ html.fniqBoxCompact #live .q27PinnedField-runType{grid-template-columns:minmax(0,1fr) 70px!important;column-gap:4px!important}
+ html.fniqBoxCompact #live #q27Pins-runType{grid-template-columns:minmax(0,1.1fr) minmax(0,1.28fr) minmax(0,1fr)!important;gap:3px!important}
+ html.fniqBoxCompact #live #q27Pins-runType .q27PinnedBtn{padding-left:2px!important;padding-right:2px!important;line-height:1.04!important}
  html.fniqBoxCompact #trackerFinishCard{padding:6px 8px!important}
  html.fniqBoxCompact #trackerFinishCard .trackerFinishBody{gap:4px 6px!important}
 }
