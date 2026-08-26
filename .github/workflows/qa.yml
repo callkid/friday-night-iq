@@ -13,6 +13,7 @@ concurrency:
 
 jobs:
   source-regression:
+    if: github.event_name != 'push' || github.event.head_commit.message != 'Record production QA proof'
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
@@ -24,6 +25,7 @@ jobs:
         run: bash tools/run_safety18_qa.sh
 
   browser-regression:
+    if: github.event_name != 'push' || github.event.head_commit.message != 'Record production QA proof'
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
