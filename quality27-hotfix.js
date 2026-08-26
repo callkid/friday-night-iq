@@ -29,7 +29,10 @@ function install(A,root){
  var d=root.document,effectTouched=false;
  function $(id){return d.getElementById(id);}
  function fire(el){if(el)el.dispatchEvent(new Event('change',{bubbles:true}));}
- function injectCss(){if($('quality27HotfixCss'))return;var l=d.createElement('link');l.id='quality27HotfixCss';l.rel='stylesheet';l.href='quality27-hotfix.css?v=q27fix1';d.head.appendChild(l);}
+ function injectCss(){
+  if(!$('quality27HotfixCss')){var l=d.createElement('link');l.id='quality27HotfixCss';l.rel='stylesheet';l.href='quality27-hotfix.css?v=q27fix1';d.head.appendChild(l);}
+  if(!$('quality27DensityCss')){var q=d.createElement('link');q.id='quality27DensityCss';q.rel='stylesheet';q.href='quality27-density.css?v=q27density1';d.head.appendChild(q);}
+ }
  function resetEffectTouch(){effectTouched=false;}
  function syncRecommendedEffect(){
   var effect=$('penEffect'),status=$('penStatus'),timing=$('penTiming'),type=$('penType');
