@@ -91,4 +91,4 @@ jobs:
         if: steps.source.outcome != 'success' || steps.browser.outcome != 'success'
         run: exit 1
 
-# Quality27 hotfix production proof trigger
+# Quality27 hotfix production proof trigger — certification run 2026-08-26
