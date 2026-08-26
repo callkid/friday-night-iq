@@ -44,7 +44,9 @@ async function situation(page,{down,distance,side,yard}){
  // A generic accepted live-ball foul on a Run also defaults to repeat down instead of the old forced COUNT behavior.
  await situation(page,{down:3,distance:4,side:'OWN',yard:40});
  await page.click('[data-group="playType"] [data-v="Run"]');await page.click('#q26Outcome [data-q26-tag="Penalty"]');await page.waitForSelector('#penaltyPanel:not(.hidden)');
- await page.selectOption('#penType','Other');await page.waitForTimeout(30);await page.selectOption('#penTeam','Offense');await page.selectOption('#penStatus','Accepted');await page.fill('#penDistance','5');await page.selectOption('#penTiming','LIVE');await page.waitForTimeout(50);
+ await page.selectOption('#penType','Other');await page.waitForTimeout(30);await page.selectOption('#penTeam','Offense');await page.selectOption('#penStatus','Accepted');
+ await page.locator('#penaltyAdvanced').evaluate(el=>el.open=true);await page.waitForTimeout(20);
+ await page.fill('#penDistance','5');await page.selectOption('#penTiming','LIVE');await page.waitForTimeout(50);
  assert.equal(await page.inputValue('#penEffect'),'REPEAT','generic accepted live-ball foul should default to Repeat Down');
  await page.click('#save');await page.waitForTimeout(120);
  out=await page.evaluate(()=>({current:window.FNIQ.state.current,last:window.FNIQ.state.plays.at(-1)}));
