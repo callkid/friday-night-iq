@@ -58,16 +58,28 @@
  html.fniqBoxCompact #trackerFinishCard .trackerFinishBody{gap:4px 6px!important}
 }
 
-/* Once Run reveals on a normal-height desktop, Pre-snap and What happened? are nearly the same height.
-   At that point a full-width Post-snap row is denser than forcing it down one side, so rebalance without moving or shrinking controls. */
+/* Once Run reveals on a normal-height desktop, the two primary cards are close enough in height that Post-snap
+   is densest as one full-width row. The secondary Edit/Undo actions share the utility row instead of consuming
+   another full XL control row at the bottom. No football control is hidden or resized. */
 @media (min-width:1181px) and (min-height:821px){
  html.fniqBoxCompact #live main.boxMainGrid:has(.boxResultCard #q27Pins-runType:not(.hidden)){
   grid-template-areas:
-   "fast fast"
+   "fast safety"
    "drive drive"
    "presnap result"
-   "finish finish"
-   "safety safety"!important;
+   "finish finish"!important;
+ }
+ html.fniqBoxCompact #live main.boxMainGrid:has(.boxResultCard #q27Pins-runType:not(.hidden))>.fastbar{grid-area:fast!important;grid-column:1!important;min-width:0!important}
+ html.fniqBoxCompact #live main.boxMainGrid:has(.boxResultCard #q27Pins-runType:not(.hidden))>.safetyrow{
+  grid-area:safety!important;
+  grid-column:2!important;
+  justify-self:end!important;
+  align-self:start!important;
+  justify-content:flex-end!important;
+  width:auto!important;
+  margin:0!important;
+  padding-top:0!important;
+  padding-bottom:0!important;
  }
  html.fniqBoxCompact #live main.boxMainGrid:has(.boxResultCard #q27Pins-runType:not(.hidden))>#trackerFinishCard{grid-column:1/-1!important;width:100%!important}
  html.fniqBoxCompact #live main.boxMainGrid:has(.boxResultCard #q27Pins-runType:not(.hidden))>#trackerFinishCard .trackerFinishBody{
@@ -99,12 +111,12 @@
  html.fniqBoxCompact #live #detail:has(#q27Pins-runType:not(.hidden)){margin-top:5px!important;padding:5px 6px!important;background:transparent!important;border:0!important}
  html.fniqBoxCompact #live #detail:has(#q27Pins-runType:not(.hidden))>.grid2{grid-template-columns:minmax(0,1.9fr) 116px!important;gap:6px!important;align-items:end!important}
  html.fniqBoxCompact #live .q27PinnedField-runType{grid-template-columns:minmax(0,1fr) 86px!important;column-gap:4px!important}
- html.fniqBoxCompact #live #q27Pins-runType{grid-template-columns:minmax(0,1.15fr) minmax(0,1.28fr) minmax(0,.96fr) minmax(0,.80fr) minmax(0,.66fr)!important;gap:3px!important}
+ html.fniqBoxCompact #live #q27Pins-runType{grid-template-columns:minmax(0,1fr) minmax(0,1.08fr) minmax(0,1.05fr) minmax(0,.9fr) minmax(0,.75fr)!important;gap:3px!important}
  html.fniqBoxCompact #live #q27Pins-runType .q27PinnedBtn{padding-left:1px!important;padding-right:1px!important;padding-top:1px!important;padding-bottom:1px!important;line-height:1!important}
  html.fniqBoxCompact #live .boxResultCard:has(#q27Pins-runType:not(.hidden)) .resultgrid{margin-top:7px!important;gap:8px!important}
  html.fniqBoxCompact #live .boxResultCard:has(#q27Pins-runType:not(.hidden)) .contextrow{margin-top:7px!important;padding-top:7px!important}
  html.fniqBoxCompact #live main.boxMainGrid:has(.boxResultCard #q27Pins-runType:not(.hidden))>#trackerFinishCard{padding-top:6px!important;padding-bottom:6px!important}
- html.fniqBoxCompact #live main.boxMainGrid:has(.boxResultCard #q27Pins-runType:not(.hidden))>#trackerFinishCard .trackerFinishBody{gap-top:4px!important;gap-bottom:4px!important}
+ html.fniqBoxCompact #live main.boxMainGrid:has(.boxResultCard #q27Pins-runType:not(.hidden))>#trackerFinishCard .trackerFinishBody{row-gap:4px!important}
 }
 
 /* The 1475x668 press-box layout already has a dedicated no-scroll treatment. Compact Motion there horizontally
