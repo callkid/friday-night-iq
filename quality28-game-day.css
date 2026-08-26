@@ -9,6 +9,11 @@
  }
 
  /* Reclaim chrome above the tracker before shrinking football content. */
+ html.fniqQ27SizeXl body>.app,
+ html.fniqQ27SizeXl .app{
+  padding-top:8px!important;
+  padding-bottom:8px!important;
+ }
  html.fniqQ27SizeXl .top{
   padding-top:2px!important;
   padding-bottom:3px!important;
@@ -19,7 +24,7 @@
  }
  html.fniqQ27SizeXl #live .snapbar{
   padding:1px 9px!important;
-  margin-bottom:2px!important;
+  margin-bottom:0!important;
  }
  html.fniqQ27SizeXl #live main.boxMainGrid{
   row-gap:3px!important;
