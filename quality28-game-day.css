@@ -64,29 +64,30 @@
  }
 }
 
-/* 768px-class laptops: spend the otherwise-empty left-column floor on controls coaches
-   hit every snap. This is intentionally Standard-only; Large/XL already scale these
-   controls substantially. We improve ergonomics instead of stretching a decorative box. */
+/* 768px-class laptops: spend the otherwise-empty left-column floor on the
+   single-row controls coaches hit every snap. Keep pinned Motion/Formation rows
+   on their proven two-row packing so larger targets never create a third row. */
 @media (min-width:1181px) and (min-height:701px) and (max-height:820px){
  html.fniqQ27SizeStandard #live #preSnapCard .speedPreSnap select,
  html.fniqQ27SizeStandard #live #preSnapCard .speedPreSnap input,
  html.fniqQ27SizeStandard #live #preSnapCard #motion{
-  min-height:40px!important;
-  height:40px!important;
-  font-size:12.5px!important;
+  min-height:46px!important;
+  height:46px!important;
+  font-size:13px!important;
  }
  html.fniqQ27SizeStandard #live #preSnapCard .speedHashButtons button,
  html.fniqQ27SizeStandard #live #preSnapCard .speedDefenseGrid .choice,
- html.fniqQ27SizeStandard #live #preSnapCard .boxSecondaryLookRow [data-group="box"] .choice,
- html.fniqQ27SizeStandard #live #preSnapCard .q27PinnedBtn{
-  min-height:38px!important;
-  font-size:12px!important;
-  padding-top:6px!important;
-  padding-bottom:6px!important;
+ html.fniqQ27SizeStandard #live #preSnapCard .boxSecondaryLookRow [data-group="box"] .choice{
+  min-height:44px!important;
+  font-size:12.5px!important;
+  padding-top:7px!important;
+  padding-bottom:7px!important;
  }
- html.fniqQ27SizeStandard #live #preSnapCard .q27PinnedRow,
- html.fniqQ27SizeStandard #live #preSnapCard .speedQuick,
- html.fniqQ27SizeStandard #live #preSnapCard .choices{
-  row-gap:5px!important;
+ html.fniqQ27SizeStandard #live #preSnapCard .speedQuick button{
+  min-height:36px!important;
+  font-size:11.5px!important;
+ }
+ html.fniqQ27SizeStandard #live #preSnapCard #q27Pins-motion{
+  grid-template-columns:repeat(3,minmax(0,1fr))!important;
  }
 }
