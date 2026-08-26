@@ -40,6 +40,8 @@ jobs:
         run: node qa-browser-football-flow26-release.js
       - name: Quality27 tracker QoL E2E
         run: node qa-browser-quality27.js
+      - name: Quality27 penalty and size hotfix E2E
+        run: node qa-browser-quality27-hotfix.js
       - name: Quality27 multi-device visual gate
         run: node qa-browser-quality27-visual.js
       - name: Press-box tracker workflow and dead-space gate
