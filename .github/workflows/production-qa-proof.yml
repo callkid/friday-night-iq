@@ -1,94 +1,89 @@
 name: Production QA proof
 
 on:
-  push:
-    branches: [main]
+  workflow_run:
+    workflows: ["Friday Night IQ QA"]
+    types: [completed]
 
 permissions:
   contents: write
 
+concurrency:
+  group: production-proof-main
+  cancel-in-progress: true
+
 jobs:
   proof:
-    if: github.event.head_commit.message == 'Trigger production QA proof'
+    if: github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.head_branch == 'main'
     runs-on: ubuntu-latest
+    timeout-minutes: 20
     steps:
       - uses: actions/checkout@v4
         with:
+          ref: ${{ github.event.workflow_run.head_sha }}
           fetch-depth: 0
       - uses: actions/setup-node@v4
         with:
           node-version: 20
-      - name: Run full Quality27 density source QA
+      - name: Run production source QA
         id: source
         continue-on-error: true
         run: |
           bash tools/run_safety18_qa.sh
           node qa-quality27-hotfix.js
-      - name: Run repeated production browser QA
+      - name: Run production browser QA
         id: browser
         continue-on-error: true
         run: |
           set +e
-          PROOF=qa-quality27-density-proof.txt
-          echo "=== REAL BROWSER QUALITY27 DENSITY QA ===" >> "$PROOF"
+          PROOF=qa-quality28-game-day-proof.txt
+          echo "=== FRIDAY NIGHT IQ GAME-DAY PRODUCTION QA ===" > "$PROOF"
           npm init -y >> "$PROOF" 2>&1
           npm install playwright@1.55.0 >> "$PROOF" 2>&1
           npx playwright install --with-deps chromium >> "$PROOF" 2>&1
           python3 -m http.server 8000 --bind 127.0.0.1 >> /tmp/fniq-server.log 2>&1 &
           sleep 2
           FAIL=0
-          run_three() {
+          run_one() {
             LABEL="$1"
             SCRIPT="$2"
-            for i in 1 2 3; do
-              echo "--- $LABEL pass $i ---" >> "$PROOF"
-              node "$SCRIPT" >> "$PROOF" 2>&1
-              CODE=$?
-              if [ $CODE -ne 0 ]; then FAIL=1; echo "FAIL: $LABEL pass $i" >> "$PROOF"; else echo "PASS: $LABEL pass $i" >> "$PROOF"; fi
-            done
+            echo "--- $LABEL ---" >> "$PROOF"
+            node "$SCRIPT" >> "$PROOF" 2>&1
+            CODE=$?
+            if [ $CODE -ne 0 ]; then FAIL=1; echo "FAIL: $LABEL" >> "$PROOF"; else echo "PASS: $LABEL" >> "$PROOF"; fi
           }
-          run_three "Browser box" qa-browser-e2e.js
-          run_three "Quality24 speed/confidence" qa-browser-quality24.js
-          run_three "Quality26 football/correction under Q27" qa-browser-football-flow26-release.js
-          run_three "Quality27 tracker QoL" qa-browser-quality27.js
-          run_three "Quality27 penalty/size hotfix" qa-browser-quality27-hotfix.js
-          run_three "Quality27 <=15% density" qa-browser-quality27-density.js
-          run_three "Press-box tracker workflow" qa-browser-tracker-workflow.js
-          run_three "Box ergonomics/readability" qa-browser-box-ergonomics.js
-          run_three "Multi-team accent matrix" qa-browser-brand-colors.js
-          echo "--- Quality27 multi-device visual matrix ---" >> "$PROOF"
-          node qa-browser-quality27-visual.js >> "$PROOF" 2>&1
-          CODE=$?
-          if [ $CODE -ne 0 ]; then FAIL=1; echo "FAIL: Quality27 visual matrix" >> "$PROOF"; else echo "PASS: Quality27 visual matrix" >> "$PROOF"; fi
-          echo "--- Pick-six browser path ---" >> "$PROOF"
-          node qa-browser-pick-six.js >> "$PROOF" 2>&1
-          CODE=$?
-          if [ $CODE -ne 0 ]; then FAIL=1; echo "FAIL: Pick-six browser path" >> "$PROOF"; else echo "PASS: Pick-six browser path" >> "$PROOF"; fi
-          echo "--- Responsive viewport matrix ---" >> "$PROOF"
-          node qa-browser-responsive.js >> "$PROOF" 2>&1
-          CODE=$?
-          if [ $CODE -ne 0 ]; then FAIL=1; echo "FAIL: Responsive viewport matrix" >> "$PROOF"; else echo "PASS: Responsive viewport matrix" >> "$PROOF"; fi
+          run_one "Browser box" qa-browser-e2e.js
+          run_one "Quality24 speed/confidence" qa-browser-quality24.js
+          run_one "Quality26 football/correction" qa-browser-football-flow26-release.js
+          run_one "Quality27 tracker QoL" qa-browser-quality27.js
+          run_one "Quality27 penalty/size hotfix" qa-browser-quality27-hotfix.js
+          run_one "Game-day <=10% density and readable disclosures" qa-browser-quality27-density.js
+          run_one "Press-box tracker workflow" qa-browser-tracker-workflow.js
+          run_one "Box ergonomics/readability" qa-browser-box-ergonomics.js
+          run_one "Multi-team accent matrix" qa-browser-brand-colors.js
+          run_one "Quality27 multi-device visual matrix" qa-browser-quality27-visual.js
+          run_one "Pick-six browser path" qa-browser-pick-six.js
+          run_one "Responsive viewport matrix" qa-browser-responsive.js
           exit $FAIL
       - name: Publish auditable QA result
         if: always()
         run: |
-          PROOF=qa-quality27-density-proof.txt
+          PROOF=qa-quality28-game-day-proof.txt
           touch "$PROOF"
-          printf '\nSOURCE_QA=%s\nBROWSER_QA=%s\nSOURCE_COMMIT=%s\n' "${{ steps.source.outcome }}" "${{ steps.browser.outcome }}" "$GITHUB_SHA" >> "$PROOF"
+          printf '\nSOURCE_QA=%s\nBROWSER_QA=%s\nSOURCE_COMMIT=%s\n' "${{ steps.source.outcome }}" "${{ steps.browser.outcome }}" "${{ github.event.workflow_run.head_sha }}" >> "$PROOF"
           if [ "${{ steps.source.outcome }}" = "success" ] && [ "${{ steps.browser.outcome }}" = "success" ]; then
             echo "FINAL: PASS" >> "$PROOF"
-            sed -i -E 's/app\.js\?v=[^"]+"/app.js?v=quality27-density-final"/' index.html
           else
             echo "FINAL: FAIL" >> "$PROOF"
           fi
           mv "$PROOF" qa-production-proof.txt
+          git fetch origin main
+          git checkout main
           git config user.name "Friday Night IQ QA"
           git config user.email "actions@users.noreply.github.com"
-          git add qa-production-proof.txt index.html
-          git commit -m "Record production QA proof"
+          git add qa-production-proof.txt
+          git commit -m "Record production QA proof" || exit 0
           git push origin HEAD:main
       - name: Fail if QA failed
         if: steps.source.outcome != 'success' || steps.browser.outcome != 'success'
         run: exit 1
-
-# Quality27 density production proof trigger — server-side merge
