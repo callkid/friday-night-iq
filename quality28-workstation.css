@@ -44,6 +44,17 @@
  }
 }
 
+/* Keep the completed Standard pre-snap card at its natural Run-state height on all
+   normal desktop heights. This prevents the 1080p card floor without shrinking or
+   hiding any football control. */
+@media (min-width:1181px) and (min-height:821px){
+ html.fniqQ27SizeStandard #live main.boxMainGrid:has(.boxResultCard #q27Pins-runType:not(.hidden))>#preSnapCard{
+  align-self:start!important;
+  min-height:0!important;
+  height:max-content!important;
+ }
+}
+
 /* Ultra-wide booth displays have enough room to spend the small remaining card floor
    on the final snap-critical row rather than leaving a decorative blank strip. */
 @media (min-width:2000px) and (min-height:951px){
