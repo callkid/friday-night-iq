@@ -29,7 +29,7 @@ async function measure(page){return page.evaluate(()=>{
     formation:['Trips Right','Dallas Right'],
     motion:['H-Jet','T-Laser','Z-L1','Other'],
     coverage:['Cover 1','Cover 2','Cover 3'],
-    runType:['Inside Zone','Outside Zone','Counter','Power']
+    runType:['Inside Zone','Outside Zone','Counter','Power','Draw']
    }));
   },size);
   await page.goto('http://127.0.0.1:8000/?q27density='+size,{waitUntil:'networkidle'});
@@ -37,6 +37,7 @@ async function measure(page){return page.evaluate(()=>{
   await page.waitForSelector('#quality27DensityCss',{state:'attached'});await page.waitForTimeout(120);
   assert(await page.locator('html').evaluate((el,cls)=>el.classList.contains(cls),sizeClass(size)),size+' control-size class missing');
   const geom=await measure(page);
+  console.log('Q27 DENSITY INITIAL '+size+' '+JSON.stringify(geom));
   assert(geom.finish.left>=geom.result.left-3,size+' Post-snap did not pack into the result column: '+JSON.stringify(geom));
   assert(geom.finish.top>=geom.result.bottom-4,size+' Post-snap overlaps What happened: '+JSON.stringify(geom));
   assert(geom.finish.top<=geom.pre.bottom+12,size+' still leaves a large right-column hole: '+JSON.stringify(geom));
@@ -48,17 +49,18 @@ async function measure(page){return page.evaluate(()=>{
   await page.click('[data-group="playType"] [data-v="Run"]');
   await page.waitForSelector('#q27Pins-runType button[data-value="Inside Zone"]',{state:'visible'});await page.waitForTimeout(80);
   const runGeom=await measure(page);
+  console.log('Q27 DENSITY RUN '+size+' '+JSON.stringify(runGeom));
+  await page.screenshot({path:'qa-screenshots/q27-density-'+size+'-run-1600x900.png',fullPage:true});
   assert(runGeom.runRows<=2,size+' Run Type pins use '+runGeom.runRows+' rows after Run');
   assert.deepEqual(runGeom.clippedRun,[],size+' clipped Run Type labels: '+JSON.stringify(runGeom.clippedRun));
   assert(runGeom.scrollWidth<=runGeom.innerWidth+3,size+' Run reveal horizontal overflow '+runGeom.scrollWidth+'/'+runGeom.innerWidth);
   assert(runGeom.scrollHeight<=runGeom.innerHeight+2,size+' Run reveal adds page scroll '+runGeom.scrollHeight+'/'+runGeom.innerHeight);
   assert(runGeom.deadRatio<=0.15,size+' Run-state structural dead space '+(runGeom.deadRatio*100).toFixed(1)+'% exceeds 15%');
-  await page.screenshot({path:'qa-screenshots/q27-density-'+size+'-run-1600x900.png',fullPage:true});
 
   assert.equal(errors.length,0,size+' browser errors: '+errors.join(' | '));
   console.log('Q27 DENSITY PASS '+size+' initial='+(geom.deadRatio*100).toFixed(1)+'% run='+(runGeom.deadRatio*100).toFixed(1)+'% motionRows='+geom.motionRows+' runRows='+runGeom.runRows+' scroll='+runGeom.scrollHeight+'/'+runGeom.innerHeight);
   await context.close();
  }
  await browser.close();
- console.log('QUALITY27 DENSITY PASS: Standard/Large/Extra Large initial and Run states stay <=15% structural dead space, Run stays no-scroll, and pinned football labels remain readable');
+ console.log('QUALITY27 DENSITY PASS: Standard/Large/Extra Large initial and five-pin Run states stay <=15% structural dead space, Run stays no-scroll, and pinned football labels remain readable');
 })().catch(e=>{console.error(e);process.exit(1)});
