@@ -1,0 +1,93 @@
+name: Deep Safety QA
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  deep-safety:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Durability and backup protection
+        run: node qa-durability.js
+
+      - name: Repeated destructive state chains
+        run: |
+          set -euo pipefail
+          for i in 1 2 3; do
+            echo "Destructive pass $i/3"
+            node qa-game-iq-pro-destructive.js
+            node qa-destructive-beta.js
+          done
+
+      - name: Repeated long-cycle stability
+        run: |
+          set -euo pipefail
+          for i in 1 2 3; do
+            echo "Stability pass $i/3"
+            node qa-game-iq-stability.js
+          done
+
+      - name: Game-speed state compatibility
+        run: |
+          node qa-game-day-3.js
+          node qa-speed-budget.js
+
+      - name: Canonical Game IQ filters and stress
+        run: node qa-game-iq-v3.js
+
+      - name: Current production architecture and data-safety contract
+        run: |
+          set -euo pipefail
+          grep -q "fniq_prod_v1" state.js
+          grep -q "fniq_recovery_v1" durability.js
+          grep -q "tooltip-polish.js" app.js
+          grep -q "penalty-hardening.js" app.js
+          grep -q "run-type-stability.js" app.js
+          grep -q "pick-six.js" app.js
+          grep -q "live-correction.js" app.js
+          grep -q "box-ui-v19.js" app.js
+          grep -q "game-iq-summary.js" app.js
+          grep -q "quality24.js" app.js
+          grep -q "tracker-layout-polish.js" app.js
+          grep -q "box-ux25.js" app.js
+          grep -q "football-flow26.js" app.js
+          grep -q "quality26-context-results.js" app.js
+          grep -q "quality26-penalty-save-guard.js" app.js
+          grep -q "quality27-qol.js" app.js
+          ! grep -q "game-day-3.js" app.js
+          ! grep -q "speed-guard.js" app.js
+          ! grep -q "game-iq-v3.js" app.js
+          grep -q "app.js?v=quality27-final" index.html
+
+      - name: Current-layer observer safety
+        run: |
+          set -euo pipefail
+          for f in \
+            live-correction.js live-runtime-stability.js box-ui-v19.js \
+            penalty-hardening.js run-type-stability.js game-iq-summary.js \
+            quality24.js tracker-layout-polish.js box-ux25.js \
+            football-flow26.js quality26-context-results.js \
+            quality26-penalty-save-guard.js quality27-qol.js; do
+            if grep -q "MutationObserver" "$f"; then
+              echo "Unexpected broad observer in $f"
+              exit 1
+            fi
+          done
+
+      - name: Static DOM integrity
+        run: node qa-static-dom.js
+
+      - name: Deep safety code size report
+        run: wc -l *.js *.css index.html | tail -1
