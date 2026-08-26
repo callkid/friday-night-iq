@@ -12,7 +12,7 @@ const assert=require('assert');
   assert(await page.locator('#q27Pins-motion button[data-value="No Motion"]').isVisible(),'explicit No Motion quick button missing');
   assert(await page.locator('#q24Hurry').isVisible(),'Hurry-up toggle missing');
   assert.equal(await page.locator('#q24ConceptQuick').isVisible(),false,'Quality26 must not ask Concept Family again');
-  assert.equal(await page.locator('#q24AttackQuick').isVisible(),false,'Run/Pass detail shortcuts must stay hidden until play type is chosen');
+  assert.equal(await page.locator('#q24AttackQuick').isVisible(),false,'retired attack quick row must stay hidden; full source dropdown is authoritative');
   assert.equal(await page.locator('#motion option[value="No Motion"]').count(),1,'explicit No Motion option missing from saved field');
 
   await page.click('#speedHashButtons button[data-value="Left"]');
@@ -32,8 +32,8 @@ const assert=require('assert');
   const saveRect=await page.locator('#save').evaluate(el=>{const r=el.getBoundingClientRect();return{top:r.top,bottom:r.bottom,h:innerHeight}});assert(saveRect.top>=0&&saveRect.bottom<=saveRect.h+2,'Save must remain visible in hurry-up mode');
   await page.click('#q24Hurry');assert.equal(await page.locator('html').evaluate(el=>el.classList.contains('fniqHurryUp')),false);
 
-  await page.click('[data-group="playType"] [data-v="Pass"]');await page.waitForSelector('#detail:not(.hidden)');await page.waitForSelector('#q24AttackQuick button[data-value="Deep"]',{state:'visible'});
-  await page.click('#q24AttackQuick button[data-value="Deep"]');assert.equal(await page.inputValue('#attackDetail'),'Deep','Pass Depth quick button must update attackDetail');
+  await page.click('[data-group="playType"] [data-v="Pass"]');await page.waitForSelector('#detail:not(.hidden)');assert(await page.locator('#attackDetail').isVisible(),'Pass detail source dropdown must remain visible');assert.equal(await page.locator('#q24AttackQuick').isVisible(),false,'retired Pass detail quick row must remain hidden');
+  await page.selectOption('#attackDetail','Deep');assert.equal(await page.inputValue('#attackDetail'),'Deep','Pass Depth source dropdown must update attackDetail');
   await page.click('[data-group="playType"] [data-v="Run"]');await page.waitForSelector('#q27Pins-runType button[data-value="Inside Zone"]',{state:'visible'});
   await page.click('#q27Pins-runType button[data-value="Inside Zone"]');assert.equal(await page.inputValue('#attackDetail'),'Inside Zone','Run Type pinned button must update attackDetail');
   assert.equal((await page.locator('#q27Pins-runType button[data-value="Inside Zone"]').textContent()).trim(),'Inside Zone','Run Type must use full football wording');
@@ -58,6 +58,6 @@ const assert=require('assert');
 
   const overflow=await page.evaluate(()=>({sw:document.documentElement.scrollWidth,iw:innerWidth}));assert(overflow.sw<=overflow.iw+2,'quality24/27 introduced horizontal overflow');
   assert.equal(errors.length,0,'Browser errors: '+errors.join(' | '));
-  console.log('QUALITY24-27 BROWSER PASS: pinned coverage, explicit No Motion, full-word Run Type, action-oriented capture status, hurry-up essentials, no duplicate concept/motion entry, derived family data, conservative headset snapshot, no overflow');
+  console.log('QUALITY24-27 BROWSER PASS: pinned coverage, explicit No Motion, full-word Run Type, source-dropdown pass detail, action-oriented capture status, hurry-up essentials, no duplicate concept/motion/attack entry, derived family data, conservative headset snapshot, no overflow');
   await browser.close();
 })().catch(e=>{console.error(e);process.exit(1)});
