@@ -31,7 +31,9 @@ function install(A,root){
  function fire(el){if(el)el.dispatchEvent(new Event('change',{bubbles:true}));}
  function injectCss(){
   if(!$('quality27HotfixCss')){var l=d.createElement('link');l.id='quality27HotfixCss';l.rel='stylesheet';l.href='quality27-hotfix.css?v=q27fix1';d.head.appendChild(l);}
-  if(!$('quality27DensityCss')){var q=d.createElement('link');q.id='quality27DensityCss';q.rel='stylesheet';q.href='quality27-density.css?v=q27density1';d.head.appendChild(q);}
+  if(!$('quality27DensityCss')){var q=d.createElement('link');q.id='quality27DensityCss';q.rel='stylesheet';q.href='quality27-density.css?v=q28-game-day';d.head.appendChild(q);}
+  if(!$('quality28GameDayCss')){var g=d.createElement('link');g.id='quality28GameDayCss';g.rel='stylesheet';g.href='quality28-game-day.css?v=q28-game-day-1';d.head.appendChild(g);}
+  if(!$('quality28WorkstationCss')){var w=d.createElement('link');w.id='quality28WorkstationCss';w.rel='stylesheet';w.href='quality28-workstation.css?v=q28-workstation-1';d.head.appendChild(w);}
  }
  function resetEffectTouch(){effectTouched=false;}
  function syncRecommendedEffect(){

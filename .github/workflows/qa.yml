@@ -3,11 +3,19 @@ name: Friday Night IQ QA
 on:
   push:
     branches: [main]
+    paths-ignore:
+      - 'qa-production-proof.txt'
   pull_request:
+
+concurrency:
+  group: fniq-qa-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
 
 jobs:
   source-regression:
+    if: github.event_name != 'push' || github.event.head_commit.message != 'Record production QA proof'
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -17,7 +25,9 @@ jobs:
         run: bash tools/run_safety18_qa.sh
 
   browser-regression:
+    if: github.event_name != 'push' || github.event.head_commit.message != 'Record production QA proof'
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -42,25 +52,25 @@ jobs:
         run: node qa-browser-quality27.js
       - name: Quality27 penalty and size hotfix E2E
         run: node qa-browser-quality27-hotfix.js
-      - name: Quality27 dead-space density gate
+      - name: Game-day <=10% density and readable disclosure gate
         run: node qa-browser-quality27-density.js
       - name: Quality27 multi-device visual gate
         run: node qa-browser-quality27-visual.js
-      - name: Press-box tracker workflow and dead-space gate
+      - name: Press-box tracker workflow gate
         run: node qa-browser-tracker-workflow.js
       - name: Box ergonomics readability and color gate
         run: node qa-browser-box-ergonomics.js
       - name: Multi-team accent matrix gate
         run: node qa-browser-brand-colors.js
-      - name: Upload box QA screenshots
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: quality27-box-screenshots
-          path: qa-screenshots
-          if-no-files-found: ignore
-          retention-days: 5
       - name: Pick-six browser regression
         run: node qa-browser-pick-six.js
       - name: Responsive viewport matrix
         run: node qa-browser-responsive.js
+      - name: Upload game-day QA screenshots
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: game-day-qa-screenshots
+          path: qa-screenshots
+          if-no-files-found: ignore
+          retention-days: 5
