@@ -7,8 +7,6 @@
   --q27Font:15px;
   --q27Field:48px;
  }
-
- /* Reclaim chrome above the tracker before shrinking football content. */
  html.fniqQ27SizeXl body>.app,
  html.fniqQ27SizeXl .app{
   padding-top:8px!important;
@@ -31,7 +29,6 @@
   margin-top:-10px!important;
   margin-bottom:-10px!important;
  }
-
  html.fniqQ27SizeXl #live .boxResultCard:has(#q27Pins-runType:not(.hidden)){
   padding-top:4px!important;
   padding-bottom:4px!important;
@@ -64,10 +61,6 @@
  }
 }
 
-/* 768px-class laptops: spend the otherwise-empty left-column floor on the controls
-   coaches hit every snap. Standard no longer means tiny just because the screen is short.
-   Keep Motion pinned choices on a deterministic two-row grid so accessibility does not
-   accidentally create a third row. */
 @media (min-width:1181px) and (min-height:701px) and (max-height:820px){
  html.fniqQ27SizeStandard #live #preSnapCard .speedPreSnap select,
  html.fniqQ27SizeStandard #live #preSnapCard .speedPreSnap input,
@@ -112,9 +105,6 @@
   line-height:1.05!important;
   white-space:normal!important;
  }
-
- /* Large mode gets a real large touch target on the always-on snap controls. Pinned
-    rows retain their proven two-row packing, so extra size does not create wrapping. */
  html.fniqQ27SizeLarge #live #preSnapCard .speedPreSnap select,
  html.fniqQ27SizeLarge #live #preSnapCard .speedPreSnap input,
  html.fniqQ27SizeLarge #live #preSnapCard #motion{
@@ -128,9 +118,6 @@
   min-height:66px!important;
   font-size:16px!important;
  }
-
- /* Once Run is chosen, pre-snap entry is complete. Reclaim that vertical budget for
-    the active post-snap workflow while keeping the initial Large targets genuinely large. */
  html.fniqQ27SizeLarge #live main.boxMainGrid:has(.boxResultCard #q27Pins-runType:not(.hidden)) #preSnapCard .speedPreSnap select,
  html.fniqQ27SizeLarge #live main.boxMainGrid:has(.boxResultCard #q27Pins-runType:not(.hidden)) #preSnapCard .speedPreSnap input,
  html.fniqQ27SizeLarge #live main.boxMainGrid:has(.boxResultCard #q27Pins-runType:not(.hidden)) #preSnapCard #motion{
@@ -156,18 +143,12 @@
   min-height:34px!important;
   font-size:12px!important;
  }
-
- /* Play Type is also a completed choice after Run reveals. Make that one settled row
-    compact while preserving the active yardage and Run Type targets at Large size. */
  html.fniqQ27SizeLarge #live .boxResultCard:has(#q27Pins-runType:not(.hidden)) .choices.playtype .choice{
   min-height:40px!important;
   padding-top:4px!important;
   padding-bottom:4px!important;
   font-size:13px!important;
  }
-
- /* The Run buttons are the active decision now. Keep their Large hit height, but spend
-    horizontal room so five common run families fit in one row instead of two. */
  html.fniqQ27SizeLarge #live .boxResultCard:has(#q27Pins-runType:not(.hidden)){
   padding-top:4px!important;
   padding-bottom:4px!important;
@@ -197,17 +178,6 @@
   margin-top:3px!important;
   padding-top:3px!important;
  }
- html.fniqQ27SizeLarge #live main.boxMainGrid:has(.boxResultCard #q27Pins-runType:not(.hidden)){
-  row-gap:1px!important;
- }
- html.fniqQ27SizeLarge #live main.boxMainGrid:has(.boxResultCard #q27Pins-runType:not(.hidden))>#trackerFinishCard{
-  padding-top:2px!important;
-  padding-bottom:2px!important;
- }
-
- /* Run makes the two primary cards nearly the same height. Put Post-snap across the
-    full work surface instead of stacking it under only the right column. This removes
-    the empty left floor and lets coverage/concept controls use width instead of height. */
  html.fniqBoxCompact #live main.boxMainGrid:has(.boxResultCard #q27Pins-runType:not(.hidden)){
   grid-template-areas:
    "fast safety"
@@ -281,5 +251,21 @@
  }
  html.fniqBoxCompact #live main.boxMainGrid:has(.boxResultCard #q27Pins-runType:not(.hidden))>#trackerFinishCard .trackerMoreResult{
   grid-column:1/-1!important;
+ }
+
+ /* Final short-laptop Large override comes last so it beats the shared Run packing.
+    Only whitespace changes here; active football control dimensions stay untouched. */
+ html.fniqBoxCompact.fniqQ27SizeLarge #live main.boxMainGrid:has(.boxResultCard #q27Pins-runType:not(.hidden)){
+  row-gap:1px!important;
+ }
+ html.fniqBoxCompact.fniqQ27SizeLarge #live main.boxMainGrid:has(.boxResultCard #q27Pins-runType:not(.hidden))>#trackerFinishCard{
+  padding-top:1px!important;
+  padding-bottom:1px!important;
+ }
+ html.fniqBoxCompact.fniqQ27SizeLarge #live main.boxMainGrid:has(.boxResultCard #q27Pins-runType:not(.hidden))>#trackerFinishCard .trackerFinishHead{
+  margin-bottom:0!important;
+ }
+ html.fniqBoxCompact.fniqQ27SizeLarge #live main.boxMainGrid:has(.boxResultCard #q27Pins-runType:not(.hidden))>#trackerFinishCard .trackerFinishBody{
+  row-gap:1px!important;
  }
 }
