@@ -1,0 +1,65 @@
+/* Quality27 density polish: repack the tracker work surface without shrinking football controls. */
+/* The desktop problem was structural: Pre-snap and What happened? shared a tall row while Post-snap waited below both,
+   leaving a large empty right-hand hole. Keep the same controls/handlers, but let Post-snap occupy that hole. */
+@media (min-width:1181px) and (min-height:701px){
+ html.fniqBoxCompact #live main.boxMainGrid{
+  grid-template-areas:
+   "fast fast"
+   "drive drive"
+   "presnap result"
+   "presnap finish"
+   "safety safety"!important;
+  grid-template-columns:minmax(0,1fr) minmax(0,1fr)!important;
+  grid-auto-rows:max-content!important;
+  align-items:start!important;
+  align-content:start!important;
+  column-gap:10px!important;
+  row-gap:5px!important;
+ }
+ html.fniqBoxCompact #live main.boxMainGrid>#preSnapCard{grid-area:presnap!important;grid-column:1!important;align-self:start!important}
+ html.fniqBoxCompact #live main.boxMainGrid>.boxResultCard{grid-area:result!important;grid-column:2!important;align-self:start!important}
+ html.fniqBoxCompact #live main.boxMainGrid>#trackerFinishCard{grid-area:finish!important;grid-column:2!important;align-self:start!important;width:100%;max-width:none;margin:0!important}
+ html.fniqBoxCompact #live main.boxMainGrid>.safetyrow{grid-area:safety!important;grid-column:1/-1!important;margin-top:0!important}
+
+ /* Give Motion the width its coach pins actually need. Six visible buttons now resolve to two rows instead of a tall stack. */
+ html.fniqBoxCompact #live .boxSecondaryLookRow{grid-template-columns:minmax(0,.82fr) minmax(0,1.18fr)!important;gap:7px!important;align-items:start}
+ html.fniqBoxCompact #live .q27PinnedField-motion{grid-template-columns:minmax(0,1fr) minmax(108px,29%)!important;column-gap:6px!important;align-items:end!important}
+ html.fniqBoxCompact #live #q27Pins-motion{display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr));gap:5px!important;margin:0!important;align-self:stretch}
+ html.fniqBoxCompact #live #q27Pins-motion .q27PinnedBtn{width:100%;min-width:0;padding-left:6px!important;padding-right:6px!important;white-space:normal;line-height:1.08!important}
+ html.fniqBoxCompact #live .speedPreSnap{grid-template-columns:minmax(0,.72fr) minmax(0,1.38fr) minmax(0,.9fr)!important;gap:6px!important}
+ html.fniqBoxCompact #live #q27Pins-formation{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr));gap:5px!important;margin:0!important}
+ html.fniqBoxCompact #live #q27Pins-formation .q27PinnedBtn{min-width:0;width:100%;white-space:normal;line-height:1.08!important}
+
+ /* Post-snap now lives directly below What happened?; its own content reflows to the narrower column instead of becoming tiny. */
+ html.fniqBoxCompact #trackerFinishCard{padding:8px 10px!important}
+ html.fniqBoxCompact #trackerFinishCard .trackerFinishBody{display:grid!important;grid-template-columns:minmax(0,1fr) minmax(0,1fr)!important;gap:6px 8px!important;align-items:end!important}
+ html.fniqBoxCompact #trackerFinishCard .trackerPostCoverage{grid-column:1/-1!important}
+ html.fniqBoxCompact #trackerFinishCard .trackerConceptFamily{grid-column:1!important}
+ html.fniqBoxCompact #trackerFinishCard .trackerConcept{grid-column:2!important}
+ html.fniqBoxCompact #trackerFinishCard .trackerResultTags{grid-column:1/-1!important}
+ html.fniqBoxCompact #trackerFinishCard .trackerMoreResult{grid-column:1/-1!important}
+ html.fniqBoxCompact #trackerFinishCard .speedCoverageQuick{grid-template-columns:repeat(6,minmax(0,1fr))!important}
+}
+
+/* Common-height laptops get the same packing with slightly tighter gaps only; click targets keep their chosen size. */
+@media (min-width:1181px) and (min-height:701px) and (max-height:820px){
+ html.fniqBoxCompact #live main.boxMainGrid{column-gap:8px!important;row-gap:4px!important}
+ html.fniqBoxCompact #live .boxSecondaryLookRow{gap:5px!important;margin-top:2px!important;margin-bottom:1px!important}
+ html.fniqBoxCompact #live #q27Pins-motion{gap:4px!important}
+ html.fniqBoxCompact #trackerFinishCard{padding:6px 8px!important}
+ html.fniqBoxCompact #trackerFinishCard .trackerFinishBody{gap:4px 6px!important}
+}
+
+/* The 1475x668 press-box layout already has a dedicated no-scroll treatment. Compact Motion there horizontally
+   without changing the proven overall grid. */
+@media (min-width:1181px) and (max-height:700px){
+ html.fniqBoxCompact #live .boxSecondaryLookRow{grid-template-columns:minmax(0,.84fr) minmax(0,1.16fr)!important}
+ html.fniqBoxCompact #live .q27PinnedField-motion{grid-template-columns:minmax(0,1fr) 104px!important}
+ html.fniqBoxCompact #live #q27Pins-motion{display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr));gap:3px!important;margin:0!important}
+ html.fniqBoxCompact #live #q27Pins-motion .q27PinnedBtn{width:100%;min-width:0;padding-left:4px!important;padding-right:4px!important;white-space:normal;line-height:1.05!important}
+}
+
+/* Tablet/mobile remain stacked and readable; no desktop density positioning leaks into narrow layouts. */
+@media (max-width:1180px){
+ #q27Pins-motion{display:flex!important}
+}
