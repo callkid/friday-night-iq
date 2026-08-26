@@ -138,3 +138,73 @@
 @media (max-width:1180px){
  #q27Pins-motion{display:flex!important}
 }
+
+/* Quality28 game-day stabilization -------------------------------------------------
+   The prior gate measured only card bounding boxes. On a 1080p booth display that
+   allowed a large visible floor of unused page space while still reporting ~5%.
+   Use the roomy desktop to make the selected control-size mode genuinely readable
+   and let the left work card occupy the same vertical work surface as result+finish. */
+@media (min-width:1181px) and (min-height:821px){
+ html.fniqQ27SizeStandard{--q27Target:38px;--q27Font:12.5px;--q27Field:40px}
+ html.fniqQ27SizeLarge{--q27Target:45px;--q27Font:14px;--q27Field:47px}
+ html.fniqQ27SizeXl{--q27Target:54px;--q27Font:16px;--q27Field:56px}
+
+ html.fniqBoxCompact #live main.boxMainGrid>#preSnapCard{
+  align-self:stretch!important;
+  min-height:100%!important;
+ }
+ html.fniqBoxCompact #live main.boxMainGrid>.safetyrow{margin-top:4px!important}
+
+ /* Disclosure controls are real controls. They scale with the user's size choice. */
+ html[data-q27-control-size] #speedSpotCalc>summary,
+ html[data-q27-control-size] #trackerFinishCard details.drawer>summary,
+ html[data-q27-control-size] #trackerFinishCard .trackerMoreResult>summary{
+  min-height:var(--q27Target)!important;
+  display:flex!important;
+  align-items:center!important;
+  gap:6px!important;
+  padding:6px 8px!important;
+  font-size:var(--q27Font)!important;
+  line-height:1.15!important;
+  font-weight:800!important;
+  cursor:pointer!important;
+ }
+ html[data-q27-control-size] #speedSpotCalc>summary span,
+ html[data-q27-control-size] #trackerFinishCard details.drawer>summary span,
+ html[data-q27-control-size] #trackerFinishCard .trackerMoreResult>summary span{
+  font-size:max(12px,.8em)!important;
+  opacity:.82!important;
+ }
+
+ /* XL means XL for secondary football labels too, not only buttons/selects. */
+ html.fniqQ27SizeXl #live .label,
+ html.fniqQ27SizeXl #live .optional,
+ html.fniqQ27SizeXl #live .trackerFinishHead small,
+ html.fniqQ27SizeXl #live .muted{
+  font-size:max(13px,.82em)!important;
+  line-height:1.2!important;
+ }
+ html.fniqQ27SizeLarge #live .label,
+ html.fniqQ27SizeLarge #live .optional{
+  font-size:max(12px,.82em)!important;
+ }
+}
+
+/* 768px-class laptops still honor the selected size without forcing the old
+   near-standard XL treatment. Preserve the existing no-scroll packing first. */
+@media (min-width:1181px) and (min-height:701px) and (max-height:820px){
+ html.fniqQ27SizeStandard{--q27Target:34px;--q27Font:11.5px;--q27Field:36px}
+ html.fniqQ27SizeLarge{--q27Target:39px;--q27Font:12.5px;--q27Field:41px}
+ html.fniqQ27SizeXl{--q27Target:45px;--q27Font:14px;--q27Field:47px}
+ html[data-q27-control-size] #speedSpotCalc>summary,
+ html[data-q27-control-size] #trackerFinishCard details.drawer>summary,
+ html[data-q27-control-size] #trackerFinishCard .trackerMoreResult>summary{
+  min-height:var(--q27Target)!important;
+  display:flex!important;
+  align-items:center!important;
+  padding:3px 6px!important;
+  font-size:var(--q27Font)!important;
+  line-height:1.08!important;
+  font-weight:800!important;
+ }
+}
