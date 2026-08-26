@@ -18,7 +18,7 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 20
-      - name: Run full Quality27 hotfix source QA
+      - name: Run full Quality27 density source QA
         id: source
         continue-on-error: true
         run: |
@@ -29,8 +29,8 @@ jobs:
         continue-on-error: true
         run: |
           set +e
-          PROOF=qa-quality27-hotfix-proof.txt
-          echo "=== REAL BROWSER QUALITY27 HOTFIX QA ===" >> "$PROOF"
+          PROOF=qa-quality27-density-proof.txt
+          echo "=== REAL BROWSER QUALITY27 DENSITY QA ===" >> "$PROOF"
           npm init -y >> "$PROOF" 2>&1
           npm install playwright@1.55.0 >> "$PROOF" 2>&1
           npx playwright install --with-deps chromium >> "$PROOF" 2>&1
@@ -52,6 +52,7 @@ jobs:
           run_three "Quality26 football/correction under Q27" qa-browser-football-flow26-release.js
           run_three "Quality27 tracker QoL" qa-browser-quality27.js
           run_three "Quality27 penalty/size hotfix" qa-browser-quality27-hotfix.js
+          run_three "Quality27 <=15% density" qa-browser-quality27-density.js
           run_three "Press-box tracker workflow" qa-browser-tracker-workflow.js
           run_three "Box ergonomics/readability" qa-browser-box-ergonomics.js
           run_three "Multi-team accent matrix" qa-browser-brand-colors.js
@@ -71,13 +72,12 @@ jobs:
       - name: Publish auditable QA result
         if: always()
         run: |
-          PROOF=qa-quality27-hotfix-proof.txt
+          PROOF=qa-quality27-density-proof.txt
           touch "$PROOF"
           printf '\nSOURCE_QA=%s\nBROWSER_QA=%s\nSOURCE_COMMIT=%s\n' "${{ steps.source.outcome }}" "${{ steps.browser.outcome }}" "$GITHUB_SHA" >> "$PROOF"
           if [ "${{ steps.source.outcome }}" = "success" ] && [ "${{ steps.browser.outcome }}" = "success" ]; then
             echo "FINAL: PASS" >> "$PROOF"
-            # quality27 is a distinct allowed cache token from the previous production quality27-final URL.
-            sed -i -E 's/app\.js\?v=[^"]+"/app.js?v=quality27"/' index.html
+            sed -i -E 's/app\.js\?v=[^"]+"/app.js?v=quality27-density-final"/' index.html
           else
             echo "FINAL: FAIL" >> "$PROOF"
           fi
@@ -91,4 +91,4 @@ jobs:
         if: steps.source.outcome != 'success' || steps.browser.outcome != 'success'
         run: exit 1
 
-# Quality27 hotfix production proof trigger — certification run 2026-08-26
+# Quality27 density production proof trigger
