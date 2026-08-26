@@ -10,16 +10,19 @@
 
  /* Reclaim chrome above the tracker before shrinking football content. */
  html.fniqQ27SizeXl .top{
-  padding-top:5px!important;
-  padding-bottom:6px!important;
+  padding-top:2px!important;
+  padding-bottom:3px!important;
  }
  html.fniqQ27SizeXl .top .logo{
-  width:36px!important;
-  height:36px!important;
+  width:32px!important;
+  height:32px!important;
  }
  html.fniqQ27SizeXl #live .snapbar{
-  padding:4px 10px!important;
-  margin-bottom:4px!important;
+  padding:1px 9px!important;
+  margin-bottom:2px!important;
+ }
+ html.fniqQ27SizeXl #live main.boxMainGrid{
+  row-gap:3px!important;
  }
 
  html.fniqQ27SizeXl #live .boxResultCard:has(#q27Pins-runType:not(.hidden)){
