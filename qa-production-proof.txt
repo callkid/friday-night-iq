@@ -1,4 +1,4 @@
-=== REAL BROWSER QUALITY27 HOTFIX QA ===
+=== REAL BROWSER QUALITY27 DENSITY QA ===
 Wrote to /home/runner/work/friday-night-iq/friday-night-iq/package.json:
 
 {
@@ -17,7 +17,7 @@ Wrote to /home/runner/work/friday-night-iq/friday-night-iq/package.json:
 
 
 
-added 2 packages, and audited 3 packages in 3s
+added 2 packages, and audited 3 packages in 2s
 
 1 high severity vulnerability
 
@@ -28,38 +28,37 @@ Run `npm audit` for details.
 Installing dependencies...
 Switching to root user to install dependencies...
 Get:1 file:/etc/apt/apt-mirrors.txt Mirrorlist [144 B]
-Hit:6 https://packages.microsoft.com/repos/azure-cli noble InRelease
 Hit:2 http://azure.archive.ubuntu.com/ubuntu noble InRelease
-Get:7 https://packages.microsoft.com/ubuntu/24.04/prod noble InRelease [3600 B]
 Get:3 http://azure.archive.ubuntu.com/ubuntu noble-updates InRelease [126 kB]
+Get:6 https://packages.microsoft.com/repos/azure-cli noble InRelease [3564 B]
 Get:4 http://azure.archive.ubuntu.com/ubuntu noble-backports InRelease [126 kB]
 Get:5 http://azure.archive.ubuntu.com/ubuntu noble-security InRelease [126 kB]
+Get:7 https://packages.microsoft.com/ubuntu/24.04/prod noble InRelease [3600 B]
 Get:8 https://dl.google.com/linux/chrome-stable/deb stable InRelease [2548 B]
-Get:9 https://packages.microsoft.com/ubuntu/24.04/prod noble/main arm64 Packages [375 kB]
-Get:10 https://packages.microsoft.com/ubuntu/24.04/prod noble/main amd64 Packages [422 kB]
-Get:11 http://azure.archive.ubuntu.com/ubuntu noble-updates/main amd64 Packages [1229 kB]
-Get:12 http://azure.archive.ubuntu.com/ubuntu noble-updates/main Translation-en [286 kB]
-Get:13 http://azure.archive.ubuntu.com/ubuntu noble-updates/main amd64 Components [181 kB]
-Get:14 http://azure.archive.ubuntu.com/ubuntu noble-updates/universe amd64 Packages [1688 kB]
-Get:15 http://azure.archive.ubuntu.com/ubuntu noble-updates/universe Translation-en [337 kB]
-Get:16 http://azure.archive.ubuntu.com/ubuntu noble-updates/universe amd64 Components [388 kB]
-Get:17 http://azure.archive.ubuntu.com/ubuntu noble-updates/restricted amd64 Packages [1486 kB]
-Get:18 http://azure.archive.ubuntu.com/ubuntu noble-updates/restricted Translation-en [339 kB]
-Get:19 http://azure.archive.ubuntu.com/ubuntu noble-updates/multiverse Translation-en [12.8 kB]
-Get:20 http://azure.archive.ubuntu.com/ubuntu noble-updates/multiverse amd64 Components [940 B]
-Get:21 http://azure.archive.ubuntu.com/ubuntu noble-backports/main amd64 Components [5760 B]
-Get:22 http://azure.archive.ubuntu.com/ubuntu noble-backports/universe amd64 Components [12.6 kB]
-Get:23 http://azure.archive.ubuntu.com/ubuntu noble-security/main amd64 Packages [971 kB]
-Get:24 http://azure.archive.ubuntu.com/ubuntu noble-security/main Translation-en [206 kB]
-Get:25 http://azure.archive.ubuntu.com/ubuntu noble-security/main amd64 Components [46.4 kB]
-Get:26 http://azure.archive.ubuntu.com/ubuntu noble-security/universe amd64 Packages [1203 kB]
-Get:27 http://azure.archive.ubuntu.com/ubuntu noble-security/universe Translation-en [240 kB]
-Get:28 http://azure.archive.ubuntu.com/ubuntu noble-security/universe amd64 Components [76.3 kB]
-Get:29 http://azure.archive.ubuntu.com/ubuntu noble-security/restricted amd64 Packages [1392 kB]
-Get:30 http://azure.archive.ubuntu.com/ubuntu noble-security/restricted Translation-en [321 kB]
-Get:31 http://azure.archive.ubuntu.com/ubuntu noble-security/multiverse Translation-en [11.1 kB]
-Get:32 https://dl.google.com/linux/chrome-stable/deb stable/main amd64 Packages [1405 B]
-Fetched 11.6 MB in 1s (8456 kB/s)
+Get:9 http://azure.archive.ubuntu.com/ubuntu noble-updates/main amd64 Packages [1229 kB]
+Get:10 http://azure.archive.ubuntu.com/ubuntu noble-updates/main Translation-en [286 kB]
+Get:11 http://azure.archive.ubuntu.com/ubuntu noble-updates/main amd64 Components [181 kB]
+Get:12 http://azure.archive.ubuntu.com/ubuntu noble-updates/universe amd64 Packages [1689 kB]
+Get:13 http://azure.archive.ubuntu.com/ubuntu noble-updates/universe Translation-en [338 kB]
+Get:14 http://azure.archive.ubuntu.com/ubuntu noble-updates/universe amd64 Components [388 kB]
+Get:15 http://azure.archive.ubuntu.com/ubuntu noble-updates/restricted amd64 Packages [1486 kB]
+Get:16 http://azure.archive.ubuntu.com/ubuntu noble-updates/restricted Translation-en [339 kB]
+Get:17 http://azure.archive.ubuntu.com/ubuntu noble-updates/multiverse amd64 Components [940 B]
+Get:18 http://azure.archive.ubuntu.com/ubuntu noble-backports/main amd64 Components [5748 B]
+Get:19 http://azure.archive.ubuntu.com/ubuntu noble-backports/universe amd64 Components [12.6 kB]
+Get:20 http://azure.archive.ubuntu.com/ubuntu noble-security/main amd64 Packages [971 kB]
+Get:21 http://azure.archive.ubuntu.com/ubuntu noble-security/main Translation-en [206 kB]
+Get:22 http://azure.archive.ubuntu.com/ubuntu noble-security/main amd64 Components [46.4 kB]
+Get:23 http://azure.archive.ubuntu.com/ubuntu noble-security/universe amd64 Packages [1203 kB]
+Get:24 http://azure.archive.ubuntu.com/ubuntu noble-security/universe Translation-en [240 kB]
+Get:25 http://azure.archive.ubuntu.com/ubuntu noble-security/universe amd64 Components [76.3 kB]
+Get:26 http://azure.archive.ubuntu.com/ubuntu noble-security/restricted amd64 Packages [1392 kB]
+Get:27 http://azure.archive.ubuntu.com/ubuntu noble-security/restricted Translation-en [321 kB]
+Get:28 http://azure.archive.ubuntu.com/ubuntu noble-security/multiverse Translation-en [11.1 kB]
+Get:29 https://packages.microsoft.com/ubuntu/24.04/prod noble/main arm64 Packages [375 kB]
+Get:30 https://packages.microsoft.com/ubuntu/24.04/prod noble/main amd64 Packages [422 kB]
+Get:31 https://dl.google.com/linux/chrome-stable/deb stable/main amd64 Packages [1410 B]
+Fetched 11.6 MB in 1s (8463 kB/s)
 Reading package lists...
 Reading package lists...
 Building dependency tree...
@@ -122,7 +121,7 @@ The following NEW packages will be installed:
   fonts-freefont-ttf fonts-ipafont-gothic fonts-tlwg-loma-otf fonts-unifont
   fonts-wqy-zenhei xfonts-cyrillic xfonts-encodings xfonts-scalable
   xfonts-utils
-0 upgraded, 9 newly installed, 0 to remove and 42 not upgraded.
+0 upgraded, 9 newly installed, 0 to remove and 25 not upgraded.
 Need to get 21.1 MB of archives.
 After this operation, 79.5 MB of additional disk space will be used.
 Get:1 file:/etc/apt/apt-mirrors.txt Mirrorlist [144 B]
@@ -135,9 +134,9 @@ Get:7 http://azure.archive.ubuntu.com/ubuntu noble/main amd64 xfonts-encodings a
 Get:8 http://azure.archive.ubuntu.com/ubuntu noble/main amd64 xfonts-utils amd64 1:7.7+6build3 [94.4 kB]
 Get:9 http://azure.archive.ubuntu.com/ubuntu noble/universe amd64 xfonts-cyrillic all 1:1.0.5+nmu1 [384 kB]
 Get:10 http://azure.archive.ubuntu.com/ubuntu noble/main amd64 xfonts-scalable all 1:1.0.3-1.3 [304 kB]
-Fetched 21.1 MB in 1s (15.8 MB/s)
+Fetched 21.1 MB in 0s (111 MB/s)
 Selecting previously unselected package fonts-ipafont-gothic.
-(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 203124 files and directories currently installed.)
+(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 203385 files and directories currently installed.)
 Preparing to unpack .../0-fonts-ipafont-gothic_00303-21ubuntu1_all.deb ...
 Unpacking fonts-ipafont-gothic (00303-21ubuntu1) ...
 Selecting previously unselected package fonts-freefont-ttf.
@@ -271,98 +270,100 @@ PASS: Quality27 penalty/size hotfix pass 2
 --- Quality27 penalty/size hotfix pass 3 ---
 QUALITY27 HOTFIX BROWSER PASS: Standard/Large/Extra Large visibly resize live controls without zoom or horizontal overflow, accepted Holding repeats the down, and generic accepted live-ball penalties no longer default to consuming the down
 PASS: Quality27 penalty/size hotfix pass 3
+--- Quality27 <=15% density pass 1 ---
+Q27 DENSITY INITIAL standard {"pre":{"left":18,"right":628,"top":191.59375,"bottom":613.578125,"width":610,"height":421.984375},"result":{"left":638,"right":1248,"top":191.59375,"bottom":445.1875,"width":610,"height":253.59375},"finish":{"left":638,"right":1248,"top":450.1875,"bottom":666.78125,"width":610,"height":216.59375},"surface":{"left":18,"right":1248,"top":191.59375,"bottom":666.78125},"deadRatio":0.056680607528065155,"motionRows":2,"motionCount":5,"runRows":1,"runCount":5,"clippedRun":[],"scrollWidth":1600,"innerWidth":1600,"scrollHeight":900,"innerHeight":900,"scrollY":0}
+Q27 DENSITY RUN standard {"pre":{"left":18,"right":628,"top":191.59375,"bottom":613.578125,"width":610,"height":421.984375},"result":{"left":638,"right":1248,"top":191.59375,"bottom":609.28125,"width":610,"height":417.6875},"finish":{"left":18,"right":1248,"top":618.578125,"bottom":736.375,"width":1230,"height":117.796875},"surface":{"left":18,"right":1248,"top":191.59375,"bottom":736.375},"deadRatio":0.01241405653170359,"motionRows":2,"motionCount":5,"runRows":1,"runCount":5,"clippedRun":[],"scrollWidth":1600,"innerWidth":1600,"scrollHeight":900,"innerHeight":900,"scrollY":0}
+Q27 DENSITY PASS standard initial=5.7% run=1.2% motionRows=2 runRows=1 scroll=900/900
+Q27 DENSITY INITIAL large {"pre":{"left":18,"right":628,"top":205.59375,"bottom":696.578125,"width":610,"height":490.984375},"result":{"left":638,"right":1248,"top":205.59375,"bottom":479.1875,"width":610,"height":273.59375},"finish":{"left":638,"right":1248,"top":484.1875,"bottom":739.78125,"width":610,"height":255.59375},"surface":{"left":18,"right":1248,"top":205.59375,"bottom":739.78125},"deadRatio":0.05815080441946113,"motionRows":2,"motionCount":5,"runRows":1,"runCount":5,"clippedRun":[],"scrollWidth":1600,"innerWidth":1600,"scrollHeight":900,"innerHeight":900,"scrollY":0}
+Q27 DENSITY RUN large {"pre":{"left":18,"right":628,"top":205.59375,"bottom":696.578125,"width":610,"height":490.984375},"result":{"left":638,"right":1248,"top":205.59375,"bottom":666.28125,"width":610,"height":460.6875},"finish":{"left":18,"right":1248,"top":701.578125,"bottom":827.375,"width":1230,"height":125.796875},"surface":{"left":18,"right":1248,"top":205.59375,"bottom":827.375},"deadRatio":0.03712953712953713,"motionRows":2,"motionCount":5,"runRows":1,"runCount":5,"clippedRun":[],"scrollWidth":1600,"innerWidth":1600,"scrollHeight":900,"innerHeight":900,"scrollY":0}
+Q27 DENSITY PASS large initial=5.8% run=3.7% motionRows=2 runRows=1 scroll=900/900
+Q27 DENSITY INITIAL xl {"pre":{"left":18,"right":628,"top":213.59375,"bottom":752.578125,"width":610,"height":538.984375},"result":{"left":638,"right":1248,"top":213.59375,"bottom":511.1875,"width":610,"height":297.59375},"finish":{"left":638,"right":1248,"top":516.1875,"bottom":795.78125,"width":610,"height":279.59375},"surface":{"left":18,"right":1248,"top":213.59375,"bottom":795.78125},"deadRatio":0.053904999110478566,"motionRows":2,"motionCount":5,"runRows":1,"runCount":5,"clippedRun":[],"scrollWidth":1600,"innerWidth":1600,"scrollHeight":900,"innerHeight":900,"scrollY":0}
+Q27 DENSITY RUN xl {"pre":{"left":18,"right":628,"top":213.59375,"bottom":752.578125,"width":610,"height":538.984375},"result":{"left":638,"right":1248,"top":213.59375,"bottom":714.28125,"width":610,"height":500.6875},"finish":{"left":18,"right":1248,"top":757.578125,"bottom":891.375,"width":1230,"height":133.796875},"surface":{"left":18,"right":1248,"top":213.59375,"bottom":891.375},"deadRatio":0.040412528647822764,"motionRows":2,"motionCount":5,"runRows":1,"runCount":5,"clippedRun":[],"scrollWidth":1600,"innerWidth":1600,"scrollHeight":900,"innerHeight":900,"scrollY":0}
+Q27 DENSITY PASS xl initial=5.4% run=4.0% motionRows=2 runRows=1 scroll=900/900
+QUALITY27 DENSITY PASS: Standard/Large/Extra Large initial and five-pin Run states stay <=15% structural dead space, Run stays no-scroll, and pinned football labels remain readable
+PASS: Quality27 <=15% density pass 1
+--- Quality27 <=15% density pass 2 ---
+Q27 DENSITY INITIAL standard {"pre":{"left":18,"right":628,"top":191.59375,"bottom":613.578125,"width":610,"height":421.984375},"result":{"left":638,"right":1248,"top":191.59375,"bottom":445.1875,"width":610,"height":253.59375},"finish":{"left":638,"right":1248,"top":450.1875,"bottom":666.78125,"width":610,"height":216.59375},"surface":{"left":18,"right":1248,"top":191.59375,"bottom":666.78125},"deadRatio":0.056680607528065155,"motionRows":2,"motionCount":5,"runRows":1,"runCount":5,"clippedRun":[],"scrollWidth":1600,"innerWidth":1600,"scrollHeight":900,"innerHeight":900,"scrollY":0}
+Q27 DENSITY RUN standard {"pre":{"left":18,"right":628,"top":191.59375,"bottom":613.578125,"width":610,"height":421.984375},"result":{"left":638,"right":1248,"top":191.59375,"bottom":609.28125,"width":610,"height":417.6875},"finish":{"left":18,"right":1248,"top":618.578125,"bottom":736.375,"width":1230,"height":117.796875},"surface":{"left":18,"right":1248,"top":191.59375,"bottom":736.375},"deadRatio":0.01241405653170359,"motionRows":2,"motionCount":5,"runRows":1,"runCount":5,"clippedRun":[],"scrollWidth":1600,"innerWidth":1600,"scrollHeight":900,"innerHeight":900,"scrollY":0}
+Q27 DENSITY PASS standard initial=5.7% run=1.2% motionRows=2 runRows=1 scroll=900/900
+Q27 DENSITY INITIAL large {"pre":{"left":18,"right":628,"top":205.59375,"bottom":696.578125,"width":610,"height":490.984375},"result":{"left":638,"right":1248,"top":205.59375,"bottom":479.1875,"width":610,"height":273.59375},"finish":{"left":638,"right":1248,"top":484.1875,"bottom":739.78125,"width":610,"height":255.59375},"surface":{"left":18,"right":1248,"top":205.59375,"bottom":739.78125},"deadRatio":0.05815080441946113,"motionRows":2,"motionCount":5,"runRows":1,"runCount":5,"clippedRun":[],"scrollWidth":1600,"innerWidth":1600,"scrollHeight":900,"innerHeight":900,"scrollY":0}
+Q27 DENSITY RUN large {"pre":{"left":18,"right":628,"top":205.59375,"bottom":696.578125,"width":610,"height":490.984375},"result":{"left":638,"right":1248,"top":205.59375,"bottom":666.28125,"width":610,"height":460.6875},"finish":{"left":18,"right":1248,"top":701.578125,"bottom":827.375,"width":1230,"height":125.796875},"surface":{"left":18,"right":1248,"top":205.59375,"bottom":827.375},"deadRatio":0.03712953712953713,"motionRows":2,"motionCount":5,"runRows":1,"runCount":5,"clippedRun":[],"scrollWidth":1600,"innerWidth":1600,"scrollHeight":900,"innerHeight":900,"scrollY":0}
+Q27 DENSITY PASS large initial=5.8% run=3.7% motionRows=2 runRows=1 scroll=900/900
+Q27 DENSITY INITIAL xl {"pre":{"left":18,"right":628,"top":213.59375,"bottom":752.578125,"width":610,"height":538.984375},"result":{"left":638,"right":1248,"top":213.59375,"bottom":511.1875,"width":610,"height":297.59375},"finish":{"left":638,"right":1248,"top":516.1875,"bottom":795.78125,"width":610,"height":279.59375},"surface":{"left":18,"right":1248,"top":213.59375,"bottom":795.78125},"deadRatio":0.053904999110478566,"motionRows":2,"motionCount":5,"runRows":1,"runCount":5,"clippedRun":[],"scrollWidth":1600,"innerWidth":1600,"scrollHeight":900,"innerHeight":900,"scrollY":0}
+Q27 DENSITY RUN xl {"pre":{"left":18,"right":628,"top":213.59375,"bottom":752.578125,"width":610,"height":538.984375},"result":{"left":638,"right":1248,"top":213.59375,"bottom":714.28125,"width":610,"height":500.6875},"finish":{"left":18,"right":1248,"top":757.578125,"bottom":891.375,"width":1230,"height":133.796875},"surface":{"left":18,"right":1248,"top":213.59375,"bottom":891.375},"deadRatio":0.040412528647822764,"motionRows":2,"motionCount":5,"runRows":1,"runCount":5,"clippedRun":[],"scrollWidth":1600,"innerWidth":1600,"scrollHeight":900,"innerHeight":900,"scrollY":0}
+Q27 DENSITY PASS xl initial=5.4% run=4.0% motionRows=2 runRows=1 scroll=900/900
+QUALITY27 DENSITY PASS: Standard/Large/Extra Large initial and five-pin Run states stay <=15% structural dead space, Run stays no-scroll, and pinned football labels remain readable
+PASS: Quality27 <=15% density pass 2
+--- Quality27 <=15% density pass 3 ---
+Q27 DENSITY INITIAL standard {"pre":{"left":18,"right":628,"top":191.59375,"bottom":613.578125,"width":610,"height":421.984375},"result":{"left":638,"right":1248,"top":191.59375,"bottom":445.1875,"width":610,"height":253.59375},"finish":{"left":638,"right":1248,"top":450.1875,"bottom":666.78125,"width":610,"height":216.59375},"surface":{"left":18,"right":1248,"top":191.59375,"bottom":666.78125},"deadRatio":0.056680607528065155,"motionRows":2,"motionCount":5,"runRows":1,"runCount":5,"clippedRun":[],"scrollWidth":1600,"innerWidth":1600,"scrollHeight":900,"innerHeight":900,"scrollY":0}
+Q27 DENSITY RUN standard {"pre":{"left":18,"right":628,"top":191.59375,"bottom":613.578125,"width":610,"height":421.984375},"result":{"left":638,"right":1248,"top":191.59375,"bottom":609.28125,"width":610,"height":417.6875},"finish":{"left":18,"right":1248,"top":618.578125,"bottom":736.375,"width":1230,"height":117.796875},"surface":{"left":18,"right":1248,"top":191.59375,"bottom":736.375},"deadRatio":0.01241405653170359,"motionRows":2,"motionCount":5,"runRows":1,"runCount":5,"clippedRun":[],"scrollWidth":1600,"innerWidth":1600,"scrollHeight":900,"innerHeight":900,"scrollY":0}
+Q27 DENSITY PASS standard initial=5.7% run=1.2% motionRows=2 runRows=1 scroll=900/900
+Q27 DENSITY INITIAL large {"pre":{"left":18,"right":628,"top":205.59375,"bottom":696.578125,"width":610,"height":490.984375},"result":{"left":638,"right":1248,"top":205.59375,"bottom":479.1875,"width":610,"height":273.59375},"finish":{"left":638,"right":1248,"top":484.1875,"bottom":739.78125,"width":610,"height":255.59375},"surface":{"left":18,"right":1248,"top":205.59375,"bottom":739.78125},"deadRatio":0.05815080441946113,"motionRows":2,"motionCount":5,"runRows":1,"runCount":5,"clippedRun":[],"scrollWidth":1600,"innerWidth":1600,"scrollHeight":900,"innerHeight":900,"scrollY":0}
+Q27 DENSITY RUN large {"pre":{"left":18,"right":628,"top":205.59375,"bottom":696.578125,"width":610,"height":490.984375},"result":{"left":638,"right":1248,"top":205.59375,"bottom":666.28125,"width":610,"height":460.6875},"finish":{"left":18,"right":1248,"top":701.578125,"bottom":827.375,"width":1230,"height":125.796875},"surface":{"left":18,"right":1248,"top":205.59375,"bottom":827.375},"deadRatio":0.03712953712953713,"motionRows":2,"motionCount":5,"runRows":1,"runCount":5,"clippedRun":[],"scrollWidth":1600,"innerWidth":1600,"scrollHeight":900,"innerHeight":900,"scrollY":0}
+Q27 DENSITY PASS large initial=5.8% run=3.7% motionRows=2 runRows=1 scroll=900/900
+Q27 DENSITY INITIAL xl {"pre":{"left":18,"right":628,"top":213.59375,"bottom":752.578125,"width":610,"height":538.984375},"result":{"left":638,"right":1248,"top":213.59375,"bottom":511.1875,"width":610,"height":297.59375},"finish":{"left":638,"right":1248,"top":516.1875,"bottom":795.78125,"width":610,"height":279.59375},"surface":{"left":18,"right":1248,"top":213.59375,"bottom":795.78125},"deadRatio":0.053904999110478566,"motionRows":2,"motionCount":5,"runRows":1,"runCount":5,"clippedRun":[],"scrollWidth":1600,"innerWidth":1600,"scrollHeight":900,"innerHeight":900,"scrollY":0}
+Q27 DENSITY RUN xl {"pre":{"left":18,"right":628,"top":213.59375,"bottom":752.578125,"width":610,"height":538.984375},"result":{"left":638,"right":1248,"top":213.59375,"bottom":714.28125,"width":610,"height":500.6875},"finish":{"left":18,"right":1248,"top":757.578125,"bottom":891.375,"width":1230,"height":133.796875},"surface":{"left":18,"right":1248,"top":213.59375,"bottom":891.375},"deadRatio":0.040412528647822764,"motionRows":2,"motionCount":5,"runRows":1,"runCount":5,"clippedRun":[],"scrollWidth":1600,"innerWidth":1600,"scrollHeight":900,"innerHeight":900,"scrollY":0}
+Q27 DENSITY PASS xl initial=5.4% run=4.0% motionRows=2 runRows=1 scroll=900/900
+QUALITY27 DENSITY PASS: Standard/Large/Extra Large initial and five-pin Run states stay <=15% structural dead space, Run stays no-scroll, and pinned football labels remain readable
+PASS: Quality27 <=15% density pass 3
 --- Press-box tracker workflow pass 1 ---
 TRACKER GEOMETRY coach-short {"innerH":668,"scrollH":668,"bodyH":557,"snap":{"left":7,"right":1468,"top":53,"bottom":137.59375,"width":1461,"height":84.59375},"live":{"left":7,"right":1468,"top":141.59375,"bottom":551.96875,"width":1461,"height":410.375},"main":{"left":7,"right":1468,"top":141.59375,"bottom":551.96875,"width":1461,"height":410.375},"aside":{"left":0,"right":0,"top":0,"bottom":0,"width":0,"height":0},"pre":{"left":7,"right":734,"top":150.59375,"bottom":401.625,"width":727,"height":251.03125},"result":{"left":741,"right":1468,"top":150.59375,"bottom":391,"width":727,"height":240.40625},"finish":{"left":7,"right":1468,"top":404.625,"bottom":520.96875,"width":1461,"height":116.34375},"safety":{"left":8,"right":1467,"top":523.96875,"bottom":551.96875,"width":1459,"height":28},"situation":{"left":0,"right":0,"top":0,"bottom":0,"width":0,"height":0},"situationDisplay":"none","children":[{"id":"preSnapCard","cls":"card stepcard boxPreSnapCard","top":151,"bottom":402,"height":251},{"id":"","cls":"card stepcard boxResultCard trackerPrimaryResult","top":151,"bottom":391,"height":240},{"id":"trackerFinishCard","cls":"card trackerFinishCard","top":405,"bottom":521,"height":116},{"id":"","cls":"safetyrow","top":524,"bottom":552,"height":28}]}
 TRACKER WORKFLOW PASS: coach-short 1475x668 deadGap=3 finishWidth=1461/1461 scroll=668x668
-TRACKER GEOMETRY common-laptop {"innerH":768,"scrollH":768,"bodyH":761,"snap":{"left":14,"right":1352,"top":53,"bottom":137.59375,"width":1338,"height":84.59375},"live":{"left":14,"right":1352,"top":141.59375,"bottom":755.59375,"width":1338,"height":614},"main":{"left":14,"right":1072,"top":141.59375,"bottom":702.4375,"width":1058,"height":560.84375},"aside":{"left":1082,"right":1352,"top":141.59375,"bottom":755.59375,"width":270,"height":614},"pre":{"left":14,"right":539,"top":150.59375,"bottom":517.796875,"width":525,"height":367.203125},"result":{"left":547,"right":1072,"top":150.59375,"bottom":423.875,"width":525,"height":273.28125},"finish":{"left":14,"right":1072,"top":520.796875,"bottom":671.4375,"width":1058,"height":150.640625},"safety":{"left":15,"right":1071,"top":674.4375,"bottom":702.4375,"width":1056,"height":28},"situation":{"left":0,"right":0,"top":0,"bottom":0,"width":0,"height":0},"situationDisplay":"none","children":[{"id":"preSnapCard","cls":"card stepcard boxPreSnapCard","top":151,"bottom":518,"height":367},{"id":"","cls":"card stepcard boxResultCard trackerPrimaryResult","top":151,"bottom":424,"height":273},{"id":"trackerFinishCard","cls":"card trackerFinishCard","top":521,"bottom":671,"height":151},{"id":"","cls":"safetyrow","top":674,"bottom":702,"height":28}]}
-TRACKER WORKFLOW PASS: common-laptop 1366x768 deadGap=3 finishWidth=1058/1058 scroll=768x768
-TRACKER GEOMETRY screenshot-workstation {"innerH":900,"scrollH":900,"bodyH":893,"snap":{"left":18,"right":1642,"top":53,"bottom":137.59375,"width":1624,"height":84.59375},"live":{"left":18,"right":1642,"top":141.59375,"bottom":887.59375,"width":1624,"height":746},"main":{"left":18,"right":1308,"top":141.59375,"bottom":769.578125,"width":1290,"height":627.984375},"aside":{"left":1322,"right":1642,"top":141.59375,"bottom":887.59375,"width":320,"height":746},"pre":{"left":18,"right":659,"top":193.59375,"bottom":570.78125,"width":641,"height":377.1875},"result":{"left":667,"right":1308,"top":193.59375,"bottom":447.1875,"width":641,"height":253.59375},"finish":{"left":18,"right":1308,"top":574.78125,"bottom":737.578125,"width":1290,"height":162.796875},"safety":{"left":19,"right":1307,"top":741.578125,"bottom":769.578125,"width":1288,"height":28},"situation":{"left":0,"right":0,"top":0,"bottom":0,"width":0,"height":0},"situationDisplay":"none","children":[{"id":"","cls":"fastbar","top":142,"bottom":182,"height":40},{"id":"preSnapCard","cls":"card stepcard boxPreSnapCard","top":194,"bottom":571,"height":377},{"id":"","cls":"card stepcard boxResultCard trackerPrimaryResult","top":194,"bottom":447,"height":254},{"id":"trackerFinishCard","cls":"card trackerFinishCard","top":575,"bottom":738,"height":163},{"id":"","cls":"safetyrow","top":742,"bottom":770,"height":28}]}
-TRACKER WORKFLOW PASS: screenshot-workstation 1660x900 deadGap=4 finishWidth=1290/1290 scroll=900x900
-TRACKER GEOMETRY coach-1080p {"innerH":1080,"scrollH":1080,"bodyH":902,"snap":{"left":78,"right":1842,"top":53,"bottom":137.59375,"width":1764,"height":84.59375},"live":{"left":78,"right":1842,"top":141.59375,"bottom":896.71875,"width":1764,"height":755.125},"main":{"left":78,"right":1508,"top":141.59375,"bottom":830.171875,"width":1430,"height":688.578125},"aside":{"left":1522,"right":1842,"top":141.59375,"bottom":896.71875,"width":320,"height":755.125},"pre":{"left":78,"right":788.5,"top":196.59375,"bottom":629.375,"width":710.5,"height":432.78125},"result":{"left":797.5,"right":1508,"top":196.59375,"bottom":450.1875,"width":710.5,"height":253.59375},"finish":{"left":78,"right":1508,"top":634.375,"bottom":797.171875,"width":1430,"height":162.796875},"safety":{"left":79,"right":1507,"top":802.171875,"bottom":830.171875,"width":1428,"height":28},"situation":{"left":0,"right":0,"top":0,"bottom":0,"width":0,"height":0},"situationDisplay":"none","children":[{"id":"","cls":"fastbar","top":142,"bottom":182,"height":40},{"id":"preSnapCard","cls":"card stepcard boxPreSnapCard","top":197,"bottom":629,"height":433},{"id":"","cls":"card stepcard boxResultCard trackerPrimaryResult","top":197,"bottom":450,"height":254},{"id":"trackerFinishCard","cls":"card trackerFinishCard","top":634,"bottom":797,"height":163},{"id":"","cls":"safetyrow","top":802,"bottom":830,"height":28}]}
-TRACKER WORKFLOW PASS: coach-1080p 1920x1080 deadGap=5 finishWidth=1430/1430 scroll=1080x1080
-TRACKER QA PASS: dead lower-right space is a failure, post-snap detail spans both columns, coach-pinned shortcuts retain their full dropdown sources, normal run path stays in one viewport, desktop page scroll is zero, penalty Save stays reachable, and duplicate live tracking is removed
+TRACKER GEOMETRY common-laptop {"innerH":768,"scrollH":768,"bodyH":761,"snap":{"left":14,"right":1352,"top":53,"bottom":137.59375,"width":1338,"height":84.59375},"live":{"left":14,"right":1352,"top":141.59375,"bottom":755.59375,"width":1338,"height":614},"main":{"left":14,"right":1072,"top":141.59375,"bottom":656.15625,"width":1058,"height":514.5625},"aside":{"left":1082,"right":1352,"top":141.59375,"bottom":755.59375,"width":270,"height":614},"pre":{"left":14,"right":539,"top":149.59375,"bottom":516.796875,"width":525,"height":367.203125},"result":{"left":547,"right":1072,"top":149.59375,"bottom":422.875,"width":525,"height":273.28125},"finish":{"left":547,"right":1072,"top":426.875,"bottom":624.15625,"width":525,"height":197.28125},"safety":{"left":15,"right":1071,"top":628.15625,"bottom":656.15625,"width":1056,"height":28},"situation":{"left":0,"right":0,"top":0,"bottom":0,"width":0,"height":0},"situationDisplay":"none","children":[{"id":"preSnapCard","cls":"card stepcard boxPreSnapCard","top":150,"bottom":517,"height":367},{"id":"","cls":"card stepcard boxResultCard trackerPrimaryResult","top":150,"bottom":423,"height":273},{"id":"trackerFinishCard","cls":"card trackerFinishCard","top":427,"bottom":624,"height":197},{"id":"","cls":"safetyrow","top":628,"bottom":656,"height":28}]}
+TRACKER WORKFLOW PASS: common-laptop 1366x768 deadGap=4 finishWidth=525/1058 scroll=768x768
+TRACKER GEOMETRY screenshot-workstation {"innerH":900,"scrollH":900,"bodyH":893,"snap":{"left":18,"right":1642,"top":53,"bottom":137.59375,"width":1624,"height":84.59375},"live":{"left":18,"right":1642,"top":141.59375,"bottom":887.59375,"width":1624,"height":746},"main":{"left":18,"right":1308,"top":141.59375,"bottom":699.78125,"width":1290,"height":558.1875},"aside":{"left":1322,"right":1642,"top":141.59375,"bottom":887.59375,"width":320,"height":746},"pre":{"left":18,"right":658,"top":191.59375,"bottom":568.78125,"width":640,"height":377.1875},"result":{"left":668,"right":1308,"top":191.59375,"bottom":445.1875,"width":640,"height":253.59375},"finish":{"left":668,"right":1308,"top":450.1875,"bottom":666.78125,"width":640,"height":216.59375},"safety":{"left":19,"right":1307,"top":671.78125,"bottom":699.78125,"width":1288,"height":28},"situation":{"left":0,"right":0,"top":0,"bottom":0,"width":0,"height":0},"situationDisplay":"none","children":[{"id":"","cls":"fastbar","top":142,"bottom":182,"height":40},{"id":"preSnapCard","cls":"card stepcard boxPreSnapCard","top":192,"bottom":569,"height":377},{"id":"","cls":"card stepcard boxResultCard trackerPrimaryResult","top":192,"bottom":445,"height":254},{"id":"trackerFinishCard","cls":"card trackerFinishCard","top":450,"bottom":667,"height":217},{"id":"","cls":"safetyrow","top":672,"bottom":700,"height":28}]}
+TRACKER WORKFLOW PASS: screenshot-workstation 1660x900 deadGap=5 finishWidth=640/1290 scroll=900x900
+TRACKER GEOMETRY coach-1080p {"innerH":1080,"scrollH":1080,"bodyH":902,"snap":{"left":78,"right":1842,"top":53,"bottom":137.59375,"width":1764,"height":84.59375},"live":{"left":78,"right":1842,"top":141.59375,"bottom":896.71875,"width":1764,"height":755.125},"main":{"left":78,"right":1508,"top":141.59375,"bottom":699.78125,"width":1430,"height":558.1875},"aside":{"left":1522,"right":1842,"top":141.59375,"bottom":896.71875,"width":320,"height":755.125},"pre":{"left":78,"right":788,"top":191.59375,"bottom":624.375,"width":710,"height":432.78125},"result":{"left":798,"right":1508,"top":191.59375,"bottom":445.1875,"width":710,"height":253.59375},"finish":{"left":798,"right":1508,"top":450.1875,"bottom":666.78125,"width":710,"height":216.59375},"safety":{"left":79,"right":1507,"top":671.78125,"bottom":699.78125,"width":1428,"height":28},"situation":{"left":0,"right":0,"top":0,"bottom":0,"width":0,"height":0},"situationDisplay":"none","children":[{"id":"","cls":"fastbar","top":142,"bottom":182,"height":40},{"id":"preSnapCard","cls":"card stepcard boxPreSnapCard","top":192,"bottom":624,"height":433},{"id":"","cls":"card stepcard boxResultCard trackerPrimaryResult","top":192,"bottom":445,"height":254},{"id":"trackerFinishCard","cls":"card trackerFinishCard","top":450,"bottom":667,"height":217},{"id":"","cls":"safetyrow","top":672,"bottom":700,"height":28}]}
+TRACKER WORKFLOW PASS: coach-1080p 1920x1080 deadGap=5 finishWidth=710/1430 scroll=1080x1080
+TRACKER QA PASS: desktop Post-snap packs into unused right-column space without physical overlap, short laptop keeps the full-width no-scroll finish card, coach-pinned shortcuts retain full dropdown sources, normal run path stays in one viewport, penalty Save stays reachable, and duplicate live tracking is removed
 PASS: Press-box tracker workflow pass 1
 --- Press-box tracker workflow pass 2 ---
 TRACKER GEOMETRY coach-short {"innerH":668,"scrollH":668,"bodyH":557,"snap":{"left":7,"right":1468,"top":53,"bottom":137.59375,"width":1461,"height":84.59375},"live":{"left":7,"right":1468,"top":141.59375,"bottom":551.96875,"width":1461,"height":410.375},"main":{"left":7,"right":1468,"top":141.59375,"bottom":551.96875,"width":1461,"height":410.375},"aside":{"left":0,"right":0,"top":0,"bottom":0,"width":0,"height":0},"pre":{"left":7,"right":734,"top":150.59375,"bottom":401.625,"width":727,"height":251.03125},"result":{"left":741,"right":1468,"top":150.59375,"bottom":391,"width":727,"height":240.40625},"finish":{"left":7,"right":1468,"top":404.625,"bottom":520.96875,"width":1461,"height":116.34375},"safety":{"left":8,"right":1467,"top":523.96875,"bottom":551.96875,"width":1459,"height":28},"situation":{"left":0,"right":0,"top":0,"bottom":0,"width":0,"height":0},"situationDisplay":"none","children":[{"id":"preSnapCard","cls":"card stepcard boxPreSnapCard","top":151,"bottom":402,"height":251},{"id":"","cls":"card stepcard boxResultCard trackerPrimaryResult","top":151,"bottom":391,"height":240},{"id":"trackerFinishCard","cls":"card trackerFinishCard","top":405,"bottom":521,"height":116},{"id":"","cls":"safetyrow","top":524,"bottom":552,"height":28}]}
 TRACKER WORKFLOW PASS: coach-short 1475x668 deadGap=3 finishWidth=1461/1461 scroll=668x668
-TRACKER GEOMETRY common-laptop {"innerH":768,"scrollH":768,"bodyH":761,"snap":{"left":14,"right":1352,"top":53,"bottom":137.59375,"width":1338,"height":84.59375},"live":{"left":14,"right":1352,"top":141.59375,"bottom":755.59375,"width":1338,"height":614},"main":{"left":14,"right":1072,"top":141.59375,"bottom":702.4375,"width":1058,"height":560.84375},"aside":{"left":1082,"right":1352,"top":141.59375,"bottom":755.59375,"width":270,"height":614},"pre":{"left":14,"right":539,"top":150.59375,"bottom":517.796875,"width":525,"height":367.203125},"result":{"left":547,"right":1072,"top":150.59375,"bottom":423.875,"width":525,"height":273.28125},"finish":{"left":14,"right":1072,"top":520.796875,"bottom":671.4375,"width":1058,"height":150.640625},"safety":{"left":15,"right":1071,"top":674.4375,"bottom":702.4375,"width":1056,"height":28},"situation":{"left":0,"right":0,"top":0,"bottom":0,"width":0,"height":0},"situationDisplay":"none","children":[{"id":"preSnapCard","cls":"card stepcard boxPreSnapCard","top":151,"bottom":518,"height":367},{"id":"","cls":"card stepcard boxResultCard trackerPrimaryResult","top":151,"bottom":424,"height":273},{"id":"trackerFinishCard","cls":"card trackerFinishCard","top":521,"bottom":671,"height":151},{"id":"","cls":"safetyrow","top":674,"bottom":702,"height":28}]}
-TRACKER WORKFLOW PASS: common-laptop 1366x768 deadGap=3 finishWidth=1058/1058 scroll=768x768
-TRACKER GEOMETRY screenshot-workstation {"innerH":900,"scrollH":900,"bodyH":893,"snap":{"left":18,"right":1642,"top":53,"bottom":137.59375,"width":1624,"height":84.59375},"live":{"left":18,"right":1642,"top":141.59375,"bottom":887.59375,"width":1624,"height":746},"main":{"left":18,"right":1308,"top":141.59375,"bottom":769.578125,"width":1290,"height":627.984375},"aside":{"left":1322,"right":1642,"top":141.59375,"bottom":887.59375,"width":320,"height":746},"pre":{"left":18,"right":659,"top":193.59375,"bottom":570.78125,"width":641,"height":377.1875},"result":{"left":667,"right":1308,"top":193.59375,"bottom":447.1875,"width":641,"height":253.59375},"finish":{"left":18,"right":1308,"top":574.78125,"bottom":737.578125,"width":1290,"height":162.796875},"safety":{"left":19,"right":1307,"top":741.578125,"bottom":769.578125,"width":1288,"height":28},"situation":{"left":0,"right":0,"top":0,"bottom":0,"width":0,"height":0},"situationDisplay":"none","children":[{"id":"","cls":"fastbar","top":142,"bottom":182,"height":40},{"id":"preSnapCard","cls":"card stepcard boxPreSnapCard","top":194,"bottom":571,"height":377},{"id":"","cls":"card stepcard boxResultCard trackerPrimaryResult","top":194,"bottom":447,"height":254},{"id":"trackerFinishCard","cls":"card trackerFinishCard","top":575,"bottom":738,"height":163},{"id":"","cls":"safetyrow","top":742,"bottom":770,"height":28}]}
-TRACKER WORKFLOW PASS: screenshot-workstation 1660x900 deadGap=4 finishWidth=1290/1290 scroll=900x900
-TRACKER GEOMETRY coach-1080p {"innerH":1080,"scrollH":1080,"bodyH":902,"snap":{"left":78,"right":1842,"top":53,"bottom":137.59375,"width":1764,"height":84.59375},"live":{"left":78,"right":1842,"top":141.59375,"bottom":896.71875,"width":1764,"height":755.125},"main":{"left":78,"right":1508,"top":141.59375,"bottom":830.171875,"width":1430,"height":688.578125},"aside":{"left":1522,"right":1842,"top":141.59375,"bottom":896.71875,"width":320,"height":755.125},"pre":{"left":78,"right":788.5,"top":196.59375,"bottom":629.375,"width":710.5,"height":432.78125},"result":{"left":797.5,"right":1508,"top":196.59375,"bottom":450.1875,"width":710.5,"height":253.59375},"finish":{"left":78,"right":1508,"top":634.375,"bottom":797.171875,"width":1430,"height":162.796875},"safety":{"left":79,"right":1507,"top":802.171875,"bottom":830.171875,"width":1428,"height":28},"situation":{"left":0,"right":0,"top":0,"bottom":0,"width":0,"height":0},"situationDisplay":"none","children":[{"id":"","cls":"fastbar","top":142,"bottom":182,"height":40},{"id":"preSnapCard","cls":"card stepcard boxPreSnapCard","top":197,"bottom":629,"height":433},{"id":"","cls":"card stepcard boxResultCard trackerPrimaryResult","top":197,"bottom":450,"height":254},{"id":"trackerFinishCard","cls":"card trackerFinishCard","top":634,"bottom":797,"height":163},{"id":"","cls":"safetyrow","top":802,"bottom":830,"height":28}]}
-TRACKER WORKFLOW PASS: coach-1080p 1920x1080 deadGap=5 finishWidth=1430/1430 scroll=1080x1080
-TRACKER QA PASS: dead lower-right space is a failure, post-snap detail spans both columns, coach-pinned shortcuts retain their full dropdown sources, normal run path stays in one viewport, desktop page scroll is zero, penalty Save stays reachable, and duplicate live tracking is removed
+TRACKER GEOMETRY common-laptop {"innerH":768,"scrollH":768,"bodyH":761,"snap":{"left":14,"right":1352,"top":53,"bottom":137.59375,"width":1338,"height":84.59375},"live":{"left":14,"right":1352,"top":141.59375,"bottom":755.59375,"width":1338,"height":614},"main":{"left":14,"right":1072,"top":141.59375,"bottom":656.15625,"width":1058,"height":514.5625},"aside":{"left":1082,"right":1352,"top":141.59375,"bottom":755.59375,"width":270,"height":614},"pre":{"left":14,"right":539,"top":149.59375,"bottom":516.796875,"width":525,"height":367.203125},"result":{"left":547,"right":1072,"top":149.59375,"bottom":422.875,"width":525,"height":273.28125},"finish":{"left":547,"right":1072,"top":426.875,"bottom":624.15625,"width":525,"height":197.28125},"safety":{"left":15,"right":1071,"top":628.15625,"bottom":656.15625,"width":1056,"height":28},"situation":{"left":0,"right":0,"top":0,"bottom":0,"width":0,"height":0},"situationDisplay":"none","children":[{"id":"preSnapCard","cls":"card stepcard boxPreSnapCard","top":150,"bottom":517,"height":367},{"id":"","cls":"card stepcard boxResultCard trackerPrimaryResult","top":150,"bottom":423,"height":273},{"id":"trackerFinishCard","cls":"card trackerFinishCard","top":427,"bottom":624,"height":197},{"id":"","cls":"safetyrow","top":628,"bottom":656,"height":28}]}
+TRACKER WORKFLOW PASS: common-laptop 1366x768 deadGap=4 finishWidth=525/1058 scroll=768x768
+TRACKER GEOMETRY screenshot-workstation {"innerH":900,"scrollH":900,"bodyH":893,"snap":{"left":18,"right":1642,"top":53,"bottom":137.59375,"width":1624,"height":84.59375},"live":{"left":18,"right":1642,"top":141.59375,"bottom":887.59375,"width":1624,"height":746},"main":{"left":18,"right":1308,"top":141.59375,"bottom":699.78125,"width":1290,"height":558.1875},"aside":{"left":1322,"right":1642,"top":141.59375,"bottom":887.59375,"width":320,"height":746},"pre":{"left":18,"right":658,"top":191.59375,"bottom":568.78125,"width":640,"height":377.1875},"result":{"left":668,"right":1308,"top":191.59375,"bottom":445.1875,"width":640,"height":253.59375},"finish":{"left":668,"right":1308,"top":450.1875,"bottom":666.78125,"width":640,"height":216.59375},"safety":{"left":19,"right":1307,"top":671.78125,"bottom":699.78125,"width":1288,"height":28},"situation":{"left":0,"right":0,"top":0,"bottom":0,"width":0,"height":0},"situationDisplay":"none","children":[{"id":"","cls":"fastbar","top":142,"bottom":182,"height":40},{"id":"preSnapCard","cls":"card stepcard boxPreSnapCard","top":192,"bottom":569,"height":377},{"id":"","cls":"card stepcard boxResultCard trackerPrimaryResult","top":192,"bottom":445,"height":254},{"id":"trackerFinishCard","cls":"card trackerFinishCard","top":450,"bottom":667,"height":217},{"id":"","cls":"safetyrow","top":672,"bottom":700,"height":28}]}
+TRACKER WORKFLOW PASS: screenshot-workstation 1660x900 deadGap=5 finishWidth=640/1290 scroll=900x900
+TRACKER GEOMETRY coach-1080p {"innerH":1080,"scrollH":1080,"bodyH":902,"snap":{"left":78,"right":1842,"top":53,"bottom":137.59375,"width":1764,"height":84.59375},"live":{"left":78,"right":1842,"top":141.59375,"bottom":896.71875,"width":1764,"height":755.125},"main":{"left":78,"right":1508,"top":141.59375,"bottom":699.78125,"width":1430,"height":558.1875},"aside":{"left":1522,"right":1842,"top":141.59375,"bottom":896.71875,"width":320,"height":755.125},"pre":{"left":78,"right":788,"top":191.59375,"bottom":624.375,"width":710,"height":432.78125},"result":{"left":798,"right":1508,"top":191.59375,"bottom":445.1875,"width":710,"height":253.59375},"finish":{"left":798,"right":1508,"top":450.1875,"bottom":666.78125,"width":710,"height":216.59375},"safety":{"left":79,"right":1507,"top":671.78125,"bottom":699.78125,"width":1428,"height":28},"situation":{"left":0,"right":0,"top":0,"bottom":0,"width":0,"height":0},"situationDisplay":"none","children":[{"id":"","cls":"fastbar","top":142,"bottom":182,"height":40},{"id":"preSnapCard","cls":"card stepcard boxPreSnapCard","top":192,"bottom":624,"height":433},{"id":"","cls":"card stepcard boxResultCard trackerPrimaryResult","top":192,"bottom":445,"height":254},{"id":"trackerFinishCard","cls":"card trackerFinishCard","top":450,"bottom":667,"height":217},{"id":"","cls":"safetyrow","top":672,"bottom":700,"height":28}]}
+TRACKER WORKFLOW PASS: coach-1080p 1920x1080 deadGap=5 finishWidth=710/1430 scroll=1080x1080
+TRACKER QA PASS: desktop Post-snap packs into unused right-column space without physical overlap, short laptop keeps the full-width no-scroll finish card, coach-pinned shortcuts retain full dropdown sources, normal run path stays in one viewport, penalty Save stays reachable, and duplicate live tracking is removed
 PASS: Press-box tracker workflow pass 2
 --- Press-box tracker workflow pass 3 ---
 TRACKER GEOMETRY coach-short {"innerH":668,"scrollH":668,"bodyH":557,"snap":{"left":7,"right":1468,"top":53,"bottom":137.59375,"width":1461,"height":84.59375},"live":{"left":7,"right":1468,"top":141.59375,"bottom":551.96875,"width":1461,"height":410.375},"main":{"left":7,"right":1468,"top":141.59375,"bottom":551.96875,"width":1461,"height":410.375},"aside":{"left":0,"right":0,"top":0,"bottom":0,"width":0,"height":0},"pre":{"left":7,"right":734,"top":150.59375,"bottom":401.625,"width":727,"height":251.03125},"result":{"left":741,"right":1468,"top":150.59375,"bottom":391,"width":727,"height":240.40625},"finish":{"left":7,"right":1468,"top":404.625,"bottom":520.96875,"width":1461,"height":116.34375},"safety":{"left":8,"right":1467,"top":523.96875,"bottom":551.96875,"width":1459,"height":28},"situation":{"left":0,"right":0,"top":0,"bottom":0,"width":0,"height":0},"situationDisplay":"none","children":[{"id":"preSnapCard","cls":"card stepcard boxPreSnapCard","top":151,"bottom":402,"height":251},{"id":"","cls":"card stepcard boxResultCard trackerPrimaryResult","top":151,"bottom":391,"height":240},{"id":"trackerFinishCard","cls":"card trackerFinishCard","top":405,"bottom":521,"height":116},{"id":"","cls":"safetyrow","top":524,"bottom":552,"height":28}]}
 TRACKER WORKFLOW PASS: coach-short 1475x668 deadGap=3 finishWidth=1461/1461 scroll=668x668
-TRACKER GEOMETRY common-laptop {"innerH":768,"scrollH":768,"bodyH":761,"snap":{"left":14,"right":1352,"top":53,"bottom":137.59375,"width":1338,"height":84.59375},"live":{"left":14,"right":1352,"top":141.59375,"bottom":755.59375,"width":1338,"height":614},"main":{"left":14,"right":1072,"top":141.59375,"bottom":702.4375,"width":1058,"height":560.84375},"aside":{"left":1082,"right":1352,"top":141.59375,"bottom":755.59375,"width":270,"height":614},"pre":{"left":14,"right":539,"top":150.59375,"bottom":517.796875,"width":525,"height":367.203125},"result":{"left":547,"right":1072,"top":150.59375,"bottom":423.875,"width":525,"height":273.28125},"finish":{"left":14,"right":1072,"top":520.796875,"bottom":671.4375,"width":1058,"height":150.640625},"safety":{"left":15,"right":1071,"top":674.4375,"bottom":702.4375,"width":1056,"height":28},"situation":{"left":0,"right":0,"top":0,"bottom":0,"width":0,"height":0},"situationDisplay":"none","children":[{"id":"preSnapCard","cls":"card stepcard boxPreSnapCard","top":151,"bottom":518,"height":367},{"id":"","cls":"card stepcard boxResultCard trackerPrimaryResult","top":151,"bottom":424,"height":273},{"id":"trackerFinishCard","cls":"card trackerFinishCard","top":521,"bottom":671,"height":151},{"id":"","cls":"safetyrow","top":674,"bottom":702,"height":28}]}
-TRACKER WORKFLOW PASS: common-laptop 1366x768 deadGap=3 finishWidth=1058/1058 scroll=768x768
-TRACKER GEOMETRY screenshot-workstation {"innerH":900,"scrollH":900,"bodyH":893,"snap":{"left":18,"right":1642,"top":53,"bottom":137.59375,"width":1624,"height":84.59375},"live":{"left":18,"right":1642,"top":141.59375,"bottom":887.59375,"width":1624,"height":746},"main":{"left":18,"right":1308,"top":141.59375,"bottom":769.578125,"width":1290,"height":627.984375},"aside":{"left":1322,"right":1642,"top":141.59375,"bottom":887.59375,"width":320,"height":746},"pre":{"left":18,"right":659,"top":193.59375,"bottom":570.78125,"width":641,"height":377.1875},"result":{"left":667,"right":1308,"top":193.59375,"bottom":447.1875,"width":641,"height":253.59375},"finish":{"left":18,"right":1308,"top":574.78125,"bottom":737.578125,"width":1290,"height":162.796875},"safety":{"left":19,"right":1307,"top":741.578125,"bottom":769.578125,"width":1288,"height":28},"situation":{"left":0,"right":0,"top":0,"bottom":0,"width":0,"height":0},"situationDisplay":"none","children":[{"id":"","cls":"fastbar","top":142,"bottom":182,"height":40},{"id":"preSnapCard","cls":"card stepcard boxPreSnapCard","top":194,"bottom":571,"height":377},{"id":"","cls":"card stepcard boxResultCard trackerPrimaryResult","top":194,"bottom":447,"height":254},{"id":"trackerFinishCard","cls":"card trackerFinishCard","top":575,"bottom":738,"height":163},{"id":"","cls":"safetyrow","top":742,"bottom":770,"height":28}]}
-TRACKER WORKFLOW PASS: screenshot-workstation 1660x900 deadGap=4 finishWidth=1290/1290 scroll=900x900
-TRACKER GEOMETRY coach-1080p {"innerH":1080,"scrollH":1080,"bodyH":902,"snap":{"left":78,"right":1842,"top":53,"bottom":137.59375,"width":1764,"height":84.59375},"live":{"left":78,"right":1842,"top":141.59375,"bottom":896.71875,"width":1764,"height":755.125},"main":{"left":78,"right":1508,"top":141.59375,"bottom":830.171875,"width":1430,"height":688.578125},"aside":{"left":1522,"right":1842,"top":141.59375,"bottom":896.71875,"width":320,"height":755.125},"pre":{"left":78,"right":788.5,"top":196.59375,"bottom":629.375,"width":710.5,"height":432.78125},"result":{"left":797.5,"right":1508,"top":196.59375,"bottom":450.1875,"width":710.5,"height":253.59375},"finish":{"left":78,"right":1508,"top":634.375,"bottom":797.171875,"width":1430,"height":162.796875},"safety":{"left":79,"right":1507,"top":802.171875,"bottom":830.171875,"width":1428,"height":28},"situation":{"left":0,"right":0,"top":0,"bottom":0,"width":0,"height":0},"situationDisplay":"none","children":[{"id":"","cls":"fastbar","top":142,"bottom":182,"height":40},{"id":"preSnapCard","cls":"card stepcard boxPreSnapCard","top":197,"bottom":629,"height":433},{"id":"","cls":"card stepcard boxResultCard trackerPrimaryResult","top":197,"bottom":450,"height":254},{"id":"trackerFinishCard","cls":"card trackerFinishCard","top":634,"bottom":797,"height":163},{"id":"","cls":"safetyrow","top":802,"bottom":830,"height":28}]}
-TRACKER WORKFLOW PASS: coach-1080p 1920x1080 deadGap=5 finishWidth=1430/1430 scroll=1080x1080
-TRACKER QA PASS: dead lower-right space is a failure, post-snap detail spans both columns, coach-pinned shortcuts retain their full dropdown sources, normal run path stays in one viewport, desktop page scroll is zero, penalty Save stays reachable, and duplicate live tracking is removed
+TRACKER GEOMETRY common-laptop {"innerH":768,"scrollH":768,"bodyH":761,"snap":{"left":14,"right":1352,"top":53,"bottom":137.59375,"width":1338,"height":84.59375},"live":{"left":14,"right":1352,"top":141.59375,"bottom":755.59375,"width":1338,"height":614},"main":{"left":14,"right":1072,"top":141.59375,"bottom":656.15625,"width":1058,"height":514.5625},"aside":{"left":1082,"right":1352,"top":141.59375,"bottom":755.59375,"width":270,"height":614},"pre":{"left":14,"right":539,"top":149.59375,"bottom":516.796875,"width":525,"height":367.203125},"result":{"left":547,"right":1072,"top":149.59375,"bottom":422.875,"width":525,"height":273.28125},"finish":{"left":547,"right":1072,"top":426.875,"bottom":624.15625,"width":525,"height":197.28125},"safety":{"left":15,"right":1071,"top":628.15625,"bottom":656.15625,"width":1056,"height":28},"situation":{"left":0,"right":0,"top":0,"bottom":0,"width":0,"height":0},"situationDisplay":"none","children":[{"id":"preSnapCard","cls":"card stepcard boxPreSnapCard","top":150,"bottom":517,"height":367},{"id":"","cls":"card stepcard boxResultCard trackerPrimaryResult","top":150,"bottom":423,"height":273},{"id":"trackerFinishCard","cls":"card trackerFinishCard","top":427,"bottom":624,"height":197},{"id":"","cls":"safetyrow","top":628,"bottom":656,"height":28}]}
+TRACKER WORKFLOW PASS: common-laptop 1366x768 deadGap=4 finishWidth=525/1058 scroll=768x768
+TRACKER GEOMETRY screenshot-workstation {"innerH":900,"scrollH":900,"bodyH":893,"snap":{"left":18,"right":1642,"top":53,"bottom":137.59375,"width":1624,"height":84.59375},"live":{"left":18,"right":1642,"top":141.59375,"bottom":887.59375,"width":1624,"height":746},"main":{"left":18,"right":1308,"top":141.59375,"bottom":699.78125,"width":1290,"height":558.1875},"aside":{"left":1322,"right":1642,"top":141.59375,"bottom":887.59375,"width":320,"height":746},"pre":{"left":18,"right":658,"top":191.59375,"bottom":568.78125,"width":640,"height":377.1875},"result":{"left":668,"right":1308,"top":191.59375,"bottom":445.1875,"width":640,"height":253.59375},"finish":{"left":668,"right":1308,"top":450.1875,"bottom":666.78125,"width":640,"height":216.59375},"safety":{"left":19,"right":1307,"top":671.78125,"bottom":699.78125,"width":1288,"height":28},"situation":{"left":0,"right":0,"top":0,"bottom":0,"width":0,"height":0},"situationDisplay":"none","children":[{"id":"","cls":"fastbar","top":142,"bottom":182,"height":40},{"id":"preSnapCard","cls":"card stepcard boxPreSnapCard","top":192,"bottom":569,"height":377},{"id":"","cls":"card stepcard boxResultCard trackerPrimaryResult","top":192,"bottom":445,"height":254},{"id":"trackerFinishCard","cls":"card trackerFinishCard","top":450,"bottom":667,"height":217},{"id":"","cls":"safetyrow","top":672,"bottom":700,"height":28}]}
+TRACKER WORKFLOW PASS: screenshot-workstation 1660x900 deadGap=5 finishWidth=640/1290 scroll=900x900
+TRACKER GEOMETRY coach-1080p {"innerH":1080,"scrollH":1080,"bodyH":902,"snap":{"left":78,"right":1842,"top":53,"bottom":137.59375,"width":1764,"height":84.59375},"live":{"left":78,"right":1842,"top":141.59375,"bottom":896.71875,"width":1764,"height":755.125},"main":{"left":78,"right":1508,"top":141.59375,"bottom":699.78125,"width":1430,"height":558.1875},"aside":{"left":1522,"right":1842,"top":141.59375,"bottom":896.71875,"width":320,"height":755.125},"pre":{"left":78,"right":788,"top":191.59375,"bottom":624.375,"width":710,"height":432.78125},"result":{"left":798,"right":1508,"top":191.59375,"bottom":445.1875,"width":710,"height":253.59375},"finish":{"left":798,"right":1508,"top":450.1875,"bottom":666.78125,"width":710,"height":216.59375},"safety":{"left":79,"right":1507,"top":671.78125,"bottom":699.78125,"width":1428,"height":28},"situation":{"left":0,"right":0,"top":0,"bottom":0,"width":0,"height":0},"situationDisplay":"none","children":[{"id":"","cls":"fastbar","top":142,"bottom":182,"height":40},{"id":"preSnapCard","cls":"card stepcard boxPreSnapCard","top":192,"bottom":624,"height":433},{"id":"","cls":"card stepcard boxResultCard trackerPrimaryResult","top":192,"bottom":445,"height":254},{"id":"trackerFinishCard","cls":"card trackerFinishCard","top":450,"bottom":667,"height":217},{"id":"","cls":"safetyrow","top":672,"bottom":700,"height":28}]}
+TRACKER WORKFLOW PASS: coach-1080p 1920x1080 deadGap=5 finishWidth=710/1430 scroll=1080x1080
+TRACKER QA PASS: desktop Post-snap packs into unused right-column space without physical overlap, short laptop keeps the full-width no-scroll finish card, coach-pinned shortcuts retain full dropdown sources, normal run path stays in one viewport, penalty Save stays reachable, and duplicate live tracking is removed
 PASS: Press-box tracker workflow pass 3
 --- Box ergonomics/readability pass 1 ---
 BOX ERGONOMICS PASS: coach-short 1475x668 gap=3 internalGap=26 finish=1461/1461 blitzContrast=14.88
-BOX ERGONOMICS PASS: common-laptop 1366x768 gap=3 internalGap=26 finish=1058/1058 blitzContrast=14.88
-BOX ERGONOMICS PASS: workstation-1660 1660x900 gap=4 internalGap=26 finish=1290/1290 blitzContrast=14.88
-BOX ERGONOMICS PASS: coach-1080p 1920x1080 gap=5 internalGap=26 finish=1430/1430 blitzContrast=14.88
-BOX ERGONOMICS PASS: wide-2048-regression 2048x1159 gap=16 internalGap=27 finish=1430/1430 blitzContrast=14.88
-BOX ERGONOMICS QA PASS: Quality27 coach pins and source dropdowns are obvious enough to hit at game speed, no clipped Run Type text, no duplicate concept/result tracking, no internal dead pre-snap slab, readable colors and no desktop page scroll
+BOX ERGONOMICS PASS: common-laptop 1366x768 gap=4 internalGap=26 finish=525/525 blitzContrast=14.88
+BOX ERGONOMICS PASS: workstation-1660 1660x900 gap=5 internalGap=26 finish=640/640 blitzContrast=14.88
+BOX ERGONOMICS PASS: coach-1080p 1920x1080 gap=5 internalGap=26 finish=710/710 blitzContrast=14.88
+BOX ERGONOMICS PASS: wide-2048-regression 2048x1159 gap=12 internalGap=27 finish=710/710 blitzContrast=14.88
+BOX ERGONOMICS QA PASS: Quality27 controls remain game-readable after density packing, Post-snap fills either the available right column or the intentional dense Run full-width row without overlap, short laptop keeps the full-width no-scroll layout, colors remain readable and desktop page scroll stays zero
 PASS: Box ergonomics/readability pass 1
 --- Box ergonomics/readability pass 2 ---
 BOX ERGONOMICS PASS: coach-short 1475x668 gap=3 internalGap=26 finish=1461/1461 blitzContrast=14.88
-BOX ERGONOMICS PASS: common-laptop 1366x768 gap=3 internalGap=26 finish=1058/1058 blitzContrast=14.88
-BOX ERGONOMICS PASS: workstation-1660 1660x900 gap=4 internalGap=26 finish=1290/1290 blitzContrast=14.88
-BOX ERGONOMICS PASS: coach-1080p 1920x1080 gap=5 internalGap=26 finish=1430/1430 blitzContrast=14.88
-BOX ERGONOMICS PASS: wide-2048-regression 2048x1159 gap=16 internalGap=27 finish=1430/1430 blitzContrast=14.88
-BOX ERGONOMICS QA PASS: Quality27 coach pins and source dropdowns are obvious enough to hit at game speed, no clipped Run Type text, no duplicate concept/result tracking, no internal dead pre-snap slab, readable colors and no desktop page scroll
+BOX ERGONOMICS PASS: common-laptop 1366x768 gap=4 internalGap=26 finish=525/525 blitzContrast=14.88
+BOX ERGONOMICS PASS: workstation-1660 1660x900 gap=5 internalGap=26 finish=640/640 blitzContrast=14.88
+BOX ERGONOMICS PASS: coach-1080p 1920x1080 gap=5 internalGap=26 finish=710/710 blitzContrast=14.88
+BOX ERGONOMICS PASS: wide-2048-regression 2048x1159 gap=12 internalGap=27 finish=710/710 blitzContrast=14.88
+BOX ERGONOMICS QA PASS: Quality27 controls remain game-readable after density packing, Post-snap fills either the available right column or the intentional dense Run full-width row without overlap, short laptop keeps the full-width no-scroll layout, colors remain readable and desktop page scroll stays zero
 PASS: Box ergonomics/readability pass 2
 --- Box ergonomics/readability pass 3 ---
 BOX ERGONOMICS PASS: coach-short 1475x668 gap=3 internalGap=26 finish=1461/1461 blitzContrast=14.88
-BOX ERGONOMICS PASS: common-laptop 1366x768 gap=3 internalGap=26 finish=1058/1058 blitzContrast=14.88
-BOX ERGONOMICS PASS: workstation-1660 1660x900 gap=4 internalGap=26 finish=1290/1290 blitzContrast=14.88
-BOX ERGONOMICS PASS: coach-1080p 1920x1080 gap=5 internalGap=26 finish=1430/1430 blitzContrast=14.88
-BOX ERGONOMICS PASS: wide-2048-regression 2048x1159 gap=16 internalGap=27 finish=1430/1430 blitzContrast=14.88
-BOX ERGONOMICS QA PASS: Quality27 coach pins and source dropdowns are obvious enough to hit at game speed, no clipped Run Type text, no duplicate concept/result tracking, no internal dead pre-snap slab, readable colors and no desktop page scroll
+BOX ERGONOMICS PASS: common-laptop 1366x768 gap=4 internalGap=26 finish=525/525 blitzContrast=14.88
+BOX ERGONOMICS PASS: workstation-1660 1660x900 gap=5 internalGap=26 finish=640/640 blitzContrast=14.88
+BOX ERGONOMICS PASS: coach-1080p 1920x1080 gap=5 internalGap=26 finish=710/710 blitzContrast=14.88
+BOX ERGONOMICS PASS: wide-2048-regression 2048x1159 gap=12 internalGap=27 finish=710/710 blitzContrast=14.88
+BOX ERGONOMICS QA PASS: Quality27 controls remain game-readable after density packing, Post-snap fills either the available right column or the intentional dense Run full-width row without overlap, short laptop keeps the full-width no-scroll layout, colors remain readable and desktop page scroll stays zero
 PASS: Box ergonomics/readability pass 3
 --- Multi-team accent matrix pass 1 ---
-ACCENT PASS: orange-short font=11 target=32 blitzContrast=12.28
-ACCENT PASS: orange-wide font=11.5 target=35 blitzContrast=13.61
-ACCENT PASS: red-short font=11 target=32 blitzContrast=10.49
-ACCENT PASS: red-wide font=11.5 target=35 blitzContrast=12.28
-ACCENT PASS: blue-short font=11 target=32 blitzContrast=10.49
-ACCENT PASS: blue-wide font=11.5 target=35 blitzContrast=12.28
-ACCENT PASS: green-short font=11 target=32 blitzContrast=12.28
-ACCENT PASS: green-wide font=11.5 target=35 blitzContrast=12.28
-ACCENT PASS: purple-short font=11 target=32 blitzContrast=10.49
-ACCENT PASS: purple-wide font=11.5 target=35 blitzContrast=13.61
-ACCENT PASS: gold-short font=11 target=32 blitzContrast=10.49
-ACCENT PASS: gold-wide font=11.5 target=35 blitzContrast=12.28
-ACCENT PASS: dark-short font=11 target=32 blitzContrast=10.49
-ACCENT PASS: dark-wide font=11.5 target=35 blitzContrast=12.28
-ACCENT MATRIX QA PASS: Quality27 coach pins stay readable and selected-state contrast remains clear across orange/red/blue/green/purple/gold/dark accents on short and wide press-box layouts
-PASS: Multi-team accent matrix pass 1
---- Multi-team accent matrix pass 2 ---
-ACCENT PASS: orange-short font=11 target=32 blitzContrast=13.61
-ACCENT PASS: orange-wide font=11.5 target=35 blitzContrast=12.28
-ACCENT PASS: red-short font=11 target=32 blitzContrast=10.49
-ACCENT PASS: red-wide font=11.5 target=35 blitzContrast=12.28
-ACCENT PASS: blue-short font=11 target=32 blitzContrast=10.49
-ACCENT PASS: blue-wide font=11.5 target=35 blitzContrast=14.46
-ACCENT PASS: green-short font=11 target=32 blitzContrast=10.49
-ACCENT PASS: green-wide font=11.5 target=35 blitzContrast=13.61
-ACCENT PASS: purple-short font=11 target=32 blitzContrast=10.49
-ACCENT PASS: purple-wide font=11.5 target=35 blitzContrast=12.28
-ACCENT PASS: gold-short font=11 target=32 blitzContrast=10.49
-ACCENT PASS: gold-wide font=11.5 target=35 blitzContrast=12.28
-ACCENT PASS: dark-short font=11 target=32 blitzContrast=10.49
-ACCENT PASS: dark-wide font=11.5 target=35 blitzContrast=14.46
-ACCENT MATRIX QA PASS: Quality27 coach pins stay readable and selected-state contrast remains clear across orange/red/blue/green/purple/gold/dark accents on short and wide press-box layouts
-PASS: Multi-team accent matrix pass 2
---- Multi-team accent matrix pass 3 ---
 ACCENT PASS: orange-short font=11 target=32 blitzContrast=12.28
 ACCENT PASS: orange-wide font=11.5 target=35 blitzContrast=12.28
 ACCENT PASS: red-short font=11 target=32 blitzContrast=10.49
@@ -376,6 +377,40 @@ ACCENT PASS: purple-wide font=11.5 target=35 blitzContrast=12.28
 ACCENT PASS: gold-short font=11 target=32 blitzContrast=10.49
 ACCENT PASS: gold-wide font=11.5 target=35 blitzContrast=13.61
 ACCENT PASS: dark-short font=11 target=32 blitzContrast=10.49
+ACCENT PASS: dark-wide font=11.5 target=35 blitzContrast=10.49
+ACCENT MATRIX QA PASS: Quality27 coach pins stay readable and selected-state contrast remains clear across orange/red/blue/green/purple/gold/dark accents on short and wide press-box layouts
+PASS: Multi-team accent matrix pass 1
+--- Multi-team accent matrix pass 2 ---
+ACCENT PASS: orange-short font=11 target=32 blitzContrast=12.28
+ACCENT PASS: orange-wide font=11.5 target=35 blitzContrast=13.61
+ACCENT PASS: red-short font=11 target=32 blitzContrast=10.49
+ACCENT PASS: red-wide font=11.5 target=35 blitzContrast=12.28
+ACCENT PASS: blue-short font=11 target=32 blitzContrast=10.49
+ACCENT PASS: blue-wide font=11.5 target=35 blitzContrast=12.28
+ACCENT PASS: green-short font=11 target=32 blitzContrast=10.49
+ACCENT PASS: green-wide font=11.5 target=35 blitzContrast=10.49
+ACCENT PASS: purple-short font=11 target=32 blitzContrast=10.49
+ACCENT PASS: purple-wide font=11.5 target=35 blitzContrast=10.49
+ACCENT PASS: gold-short font=11 target=32 blitzContrast=12.28
+ACCENT PASS: gold-wide font=11.5 target=35 blitzContrast=12.28
+ACCENT PASS: dark-short font=11 target=32 blitzContrast=12.28
+ACCENT PASS: dark-wide font=11.5 target=35 blitzContrast=10.49
+ACCENT MATRIX QA PASS: Quality27 coach pins stay readable and selected-state contrast remains clear across orange/red/blue/green/purple/gold/dark accents on short and wide press-box layouts
+PASS: Multi-team accent matrix pass 2
+--- Multi-team accent matrix pass 3 ---
+ACCENT PASS: orange-short font=11 target=32 blitzContrast=13.61
+ACCENT PASS: orange-wide font=11.5 target=35 blitzContrast=12.28
+ACCENT PASS: red-short font=11 target=32 blitzContrast=12.28
+ACCENT PASS: red-wide font=11.5 target=35 blitzContrast=13.61
+ACCENT PASS: blue-short font=11 target=32 blitzContrast=12.28
+ACCENT PASS: blue-wide font=11.5 target=35 blitzContrast=12.28
+ACCENT PASS: green-short font=11 target=32 blitzContrast=12.28
+ACCENT PASS: green-wide font=11.5 target=35 blitzContrast=12.28
+ACCENT PASS: purple-short font=11 target=32 blitzContrast=10.49
+ACCENT PASS: purple-wide font=11.5 target=35 blitzContrast=10.49
+ACCENT PASS: gold-short font=11 target=32 blitzContrast=12.28
+ACCENT PASS: gold-wide font=11.5 target=35 blitzContrast=12.28
+ACCENT PASS: dark-short font=11 target=32 blitzContrast=12.28
 ACCENT PASS: dark-wide font=11.5 target=35 blitzContrast=12.28
 ACCENT MATRIX QA PASS: Quality27 coach pins stay readable and selected-state contrast remains clear across orange/red/blue/green/purple/gold/dark accents on short and wide press-box layouts
 PASS: Multi-team accent matrix pass 3
@@ -404,5 +439,5 @@ PASS: Responsive viewport matrix
 
 SOURCE_QA=success
 BROWSER_QA=success
-SOURCE_COMMIT=060c256ea89196ecd285cc4cb5504948111b0fa3
+SOURCE_COMMIT=600a8622f2a78a214ff9523f8c97b270d641018b
 FINAL: PASS
