@@ -76,6 +76,9 @@ jobs:
           ! grep -q "game-day-3.js" app.js
           ! grep -q "speed-guard.js" app.js
           ! grep -q "game-iq-v3.js" app.js
+          test ! -e game-day-3.js
+          test ! -e speed-guard.js
+          test ! -e game-iq-v3.js
           grep -Eq 'app.js\?v=quality(27-density-final|28-game-day)' index.html
 
       - name: Current-layer observer safety
