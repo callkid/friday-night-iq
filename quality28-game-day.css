@@ -113,20 +113,20 @@
   white-space:normal!important;
  }
 
- /* Large mode gets visibly larger always-on controls while pinned rows retain their
-    proven two-row packing. This uses the available floor for ergonomics, not filler. */
+ /* Large mode gets a real large touch target on the always-on snap controls. Pinned
+    rows retain their proven two-row packing, so extra size does not create wrapping. */
  html.fniqQ27SizeLarge #live #preSnapCard .speedPreSnap select,
  html.fniqQ27SizeLarge #live #preSnapCard .speedPreSnap input,
  html.fniqQ27SizeLarge #live #preSnapCard #motion{
-  min-height:62px!important;
-  height:62px!important;
-  font-size:15px!important;
+  min-height:70px!important;
+  height:70px!important;
+  font-size:16px!important;
  }
  html.fniqQ27SizeLarge #live #preSnapCard .speedHashButtons button,
  html.fniqQ27SizeLarge #live #preSnapCard .speedDefenseGrid .choice,
  html.fniqQ27SizeLarge #live #preSnapCard .boxSecondaryLookRow [data-group="box"] .choice{
-  min-height:60px!important;
-  font-size:15px!important;
+  min-height:66px!important;
+  font-size:16px!important;
  }
 
  /* Run makes the two primary cards nearly the same height. Put Post-snap across the
