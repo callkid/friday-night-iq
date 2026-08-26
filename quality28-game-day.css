@@ -3,27 +3,53 @@
    on 900px-class press-box workstations. */
 @media (min-width:1181px) and (min-height:821px) and (max-height:950px){
  html.fniqQ27SizeXl{
-  --q27Target:48px;
+  --q27Target:46px;
   --q27Font:15px;
-  --q27Field:50px;
+  --q27Field:48px;
  }
- html.fniqQ27SizeXl #live .boxResultCard:has(#q27Pins-runType:not(.hidden)){
-  padding-top:6px!important;
+
+ /* Reclaim chrome above the tracker before shrinking football content. */
+ html.fniqQ27SizeXl .top{
+  padding-top:5px!important;
   padding-bottom:6px!important;
  }
- html.fniqQ27SizeXl #live .boxResultCard:has(#q27Pins-runType:not(.hidden)) .stephead{
-  margin-bottom:5px!important;
+ html.fniqQ27SizeXl .top .logo{
+  width:36px!important;
+  height:36px!important;
  }
- html.fniqQ27SizeXl #live .boxResultCard:has(#q27Pins-runType:not(.hidden)) .resultgrid{
-  margin-top:5px!important;
-  gap:6px!important;
+ html.fniqQ27SizeXl #live .snapbar{
+  padding:4px 10px!important;
+  margin-bottom:4px!important;
  }
- html.fniqQ27SizeXl #live .boxResultCard:has(#q27Pins-runType:not(.hidden)) .contextrow{
-  margin-top:5px!important;
-  padding-top:5px!important;
- }
- html.fniqQ27SizeXl #live main.boxMainGrid:has(.boxResultCard #q27Pins-runType:not(.hidden))>#trackerFinishCard{
+
+ html.fniqQ27SizeXl #live .boxResultCard:has(#q27Pins-runType:not(.hidden)){
   padding-top:4px!important;
   padding-bottom:4px!important;
+ }
+ html.fniqQ27SizeXl #live .boxResultCard:has(#q27Pins-runType:not(.hidden)) .stephead{
+  margin-bottom:3px!important;
+ }
+ html.fniqQ27SizeXl #live #detail:has(#q27Pins-runType:not(.hidden)){
+  margin-top:3px!important;
+  padding-top:3px!important;
+  padding-bottom:3px!important;
+ }
+ html.fniqQ27SizeXl #live .boxResultCard:has(#q27Pins-runType:not(.hidden)) .resultgrid{
+  margin-top:3px!important;
+  gap:5px!important;
+ }
+ html.fniqQ27SizeXl #live .boxResultCard:has(#q27Pins-runType:not(.hidden)) .contextrow{
+  margin-top:3px!important;
+  padding-top:3px!important;
+ }
+ html.fniqQ27SizeXl #live main.boxMainGrid:has(.boxResultCard #q27Pins-runType:not(.hidden))>#trackerFinishCard{
+  padding-top:2px!important;
+  padding-bottom:2px!important;
+ }
+ html.fniqQ27SizeXl #live main.boxMainGrid:has(.boxResultCard #q27Pins-runType:not(.hidden))>#trackerFinishCard .trackerFinishHead{
+  margin-bottom:2px!important;
+ }
+ html.fniqQ27SizeXl #live main.boxMainGrid:has(.boxResultCard #q27Pins-runType:not(.hidden))>#trackerFinishCard .trackerFinishBody{
+  row-gap:2px!important;
  }
 }
