@@ -63,3 +63,30 @@
   row-gap:2px!important;
  }
 }
+
+/* 768px-class laptops: spend the otherwise-empty left-column floor on controls coaches
+   hit every snap. This is intentionally Standard-only; Large/XL already scale these
+   controls substantially. We improve ergonomics instead of stretching a decorative box. */
+@media (min-width:1181px) and (min-height:701px) and (max-height:820px){
+ html.fniqQ27SizeStandard #live #preSnapCard .speedPreSnap select,
+ html.fniqQ27SizeStandard #live #preSnapCard .speedPreSnap input,
+ html.fniqQ27SizeStandard #live #preSnapCard #motion{
+  min-height:40px!important;
+  height:40px!important;
+  font-size:12.5px!important;
+ }
+ html.fniqQ27SizeStandard #live #preSnapCard .speedHashButtons button,
+ html.fniqQ27SizeStandard #live #preSnapCard .speedDefenseGrid .choice,
+ html.fniqQ27SizeStandard #live #preSnapCard .boxSecondaryLookRow [data-group="box"] .choice,
+ html.fniqQ27SizeStandard #live #preSnapCard .q27PinnedBtn{
+  min-height:38px!important;
+  font-size:12px!important;
+  padding-top:6px!important;
+  padding-bottom:6px!important;
+ }
+ html.fniqQ27SizeStandard #live #preSnapCard .q27PinnedRow,
+ html.fniqQ27SizeStandard #live #preSnapCard .speedQuick,
+ html.fniqQ27SizeStandard #live #preSnapCard .choices{
+  row-gap:5px!important;
+ }
+}
