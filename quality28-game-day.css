@@ -28,6 +28,8 @@
  }
  html.fniqQ27SizeXl #live main.boxMainGrid{
   row-gap:3px!important;
+  margin-top:-10px!important;
+  margin-bottom:-10px!important;
  }
 
  html.fniqQ27SizeXl #live .boxResultCard:has(#q27Pins-runType:not(.hidden)){
