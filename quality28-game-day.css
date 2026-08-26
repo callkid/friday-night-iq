@@ -78,7 +78,7 @@
  html.fniqQ27SizeLarge #live #detail:has(#q27Pins-runType:not(.hidden)),
  html.fniqQ27SizeXl #live #detail:has(#q27Pins-runType:not(.hidden)){margin-top:3px!important;padding-top:3px!important;padding-bottom:3px!important}
  html.fniqQ27SizeLarge #live #q27Pins-runType{grid-template-columns:minmax(0,1.05fr) minmax(0,1.2fr) minmax(0,1.08fr) minmax(0,.9fr) minmax(0,.78fr)!important;gap:3px!important}
- html.fniqQ27SizeXl #live #q27Pins-runType{grid-template-columns:minmax(0,1.02fr) minmax(0,1.22fr) minmax(0,1.30fr) minmax(0,.82fr) minmax(0,.64fr)!important;gap:3px!important}
+ html.fniqQ27SizeXl #live #q27Pins-runType{grid-template-columns:minmax(0,1.10fr) minmax(0,1.30fr) minmax(0,1fr) minmax(0,.80fr) minmax(0,.80fr)!important;gap:3px!important}
  html.fniqQ27SizeLarge #live #q27Pins-runType .q27PinnedBtn,
  html.fniqQ27SizeXl #live #q27Pins-runType .q27PinnedBtn{padding-left:2px!important;padding-right:2px!important;line-height:1!important}
  html.fniqQ27SizeLarge #live .boxResultCard:has(#q27Pins-runType:not(.hidden)) .resultgrid,
@@ -104,7 +104,7 @@
  html.fniqBoxCompact #live main.boxMainGrid:has(.boxResultCard #q27Pins-runType:not(.hidden))>#trackerFinishCard .trackerConcept{grid-column:3!important;grid-row:1!important;align-self:end!important;min-width:0!important}
  html.fniqBoxCompact #live main.boxMainGrid:has(.boxResultCard #q27Pins-runType:not(.hidden))>#trackerFinishCard .trackerMoreResult{grid-column:1/-1!important}
 
- /* These last selectors intentionally win over the shared Run packing: whitespace only. */
+ /* These last selectors intentionally win over the shared Run packing. */
  html.fniqBoxCompact.fniqQ27SizeLarge #live main.boxMainGrid:has(.boxResultCard #q27Pins-runType:not(.hidden)),
  html.fniqBoxCompact.fniqQ27SizeXl #live main.boxMainGrid:has(.boxResultCard #q27Pins-runType:not(.hidden)){row-gap:1px!important}
  html.fniqBoxCompact.fniqQ27SizeLarge #live main.boxMainGrid:has(.boxResultCard #q27Pins-runType:not(.hidden))>#trackerFinishCard,
@@ -113,4 +113,21 @@
  html.fniqBoxCompact.fniqQ27SizeXl #live main.boxMainGrid:has(.boxResultCard #q27Pins-runType:not(.hidden))>#trackerFinishCard .trackerFinishHead{margin-bottom:0!important}
  html.fniqBoxCompact.fniqQ27SizeLarge #live main.boxMainGrid:has(.boxResultCard #q27Pins-runType:not(.hidden))>#trackerFinishCard .trackerFinishBody,
  html.fniqBoxCompact.fniqQ27SizeXl #live main.boxMainGrid:has(.boxResultCard #q27Pins-runType:not(.hidden))>#trackerFinishCard .trackerFinishBody{row-gap:1px!important}
+
+ /* XL has enough horizontal room across the full-width finish row to keep secondary
+    disclosure access beside the active finish controls instead of spending another row. */
+ html.fniqBoxCompact.fniqQ27SizeXl #live main.boxMainGrid:has(.boxResultCard #q27Pins-runType:not(.hidden))>#trackerFinishCard .trackerFinishBody{
+  grid-template-columns:minmax(0,1fr) 132px minmax(180px,.38fr) 180px!important;
+  column-gap:7px!important;
+ }
+ html.fniqBoxCompact.fniqQ27SizeXl #live main.boxMainGrid:has(.boxResultCard #q27Pins-runType:not(.hidden))>#trackerFinishCard .trackerPostCoverage{grid-column:1/3!important;grid-row:1!important}
+ html.fniqBoxCompact.fniqQ27SizeXl #live main.boxMainGrid:has(.boxResultCard #q27Pins-runType:not(.hidden))>#trackerFinishCard .trackerConcept{grid-column:3!important;grid-row:1!important}
+ html.fniqBoxCompact.fniqQ27SizeXl #live main.boxMainGrid:has(.boxResultCard #q27Pins-runType:not(.hidden))>#trackerFinishCard .trackerMoreResult{
+  grid-column:4!important;
+  grid-row:1!important;
+  align-self:end!important;
+  min-width:0!important;
+  margin:0!important;
+  padding:0!important;
+ }
 }
