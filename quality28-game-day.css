@@ -38,10 +38,10 @@
  html.fniqQ27SizeLarge #live #preSnapCard .boxSecondaryLookRow [data-group="box"] .choice{min-height:66px!important;font-size:16px!important}
  html.fniqQ27SizeXl #live #preSnapCard .speedPreSnap select,
  html.fniqQ27SizeXl #live #preSnapCard .speedPreSnap input,
- html.fniqQ27SizeXl #live #preSnapCard #motion{min-height:64px!important;height:64px!important;font-size:17px!important}
+ html.fniqQ27SizeXl #live #preSnapCard #motion{min-height:68px!important;height:68px!important;font-size:17px!important}
  html.fniqQ27SizeXl #live #preSnapCard .speedHashButtons button,
  html.fniqQ27SizeXl #live #preSnapCard .speedDefenseGrid .choice,
- html.fniqQ27SizeXl #live #preSnapCard .boxSecondaryLookRow [data-group="box"] .choice{min-height:62px!important;font-size:17px!important}
+ html.fniqQ27SizeXl #live #preSnapCard .boxSecondaryLookRow [data-group="box"] .choice{min-height:66px!important;font-size:17px!important}
 
  /* After Run is selected, pre-snap and Play Type are completed decisions. Compact
     those settled rows and reserve the large hit targets for the active Run workflow. */
