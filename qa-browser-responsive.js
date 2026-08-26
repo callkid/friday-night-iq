@@ -35,6 +35,7 @@ async function boot(browser,c){
       innerW:innerWidth,innerH:innerHeight,scrollW:document.documentElement.scrollWidth,scrollH:document.documentElement.scrollHeight,
       app:rect('.app'),snap:rect('#live .snapbar'),live:rect('#live .live'),main:rect('#live main'),
       fastbar:rect('#live .fastbar'),fastbarDisplay:shown('#live .fastbar')?'shown':'none',
+      savedBar:rect('#q27SavedBar'),savedBarDisplay:shown('#q27SavedBar')&&!document.querySelector('#q27SavedBar').classList.contains('hidden')?'shown':'none',
       driveGate:rect('#driveGate'),driveGateDisplay:shown('#driveGate')&&!document.querySelector('#driveGate').classList.contains('hidden')?'shown':'none',
       aside:rect('#live aside.sticky'),asideDisplay:getComputedStyle(document.querySelector('#live aside.sticky')).display,
       situation:rect('#situationCard'),situationDisplay:getComputedStyle(document.querySelector('#situationCard')).display,
@@ -48,6 +49,7 @@ async function boot(browser,c){
       const nextTop=Math.min(metrics.pre.top,metrics.result.top);
       const anchors=[metrics.snap.bottom];
       if(metrics.fastbarDisplay==='shown'&&metrics.fastbar)anchors.push(metrics.fastbar.bottom);
+      if(metrics.savedBarDisplay==='shown'&&metrics.savedBar)anchors.push(metrics.savedBar.bottom);
       if(metrics.driveGateDisplay==='shown'&&metrics.driveGate)anchors.push(metrics.driveGate.bottom);
       if(metrics.situationDisplay!=='none'&&metrics.situation)anchors.push(metrics.situation.bottom);
       const anchor=Math.max.apply(Math,anchors),gap=nextTop-anchor;
@@ -70,13 +72,13 @@ async function boot(browser,c){
     if(c.monitor2k){assert(metrics.app.width>=2000,'2K monitor should expand app canvas; app width was '+Math.round(metrics.app.width));}
     if(c.narrow){assert.equal(metrics.asideDisplay,'none','narrow layout should remove sidebar from charting surface');assert.equal(metrics.mainDisplay,'block','narrow layout should stack charting cards');assert.notEqual(metrics.savePosition,'fixed','narrow/mobile Save must never become a fixed overlay');}
     if(c.mobile){
-      for(const s of ['#speedHashButtons','#formation','#personnel','#q24CoverageQuick','[data-group="box"]','#motion','[data-group="playType"]','#yards','#save']){
-        const loc=page.locator(s).first();assert(await loc.count(),c.name+' missing mobile control '+s);const r=await loc.evaluate(el=>{const x=el.getBoundingClientRect();return{left:x.left,right:x.right}});assert(r.left>=-2&&r.right<=c.width+2,c.name+' control exceeds mobile width: '+s+' '+Math.round(r.left)+'..'+Math.round(r.right));
+      for(const s of ['#speedHashButtons','#formation','#personnel','#q27Pins-coverage','#coverage','[data-group="box"]','#motion','[data-group="playType"]','#yards','#save']){
+        const loc=page.locator(s).first();assert(await loc.count(),c.name+' missing mobile control '+s);assert(await loc.isVisible(),c.name+' hidden mobile control '+s);const r=await loc.evaluate(el=>{const x=el.getBoundingClientRect();return{left:x.left,right:x.right}});assert(r.left>=-2&&r.right<=c.width+2,c.name+' control exceeds mobile width: '+s+' '+Math.round(r.left)+'..'+Math.round(r.right));
       }
     }
     console.log('RESPONSIVE PASS:',c.name,c.width+'x'+c.height,'scroll='+metrics.scrollW+'x'+metrics.scrollH);
     await context.close();
   }
   await browser.close();
-  console.log('RESPONSIVE MATRIX PASS: short laptop, common laptop, 1080p, 2K, narrow, tablet, mobile portrait and landscape');
+  console.log('RESPONSIVE MATRIX PASS: Quality27 saved confirmation and coach pins stay usable on short laptop, common laptop, 1080p, 2K, narrow, tablet, mobile portrait and landscape');
 })().catch(e=>{console.error(e);process.exit(1)});

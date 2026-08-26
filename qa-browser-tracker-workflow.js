@@ -29,7 +29,7 @@ async function boot(browser,c){const context=await browser.newContext({viewport:
   if(m.aside&&m.aside.width>0)assert(m.aside.bottom<=m.innerH-2,c.name+' IQ sidebar extends below the viewport instead of scrolling internally: '+Math.round(m.aside.bottom)+'px > '+m.innerH+'px');
   assert(m.scrollH<=m.innerH+c.maxScroll,c.name+' SCROLL FAIL: page '+m.scrollH+'px vs viewport '+m.innerH+'px');
 
-  for(const [s,label] of [['#speedHashButtons','hash'],['#formation','formation'],['#personnel','personnel'],['[data-group="front"]','front'],['[data-group="safeties"]','safeties'],['#q24CoverageQuick','initial coverage'],['[data-group="box"]','box'],['#motion','motion'],['[data-group="playType"]','play type'],['#yards','yards'],['#speedBlitzQuick','blitz'],['#speedCoverageQuick','post-snap coverage'],['#save','save']])await visibleRect(page,s,c.name+' '+label);
+  for(const [s,label] of [['#speedHashButtons','hash'],['#formation','formation'],['#personnel','personnel'],['[data-group="front"]','front'],['[data-group="safeties"]','safeties'],['#q27Pins-coverage','pinned initial coverage'],['#coverage','full initial coverage'],['[data-group="box"]','box'],['#q27Pins-motion','pinned motion'],['#motion','full motion'],['[data-group="playType"]','play type'],['#yards','yards'],['#speedBlitzQuick','blitz'],['#speedCoverageQuick','post-snap coverage'],['#save','save']])await visibleRect(page,s,c.name+' '+label);
   assert(!(await page.locator('.q26RedundantConcept').isVisible()),c.name+' duplicate Concept Family should not be live-charting UI');
   assert(!(await page.locator('.trackerResultTags').isVisible()),c.name+' duplicate Result Tags should not be live-charting UI');
 
@@ -38,12 +38,13 @@ async function boot(browser,c){const context=await browser.newContext({viewport:
   await page.fill('#personnel','11');
   await clickVisible(page,'[data-group="front"] [data-v="4"]',c.name+' front');
   await clickVisible(page,'[data-group="safeties"] [data-v="2"]',c.name+' safeties');
-  await clickVisible(page,'#q24CoverageQuick button[data-value="Cover 3"]',c.name+' initial coverage');
+  await clickVisible(page,'#q27Pins-coverage button[data-value="Cover 3"]',c.name+' initial coverage');
   await clickVisible(page,'[data-group="box"] [data-v="6"]',c.name+' box');
-  await clickVisible(page,'#q24MotionQuick button[data-value="No Motion"]',c.name+' no motion');
+  await clickVisible(page,'#q27Pins-motion button[data-value="No Motion"]',c.name+' no motion');
   await clickVisible(page,'[data-group="playType"] [data-v="Run"]',c.name+' run');
-  await page.waitForSelector('#q24AttackQuick button[data-value="Inside Zone"]',{state:'visible'});
-  await clickVisible(page,'#q24AttackQuick button[data-value="Inside Zone"]',c.name+' run type');
+  await page.waitForSelector('#q27Pins-runType button[data-value="Inside Zone"]',{state:'visible'});
+  await clickVisible(page,'#q27Pins-runType button[data-value="Inside Zone"]',c.name+' run type');
+  assert(await page.locator('#attackDetail').isVisible(),c.name+' full Run Type dropdown must remain available');
   assert(await page.locator('#q26Outcome').isVisible(),c.name+' contextual result controls are missing after Run');
   await page.fill('#yards','6');assert(Math.abs(await page.evaluate(()=>scrollY))<=2,c.name+' yards caused scroll');
   await clickVisible(page,'#speedBlitzQuick button[data-value="None"]',c.name+' no blitz');
@@ -74,5 +75,5 @@ async function boot(browser,c){const context=await browser.newContext({viewport:
   await context.close();
  }
  await browser.close();
- console.log('TRACKER QA PASS: dead lower-right space is a failure, post-snap detail spans both columns, normal run path stays in one viewport, desktop page scroll is zero, penalty Save stays reachable, and duplicate live tracking is removed');
+ console.log('TRACKER QA PASS: dead lower-right space is a failure, post-snap detail spans both columns, coach-pinned shortcuts retain their full dropdown sources, normal run path stays in one viewport, desktop page scroll is zero, penalty Save stays reachable, and duplicate live tracking is removed');
 })().catch(e=>{console.error(e);process.exit(1)});
