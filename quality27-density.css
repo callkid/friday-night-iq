@@ -30,6 +30,12 @@
  html.fniqBoxCompact #live #q27Pins-formation{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr));gap:5px!important;margin:0!important}
  html.fniqBoxCompact #live #q27Pins-formation .q27PinnedBtn{min-width:0;width:100%;white-space:normal;line-height:1.08!important}
 
+ /* Run is the tallest play-type reveal. Spend width instead of stacking the coach pins vertically. */
+ html.fniqBoxCompact #live #detail:has(#q27Pins-runType:not(.hidden))>.grid2{grid-template-columns:minmax(0,1.48fr) minmax(178px,.52fr)!important;gap:7px!important;align-items:end!important}
+ html.fniqBoxCompact #live .q27PinnedField-runType{grid-template-columns:minmax(0,1fr) 106px!important;column-gap:5px!important;align-items:end!important}
+ html.fniqBoxCompact #live #q27Pins-runType{display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr));gap:4px!important;margin:0!important}
+ html.fniqBoxCompact #live #q27Pins-runType .q27PinnedBtn{width:100%;min-width:0;padding-left:4px!important;padding-right:4px!important;white-space:normal;line-height:1.06!important}
+
  /* Post-snap now lives directly below What happened?; its own content reflows to the narrower column instead of becoming tiny. */
  html.fniqBoxCompact #trackerFinishCard{padding:8px 10px!important}
  html.fniqBoxCompact #trackerFinishCard .trackerFinishBody{display:grid!important;grid-template-columns:minmax(0,1fr) minmax(0,1fr)!important;gap:6px 8px!important;align-items:end!important}
@@ -46,6 +52,8 @@
  html.fniqBoxCompact #live main.boxMainGrid{column-gap:8px!important;row-gap:4px!important}
  html.fniqBoxCompact #live .boxSecondaryLookRow{gap:5px!important;margin-top:2px!important;margin-bottom:1px!important}
  html.fniqBoxCompact #live #q27Pins-motion{gap:4px!important}
+ html.fniqBoxCompact #live #detail:has(#q27Pins-runType:not(.hidden))>.grid2{grid-template-columns:minmax(0,1.55fr) minmax(150px,.45fr)!important;gap:5px!important}
+ html.fniqBoxCompact #live .q27PinnedField-runType{grid-template-columns:minmax(0,1fr) 92px!important}
  html.fniqBoxCompact #trackerFinishCard{padding:6px 8px!important}
  html.fniqBoxCompact #trackerFinishCard .trackerFinishBody{gap:4px 6px!important}
 }
