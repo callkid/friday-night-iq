@@ -129,6 +129,34 @@
   font-size:16px!important;
  }
 
+ /* Once Run is chosen, pre-snap entry is complete. Reclaim that vertical budget for
+    the active post-snap workflow while keeping the initial Large targets genuinely large. */
+ html.fniqQ27SizeLarge #live main.boxMainGrid:has(.boxResultCard #q27Pins-runType:not(.hidden)) #preSnapCard .speedPreSnap select,
+ html.fniqQ27SizeLarge #live main.boxMainGrid:has(.boxResultCard #q27Pins-runType:not(.hidden)) #preSnapCard .speedPreSnap input,
+ html.fniqQ27SizeLarge #live main.boxMainGrid:has(.boxResultCard #q27Pins-runType:not(.hidden)) #preSnapCard #motion{
+  min-height:54px!important;
+  height:54px!important;
+  font-size:13px!important;
+ }
+ html.fniqQ27SizeLarge #live main.boxMainGrid:has(.boxResultCard #q27Pins-runType:not(.hidden)) #preSnapCard .speedHashButtons button,
+ html.fniqQ27SizeLarge #live main.boxMainGrid:has(.boxResultCard #q27Pins-runType:not(.hidden)) #preSnapCard .speedDefenseGrid .choice,
+ html.fniqQ27SizeLarge #live main.boxMainGrid:has(.boxResultCard #q27Pins-runType:not(.hidden)) #preSnapCard .boxSecondaryLookRow [data-group="box"] .choice{
+  min-height:50px!important;
+  font-size:13px!important;
+  padding-top:7px!important;
+  padding-bottom:7px!important;
+ }
+ html.fniqQ27SizeLarge #live main.boxMainGrid:has(.boxResultCard #q27Pins-runType:not(.hidden)) #preSnapCard .speedQuick button,
+ html.fniqQ27SizeLarge #live main.boxMainGrid:has(.boxResultCard #q27Pins-runType:not(.hidden)) #preSnapCard #q27Pins-motion .q27PinnedBtn{
+  min-height:36px!important;
+  font-size:11.5px!important;
+ }
+ html.fniqQ27SizeLarge #live main.boxMainGrid:has(.boxResultCard #q27Pins-runType:not(.hidden))>.fastbar button,
+ html.fniqQ27SizeLarge #live main.boxMainGrid:has(.boxResultCard #q27Pins-runType:not(.hidden))>.safetyrow button{
+  min-height:34px!important;
+  font-size:12px!important;
+ }
+
  /* Run makes the two primary cards nearly the same height. Put Post-snap across the
     full work surface instead of stacking it under only the right column. This removes
     the empty left floor and lets coverage/concept controls use width instead of height. */
