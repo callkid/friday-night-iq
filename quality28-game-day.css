@@ -112,4 +112,82 @@
   line-height:1.05!important;
   white-space:normal!important;
  }
+
+ /* Run makes the two primary cards nearly the same height. Put Post-snap across the
+    full work surface instead of stacking it under only the right column. This removes
+    the empty left floor and lets coverage/concept controls use width instead of height. */
+ html.fniqBoxCompact #live main.boxMainGrid:has(.boxResultCard #q27Pins-runType:not(.hidden)){
+  grid-template-areas:
+   "fast safety"
+   "drive drive"
+   "presnap result"
+   "finish finish"!important;
+  row-gap:3px!important;
+ }
+ html.fniqBoxCompact #live main.boxMainGrid:has(.boxResultCard #q27Pins-runType:not(.hidden))>.fastbar{
+  grid-area:fast!important;
+  grid-column:1!important;
+  min-width:0!important;
+  margin-bottom:0!important;
+ }
+ html.fniqBoxCompact #live main.boxMainGrid:has(.boxResultCard #q27Pins-runType:not(.hidden))>.safetyrow{
+  grid-area:safety!important;
+  grid-column:2!important;
+  justify-self:end!important;
+  align-self:start!important;
+  justify-content:flex-end!important;
+  width:auto!important;
+  margin:0!important;
+  padding:0!important;
+ }
+ html.fniqBoxCompact #live main.boxMainGrid:has(.boxResultCard #q27Pins-runType:not(.hidden))>#trackerFinishCard{
+  grid-area:finish!important;
+  grid-column:1/-1!important;
+  width:100%!important;
+  max-width:none!important;
+  padding:4px 6px!important;
+ }
+ html.fniqBoxCompact #live main.boxMainGrid:has(.boxResultCard #q27Pins-runType:not(.hidden))>#trackerFinishCard .trackerFinishHead{
+  margin-bottom:2px!important;
+ }
+ html.fniqBoxCompact #live main.boxMainGrid:has(.boxResultCard #q27Pins-runType:not(.hidden))>#trackerFinishCard .trackerFinishBody{
+  grid-template-columns:minmax(0,1fr) 132px minmax(190px,.42fr)!important;
+  gap:3px 7px!important;
+  align-items:end!important;
+ }
+ html.fniqBoxCompact #live main.boxMainGrid:has(.boxResultCard #q27Pins-runType:not(.hidden))>#trackerFinishCard .trackerPostCoverage{
+  grid-column:1/3!important;
+  display:grid!important;
+  grid-template-columns:minmax(0,1fr) 132px!important;
+  grid-template-rows:auto auto!important;
+  gap:2px 6px!important;
+  align-items:end!important;
+  min-width:0!important;
+ }
+ html.fniqBoxCompact #live main.boxMainGrid:has(.boxResultCard #q27Pins-runType:not(.hidden))>#trackerFinishCard .trackerPostCoverage>.label{
+  grid-column:1/-1!important;
+  grid-row:1!important;
+  margin-bottom:0!important;
+ }
+ html.fniqBoxCompact #live main.boxMainGrid:has(.boxResultCard #q27Pins-runType:not(.hidden))>#trackerFinishCard .trackerPostCoverage .speedCoverageQuick{
+  grid-column:1!important;
+  grid-row:2!important;
+  margin:0!important;
+  min-width:0!important;
+ }
+ html.fniqBoxCompact #live main.boxMainGrid:has(.boxResultCard #q27Pins-runType:not(.hidden))>#trackerFinishCard .trackerPostCoverage>#postCoverage{
+  grid-column:2!important;
+  grid-row:2!important;
+  width:100%!important;
+  margin:0!important;
+ }
+ html.fniqBoxCompact #live main.boxMainGrid:has(.boxResultCard #q27Pins-runType:not(.hidden))>#trackerFinishCard .trackerConcept{
+  grid-column:3!important;
+  grid-row:1!important;
+  align-self:end!important;
+  min-width:0!important;
+ }
+ html.fniqBoxCompact #live main.boxMainGrid:has(.boxResultCard #q27Pins-runType:not(.hidden))>#trackerFinishCard .trackerMoreResult{
+  grid-column:1/-1!important;
+ }
 }
