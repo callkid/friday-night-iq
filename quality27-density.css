@@ -58,6 +58,24 @@
  html.fniqBoxCompact #trackerFinishCard .trackerFinishBody{gap:4px 6px!important}
 }
 
+/* Once Run reveals on a normal-height desktop, Pre-snap and What happened? are nearly the same height.
+   At that point a full-width Post-snap row is denser than forcing it down one side, so rebalance without moving or shrinking controls. */
+@media (min-width:1181px) and (min-height:821px){
+ html.fniqBoxCompact #live main.boxMainGrid:has(.boxResultCard #q27Pins-runType:not(.hidden)){
+  grid-template-areas:
+   "fast fast"
+   "drive drive"
+   "presnap result"
+   "finish finish"
+   "safety safety"!important;
+ }
+ html.fniqBoxCompact #live main.boxMainGrid:has(.boxResultCard #q27Pins-runType:not(.hidden))>#trackerFinishCard{grid-column:1/-1!important;width:100%!important}
+ html.fniqBoxCompact #live main.boxMainGrid:has(.boxResultCard #q27Pins-runType:not(.hidden))>#trackerFinishCard .trackerFinishBody{grid-template-columns:minmax(0,1.55fr) minmax(220px,.45fr)!important;gap:6px 10px!important;align-items:end!important}
+ html.fniqBoxCompact #live main.boxMainGrid:has(.boxResultCard #q27Pins-runType:not(.hidden))>#trackerFinishCard .trackerPostCoverage{grid-column:1!important}
+ html.fniqBoxCompact #live main.boxMainGrid:has(.boxResultCard #q27Pins-runType:not(.hidden))>#trackerFinishCard .trackerConcept{grid-column:2!important}
+ html.fniqBoxCompact #live main.boxMainGrid:has(.boxResultCard #q27Pins-runType:not(.hidden))>#trackerFinishCard .trackerMoreResult{grid-column:1/-1!important}
+}
+
 /* 900px-class workstations are roomy horizontally but still height constrained once Run reveals its controls.
    Flatten only whitespace/containers here; click-target sizes and full football labels stay intact. */
 @media (min-width:1181px) and (min-height:821px) and (max-height:950px){
