@@ -117,7 +117,7 @@
  html.fniqBoxCompact #live #detail:has(#q27Pins-runType:not(.hidden)){margin-top:5px!important;padding:5px 6px!important;background:transparent!important;border:0!important}
  html.fniqBoxCompact #live #detail:has(#q27Pins-runType:not(.hidden))>.grid2{grid-template-columns:minmax(0,1fr) 60px!important;gap:6px!important;align-items:end!important}
  html.fniqBoxCompact #live .q27PinnedField-runType{grid-template-columns:minmax(0,1fr) 44px!important;column-gap:4px!important}
- html.fniqBoxCompact #live #q27Pins-runType{grid-template-columns:minmax(0,1.05fr) minmax(0,1.2fr) minmax(0,1.12fr) minmax(0,.9fr) minmax(0,.75fr)!important;gap:3px!important}
+ html.fniqBoxCompact #live #q27Pins-runType{grid-template-columns:minmax(0,1.05fr) minmax(0,1.2fr) minmax(0,1.2fr) minmax(0,.88fr) minmax(0,.72fr)!important;gap:3px!important}
  html.fniqBoxCompact #live #q27Pins-runType .q27PinnedBtn{padding-left:1px!important;padding-right:1px!important;padding-top:1px!important;padding-bottom:1px!important;line-height:1!important}
  html.fniqBoxCompact #live .boxResultCard:has(#q27Pins-runType:not(.hidden)) .resultgrid{margin-top:7px!important;gap:8px!important}
  html.fniqBoxCompact #live .boxResultCard:has(#q27Pins-runType:not(.hidden)) .contextrow{margin-top:7px!important;padding-top:7px!important}
