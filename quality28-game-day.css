@@ -113,6 +113,22 @@
   white-space:normal!important;
  }
 
+ /* Large mode gets the same treatment, but only on always-visible snap controls.
+    Pinned rows keep their established sizing/packing so they do not gain extra rows. */
+ html.fniqQ27SizeLarge #live #preSnapCard .speedPreSnap select,
+ html.fniqQ27SizeLarge #live #preSnapCard .speedPreSnap input,
+ html.fniqQ27SizeLarge #live #preSnapCard #motion{
+  min-height:54px!important;
+  height:54px!important;
+  font-size:15px!important;
+ }
+ html.fniqQ27SizeLarge #live #preSnapCard .speedHashButtons button,
+ html.fniqQ27SizeLarge #live #preSnapCard .speedDefenseGrid .choice,
+ html.fniqQ27SizeLarge #live #preSnapCard .boxSecondaryLookRow [data-group="box"] .choice{
+  min-height:54px!important;
+  font-size:15px!important;
+ }
+
  /* Run makes the two primary cards nearly the same height. Put Post-snap across the
     full work surface instead of stacking it under only the right column. This removes
     the empty left floor and lets coverage/concept controls use width instead of height. */
