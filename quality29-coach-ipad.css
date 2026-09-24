@@ -1,5 +1,5 @@
 /* Quality29 coach + iPad stabilization */
-.quickStatsGrid>.quickStat.good,.quickStatsGrid>.quickStat.goodSoft,.quickStatsGrid>.quickStat.bad,.quickStatsGrid>.quickStat.badSoft,.quickStatsGrid>.q29QuickStat{background:rgba(255,255,255,.035)!important;border-color:color-mix(in srgb,var(--a) 28%,rgba(255,255,255,.08))!important;color:inherit!important}
+.quickStatsGrid>.quickStat{background:rgba(255,255,255,.035)!important;border-color:color-mix(in srgb,var(--a) 28%,rgba(255,255,255,.08))!important;color:inherit!important}
 .quickStatsGrid>.quickStat.good b,.quickStatsGrid>.quickStat.bad b{color:inherit!important}.q29QuickStat{cursor:default}.q29QuickStat:hover{transform:none!important}
 
 @media (pointer:coarse) and (min-width:700px) and (max-width:1400px){
