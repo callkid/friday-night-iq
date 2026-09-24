@@ -23,11 +23,13 @@ jobs:
           node-version: 20
       - name: Full source regression suite
         run: bash tools/run_safety18_qa.sh
+      - name: Quality29 coach and iPad source regression
+        run: node qa-quality29-coach-ipad.js
 
   browser-regression:
     if: github.event_name != 'push' || github.event.head_commit.message != 'Record production QA proof'
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 18
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -66,6 +68,8 @@ jobs:
         run: node qa-browser-pick-six.js
       - name: Responsive viewport matrix
         run: node qa-browser-responsive.js
+      - name: Quality29 iPad coach workflow
+        run: node qa-browser-quality29-ipad.js
       - name: Upload game-day QA screenshots
         if: always()
         uses: actions/upload-artifact@v4

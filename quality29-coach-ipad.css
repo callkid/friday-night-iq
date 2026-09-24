@@ -1,0 +1,38 @@
+/* Quality29 coach + iPad stabilization */
+/* Quick Game Stats keep a stable identity by metric. They no longer flip green/red
+   with the current result, while established semantic distinctions remain obvious. */
+.quickStatsGrid>.quickStat{background:rgba(255,255,255,.035)!important;border-color:rgba(255,255,255,.11)!important;color:inherit!important}
+.quickStatsGrid>.quickStat b{color:inherit!important}
+.quickStatsGrid>[data-stat-key="passing"]{background:color-mix(in srgb,var(--a) 13%,transparent)!important;border-color:color-mix(in srgb,var(--a) 44%,transparent)!important}
+.quickStatsGrid>[data-stat-key="rushing"]{background:color-mix(in srgb,var(--b) 13%,transparent)!important;border-color:color-mix(in srgb,var(--b) 44%,transparent)!important}
+.quickStatsGrid>[data-stat-key="third"],.quickStatsGrid>[data-stat-key="fourth"]{background:rgba(255,255,255,.045)!important;border-color:rgba(255,255,255,.16)!important}
+.quickStatsGrid>[data-stat-key="penalties"]{background:rgba(185,68,68,.11)!important;border-color:rgba(232,90,90,.38)!important}
+.quickStatsGrid>[data-stat-key="success"],.quickStatsGrid>[data-stat-key="firstDowns"],.quickStatsGrid>[data-stat-key="explosives"]{background:color-mix(in srgb,var(--a) 7%,transparent)!important;border-color:color-mix(in srgb,var(--a) 25%,transparent)!important}
+.q29QuickStat{cursor:default}.q29QuickStat:hover{transform:none!important}
+
+/* Once Run is active on a normal desktop, Pre-snap should use its natural content height.
+   The older Quality28 stretch rule is useful before play type selection, but after Run reveals
+   it creates a large empty floor at 1080p. No control is hidden or resized here. */
+@media (min-width:1181px) and (min-height:821px){
+ html.fniqBoxCompact #live main.boxMainGrid:has(.boxResultCard #q27Pins-runType:not(.hidden))>#preSnapCard{align-self:start!important;min-height:0!important;height:auto!important}
+}
+
+@media (pointer:coarse) and (min-width:700px) and (max-width:1400px){
+ html{touch-action:manipulation;-webkit-text-size-adjust:100%}body{padding-bottom:78px;overscroll-behavior-y:contain}
+ button,.btn,.choice,.fastbtn,.chip,.passbuttons button,.yardstep,input,select,textarea,summary{min-height:48px}
+ input,select,textarea{font-size:16px!important}button,.btn,.choice,.fastbtn,.chip,.passbuttons button,.yardstep{font-size:max(14px,1em);-webkit-tap-highlight-color:transparent;touch-action:manipulation}
+ .choices,.quick,.passbuttons,.fastbar{gap:8px!important}.card{border-radius:14px}.stepcard{padding:12px!important}.stephead{margin-bottom:10px!important}
+ #live .live{grid-template-columns:1fr!important}#live aside.sticky{display:none!important}#live main{width:100%;max-width:none!important}
+ #live .grid3,#live .grid4{grid-template-columns:repeat(2,minmax(0,1fr))!important}.fieldinputs{grid-template-columns:minmax(96px,.38fr) 1fr!important}
+ #live .choices.five{grid-template-columns:repeat(3,minmax(0,1fr))!important}.yardchips{display:grid!important;grid-template-columns:repeat(4,minmax(0,1fr));gap:7px!important}.yardchips .chip{width:100%}
+ #live .entrysummary{position:static!important;margin-bottom:8px!important}.saveprimary{min-height:54px!important;font-size:16px!important;font-weight:900!important}
+ .q29IpadDock{position:fixed;left:max(12px,env(safe-area-inset-left));right:max(12px,env(safe-area-inset-right));bottom:max(10px,env(safe-area-inset-bottom));z-index:1200;display:grid;grid-template-columns:1fr 1fr 1.4fr;gap:8px;padding:8px;background:rgba(7,17,31,.94);backdrop-filter:blur(14px);border:1px solid rgba(255,255,255,.14);border-radius:16px;box-shadow:0 12px 38px rgba(0,0,0,.34)}
+ .q29IpadDock.hidden{display:none}.q29IpadDock button{border:1px solid rgba(255,255,255,.14);border-radius:11px;background:rgba(255,255,255,.07);color:inherit;font-weight:850;min-height:52px;padding:8px 10px}.q29IpadDock button.primary{background:var(--a);color:var(--onA);border-color:transparent}
+ .modalbox,.driveStartBox,.q26SituationBox{width:min(92vw,620px)!important;max-height:88vh;overflow:auto}.modalbox button,.driveStartBox button,.q26SituationBox button{min-height:50px}
+ .q26SituationBox input,.q26SituationBox select{min-height:50px!important;height:50px!important;font-size:16px!important;padding-top:8px!important;padding-bottom:8px!important}
+ .quickStatsGrid{grid-template-columns:repeat(3,minmax(0,1fr))!important}.quickStat{min-height:88px;padding:12px!important}.quickStat b{font-size:22px!important}.quickStat span,.quickStat small{font-size:12px!important}
+}
+
+@media (pointer:coarse) and (min-width:700px) and (max-width:900px){
+ #live .grid3,#live .grid4,#live .grid2.contextrow{grid-template-columns:1fr!important}.quickStatsGrid{grid-template-columns:repeat(2,minmax(0,1fr))!important}.q29IpadDock{grid-template-columns:.9fr .9fr 1.3fr}.snapbar{gap:8px}
+}

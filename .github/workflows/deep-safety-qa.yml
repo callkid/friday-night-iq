@@ -27,6 +27,9 @@ jobs:
       - name: Quality27 penalty and size hotfix contract
         run: node qa-quality27-hotfix.js
 
+      - name: Quality29 coach and iPad contract
+        run: node qa-quality29-coach-ipad.js
+
       - name: Repeated destructive state chains
         run: |
           set -euo pipefail
@@ -75,6 +78,7 @@ jobs:
           grep -q "quality26-penalty-save-guard.js" app.js
           grep -q "quality27-qol.js" app.js
           grep -q "quality27-hotfix.js" app.js
+          grep -q "quality29-coach-ipad.js" app.js
           grep -q "quality27-density.css" quality27-hotfix.js
           ! grep -q "game-day-3.js" app.js
           ! grep -q "speed-guard.js" app.js
@@ -82,7 +86,7 @@ jobs:
           test ! -e game-day-3.js
           test ! -e speed-guard.js
           test ! -e game-iq-v3.js
-          grep -Eq 'app.js\?v=quality(27-density-final|28-game-day|28-game-day-final)' index.html
+          grep -Eq 'app.js\?v=quality(27-density-final|28-game-day|28-game-day-final|29-coach-ipad-final)' index.html
 
       - name: Current-layer observer safety
         run: |
@@ -92,7 +96,8 @@ jobs:
             penalty-hardening.js run-type-stability.js game-iq-summary.js \
             quality24.js tracker-layout-polish.js box-ux25.js \
             football-flow26.js quality26-context-results.js \
-            quality26-penalty-save-guard.js quality27-qol.js quality27-hotfix.js; do
+            quality26-penalty-save-guard.js quality27-qol.js quality27-hotfix.js \
+            quality29-coach-ipad.js; do
             if grep -q "MutationObserver" "$f"; then
               echo "Unexpected broad observer in $f"
               exit 1
