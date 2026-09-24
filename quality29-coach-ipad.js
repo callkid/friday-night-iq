@@ -39,7 +39,7 @@ function install(A,root){
  var oldAll=A.renderAll;if(oldAll)A.renderAll=function(){var r=oldAll.apply(A,arguments);renderExtraStats();syncDock();applyIpadFlow();return r};
  var oldIQ=A.renderIQ;if(oldIQ)A.renderIQ=function(){var r=oldIQ.apply(A,arguments);renderExtraStats();return r};
  var oldScreen=A.screen;if(oldScreen)A.screen=function(){var r=oldScreen.apply(A,arguments);setTimeout(function(){syncDock();applyIpadFlow()},0);return r};
- root.addEventListener('resize',function(){restoreSnap();makeIpadDock();syncDock();applyIpadFlow()});
+ root.addEventListener('resize',function(){makeIpadDock();syncDock();applyIpadFlow()});
  return A
 }
 return{sameSnap:sameSnap,clearScore:clearScore,driveStats:driveStats,formatField:formatField,repairPossessionGate:repairPossessionGate,install:install};
