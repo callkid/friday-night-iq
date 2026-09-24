@@ -16,8 +16,15 @@ const assert=require('assert');
   });
   touch.forEach(x=>{assert(x.visible,'iPad target must be visible '+x.s);assert(x.h>=47,'iPad target too short '+x.s+': '+x.h);if(x.s==='#yards')assert(x.font>=16,'iPad form control must be >=16px to prevent Safari zoom: '+x.s);});
 
-  // Coach-reported goal-line path: 2nd & goal from Opp 8, +5 must save and continue the drive.
-  await page.selectOption('#down','2');await page.fill('#distance','8');await page.selectOption('#side','OPP');await page.fill('#yard','8');
+  // Coach-reported goal-line path through the actual tablet point-and-click control:
+  // Edit Situation -> 2nd & goal from Opp 8 -> +5 run -> 3rd & 3 at Opp 3, same drive.
+  await page.click('#q29IpadDock [data-q29="situation"]');
+  await page.waitForSelector('#q26SituationModal:not(.hidden)');
+  await page.selectOption('#q26Down','2');await page.fill('#q26Distance','8');await page.selectOption('#q26Side','OPP');await page.fill('#q26Yard','8');
+  const situationTouch=await page.evaluate(()=>['#q26Down','#q26Distance','#q26Side','#q26Yard','#q26SituationSave'].map(s=>{const e=document.querySelector(s),r=e.getBoundingClientRect(),cs=getComputedStyle(e);return{s,h:r.height,font:parseFloat(cs.fontSize),visible:r.width>0&&r.height>0}}));
+  situationTouch.forEach(x=>{assert(x.visible,'Edit Situation control must be visible '+x.s);assert(x.h>=47,'Edit Situation target too short '+x.s+': '+x.h);if(x.s!=='#q26SituationSave')assert(x.font>=16,'Edit Situation form control must be >=16px to prevent Safari zoom: '+x.s);});
+  await page.click('#q26SituationSave');
+  await page.waitForFunction(()=>document.querySelector('#headline').textContent.includes('2nd & 8')&&document.querySelector('#fieldline').textContent.includes('Opp 8'));
   await page.click('[data-group="playType"] [data-v="Run"]');await page.fill('#yards','5');await page.click('#q29IpadDock [data-q29="save"]');
   await page.waitForFunction(()=>document.querySelector('#headline').textContent.includes('3rd'));
   assert((await page.locator('#headline').textContent()).includes('3rd & 3'),'goal-line +5 should become 3rd & 3');
@@ -54,5 +61,5 @@ const assert=require('assert');
   assert(dims.scrollW<=dims.w+2,'iPad layout has horizontal overflow: '+dims.scrollW+' > '+dims.w);
   assert.equal(errors.length,0,'browser errors: '+errors.join(' | '));
   await context.close();await browser.close();
-  console.log('QUALITY29 IPAD PASS: goal-line save, stale-drive repair, score reset, stable quick-stat identities, visible touch targets and no horizontal overflow');
+  console.log('QUALITY29 IPAD PASS: real Edit Situation goal-line save, stale-drive repair, score reset, stable quick-stat identities, visible touch targets and no horizontal overflow');
 })().catch(e=>{console.error(e);process.exit(1)});
