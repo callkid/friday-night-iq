@@ -1,6 +1,14 @@
 /* Quality29 coach + iPad stabilization */
-.quickStatsGrid>.quickStat{background:rgba(255,255,255,.035)!important;border-color:color-mix(in srgb,var(--a) 28%,rgba(255,255,255,.08))!important;color:inherit!important}
-.quickStatsGrid>.quickStat.good b,.quickStatsGrid>.quickStat.bad b{color:inherit!important}.q29QuickStat{cursor:default}.q29QuickStat:hover{transform:none!important}
+/* Quick Game Stats keep a stable identity by metric. They no longer flip green/red
+   with the current result, while established semantic distinctions remain obvious. */
+.quickStatsGrid>.quickStat{background:rgba(255,255,255,.035)!important;border-color:rgba(255,255,255,.11)!important;color:inherit!important}
+.quickStatsGrid>.quickStat b{color:inherit!important}
+.quickStatsGrid>[data-stat-key="passing"]{background:color-mix(in srgb,var(--a) 13%,transparent)!important;border-color:color-mix(in srgb,var(--a) 44%,transparent)!important}
+.quickStatsGrid>[data-stat-key="rushing"]{background:color-mix(in srgb,var(--b) 13%,transparent)!important;border-color:color-mix(in srgb,var(--b) 44%,transparent)!important}
+.quickStatsGrid>[data-stat-key="third"],.quickStatsGrid>[data-stat-key="fourth"]{background:rgba(255,255,255,.045)!important;border-color:rgba(255,255,255,.16)!important}
+.quickStatsGrid>[data-stat-key="penalties"]{background:rgba(185,68,68,.11)!important;border-color:rgba(232,90,90,.38)!important}
+.quickStatsGrid>[data-stat-key="success"],.quickStatsGrid>[data-stat-key="firstDowns"],.quickStatsGrid>[data-stat-key="explosives"]{background:color-mix(in srgb,var(--a) 7%,transparent)!important;border-color:color-mix(in srgb,var(--a) 25%,transparent)!important}
+.q29QuickStat{cursor:default}.q29QuickStat:hover{transform:none!important}
 
 @media (pointer:coarse) and (min-width:700px) and (max-width:1400px){
  html{touch-action:manipulation;-webkit-text-size-adjust:100%}body{padding-bottom:78px;overscroll-behavior-y:contain}
