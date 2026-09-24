@@ -10,7 +10,6 @@ const assert=require('assert');
   await page.fill('#team','iPad QA');await page.fill('#opp','Coach Test');await page.click('#start');await page.waitForSelector('#live.on');
 
   assert(await page.locator('#q29IpadDock').isVisible(),'iPad action dock must be visible on live game');
-  // Wait for the final tablet runtime layer itself, not just a stylesheet token.
   await page.waitForFunction(()=>{
     const dock=document.querySelector('#q29IpadDock'),b=dock&&dock.querySelector('button'),s=document.querySelector('#situationCard');
     return dock&&b&&b.getBoundingClientRect().height>=47&&(!s||getComputedStyle(s).display==='none');
@@ -29,20 +28,30 @@ const assert=require('assert');
     };
   });
   assert.equal(flowGeometry.situationVisible,false,'actual inline Situation card should be removed from iPad flow');
-  assert.equal(flowGeometry.snapPosition,'sticky','live snap context must stay pinned on iPad');
-  assert.equal(flowGeometry.snapTop,'0px','sticky snap context should use top:0');
+  assert.equal(flowGeometry.snapPosition,'sticky','live snap context should begin in normal sticky flow on iPad');
+  assert.equal(flowGeometry.snapTop,'0px','snap context should use top:0');
   assert(flowGeometry.yardCount>=8,'expected all yard quick presets on iPad');
   assert(flowGeometry.yardRows<=2,'yard quick presets should use tablet width instead of a tall stack; rows='+flowGeometry.yardRows);
   await page.screenshot({path:'qa-screenshots/q30-ipad-initial.png',fullPage:true});
 
-  // Sticky means sticky in motion, not merely a computed CSS value. A tiny app-shell
-  // inset (<=4px) is visually pinned and avoids brittle subpixel/browser differences.
+  // After the natural snap-strip position scrolls away, Quality30 switches it to a
+  // fixed viewport pin. Verify not only geometry but that the strip itself owns a
+  // visible point near the top; this catches ancestor clipping that rect.top misses.
   await page.evaluate(()=>window.scrollTo(0,Math.min(700,document.documentElement.scrollHeight-innerHeight)));
-  await page.waitForTimeout(100);
-  const stickyRect=await page.locator('#live .snapbar').evaluate(e=>{const r=e.getBoundingClientRect();return{top:r.top,bottom:r.bottom}});
-  assert(stickyRect.top>=-1&&stickyRect.top<=4,'snap context did not remain pinned after scroll; top='+stickyRect.top);
+  await page.waitForFunction(()=>document.querySelector('#live .snapbar')?.dataset.q30Pinned==='1');
+  await page.waitForTimeout(80);
+  const pinnedSnap=await page.locator('#live .snapbar').evaluate(e=>{
+    const r=e.getBoundingClientRect(),probeX=Math.max(r.left+8,Math.min(r.right-8,r.left+r.width/2)),probeY=Math.max(4,Math.min(12,r.bottom-4));
+    const hit=document.elementFromPoint(probeX,probeY),cs=getComputedStyle(e);
+    return{top:r.top,bottom:r.bottom,height:r.height,position:cs.position,hitInside:!!(hit&&(hit===e||e.contains(hit)))};
+  });
+  assert.equal(pinnedSnap.position,'fixed','scrolled snap context must switch to a true viewport pin');
+  assert(pinnedSnap.top>=-1&&pinnedSnap.top<=1,'pinned snap context should sit at viewport top; top='+pinnedSnap.top);
+  assert(pinnedSnap.height>=70,'pinned snap context unexpectedly collapsed; height='+pinnedSnap.height);
+  assert.equal(pinnedSnap.hitInside,true,'pinned snap context is geometrically present but visually clipped near the viewport top');
   await page.screenshot({path:'qa-screenshots/q30-ipad-scrolled.png',fullPage:false});
   await page.evaluate(()=>window.scrollTo(0,0));
+  await page.waitForFunction(()=>document.querySelector('#live .snapbar')?.dataset.q30Pinned!=='1');
 
   const touch=await page.evaluate(()=>{
     const sels=['#q29IpadDock [data-q29="situation"]','#q29IpadDock [data-q29="drive"]','#q29IpadDock [data-q29="save"]','[data-group="playType"] [data-v="Run"]','#yards'];
@@ -50,8 +59,6 @@ const assert=require('assert');
   });
   touch.forEach(x=>{assert(x.visible,'iPad target must be visible '+x.s);assert(x.h>=47,'iPad target too short '+x.s+': '+x.h);if(x.s==='#yards')assert(x.font>=16,'iPad form control must be >=16px to prevent Safari zoom: '+x.s);});
 
-  // Coach-reported goal-line path through the actual tablet point-and-click control:
-  // Edit Situation -> 2nd & goal from Opp 8 -> +5 run -> 3rd & 3 at Opp 3, same drive.
   await page.click('#q29IpadDock [data-q29="situation"]');
   await page.waitForSelector('#q26SituationModal:not(.hidden)');
   await page.selectOption('#q26Down','2');await page.fill('#q26Distance','8');await page.selectOption('#q26Side','OPP');await page.fill('#q26Yard','8');
@@ -67,14 +74,12 @@ const assert=require('assert');
   assert((await page.locator('#fieldline').textContent()).includes('Opp 3'),'goal-line +5 should spot at Opp 3');
   assert(await page.locator('#driveStartModal').evaluate(el=>el.classList.contains('hidden')),'goal-line continuation must not open Start New Drive');
 
-  // Stale possession flag should self-repair when the actual next snap is still the same drive.
   await page.evaluate(()=>{FNIQ.state.awaitingPossessionStart=true;FNIQ.state.drive=2;FNIQ.save('q29-browser-stale');});
   await page.click('[data-group="playType"] [data-v="Run"]');await page.fill('#yards','1');const before=await page.evaluate(()=>FNIQ.state.plays.length);await page.click('#q29IpadDock [data-q29="save"]');
   await page.waitForFunction(n=>FNIQ.state.plays.length===n+1,before);
   assert.equal(await page.evaluate(()=>FNIQ.state.awaitingPossessionStart),false,'stale possession flag should clear on save');
   assert.equal(await page.evaluate(()=>FNIQ.state.drive),1,'same-drive stale repair should keep drive number');
 
-  // Quick Game Stats: stable metric identities + new coach-requested stats.
   await page.click('[data-screen="iq"]');await page.waitForSelector('#iq.on');
   for(const key of ['avgStart','drives','turnovers'])assert.equal(await page.locator('[data-q29-stat="'+key+'"]').count(),1,'missing added quick stat '+key);
   const identity=await page.evaluate(()=>{
@@ -88,7 +93,6 @@ const assert=require('assert');
   assert.notEqual(identity.pen,identity.before,'Penalty should keep a stable warning identity');
   assert((await page.locator('[data-q29-stat="avgStart"] b').textContent()).includes('Opp')||(await page.locator('[data-q29-stat="avgStart"] b').textContent()).includes('Own'),'average drive start should be rendered as a field position');
 
-  // Empty-game Save & Start resets score without touching an in-progress game.
   await page.evaluate(()=>{FNIQ.state.plays=[];FNIQ.state.score={us:21,them:14};FNIQ.save('q29-score-seed');FNIQ.screen('setup');});
   await page.click('#start');
   assert.deepEqual(await page.evaluate(()=>FNIQ.state.score),{us:0,them:0},'Save & Start on an empty game should reset score');
@@ -97,5 +101,5 @@ const assert=require('assert');
   assert(dims.scrollW<=dims.w+2,'iPad layout has horizontal overflow: '+dims.scrollW+' > '+dims.w);
   assert.equal(errors.length,0,'browser errors: '+errors.join(' | '));
   await context.close();await browser.close();
-  console.log('QUALITY30 IPAD PASS: pinned snap context survives scroll, actual Situation card hidden, compact yard grid, full-size bottom dock, real Edit Situation goal-line save, stale-drive repair, score reset, stable quick-stat identities, touch targets and no horizontal overflow');
+  console.log('QUALITY30 IPAD PASS: full snap context visibly pins after scroll, actual Situation card hidden, compact yard grid, full-size bottom dock and Edit Situation controls, real goal-line save, stale-drive repair, score reset, stable quick-stat identities, touch targets and no horizontal overflow');
 })().catch(e=>{console.error(e);process.exit(1)});
