@@ -31,6 +31,27 @@ function install(A,root){
   if(!A||!root.document||A.__quality29CoachIpad)return A;A.__quality29CoachIpad=true;var d=root.document;
   function $(id){return d.getElementById(id);}
   function injectCss(){if($('quality29CoachIpadCss'))return;var l=d.createElement('link');l.id='quality29CoachIpadCss';l.rel='stylesheet';l.href='quality29-coach-ipad.css?v=q29coach1';d.head.appendChild(l);}
+  function ipadMode(){return !!(root.matchMedia&&root.matchMedia('(pointer: coarse)').matches&&root.innerWidth>=700&&root.innerWidth<=1400);}
+  function imp(el,name,value){if(el)el.style.setProperty(name,value,'important');}
+  function applyIpadFlow(){
+    if(!ipadMode())return;
+    var situation=$('situationCard');if(situation)imp(situation,'display','none');
+    var snap=d.querySelector('#live .snapbar');
+    if(snap){imp(snap,'position','sticky');imp(snap,'top','0px');imp(snap,'z-index','1100');}
+    var dock=$('q29IpadDock');
+    if(dock){
+      imp(dock,'position','fixed');imp(dock,'left','12px');imp(dock,'right','12px');imp(dock,'bottom','10px');imp(dock,'z-index','1200');imp(dock,'display','grid');imp(dock,'grid-template-columns','1fr 1fr 1.4fr');imp(dock,'gap','8px');imp(dock,'padding','8px');imp(dock,'border-radius','16px');
+      dock.querySelectorAll('button').forEach(function(b){imp(b,'min-height','52px');imp(b,'height','auto');imp(b,'padding','8px 10px');imp(b,'border-radius','11px');imp(b,'font-size','16px');});
+    }
+    var result=d.querySelector('#live .boxResultCard');
+    if(result){
+      var resultGrid=result.querySelector('.resultgrid');if(resultGrid){imp(resultGrid,'display','grid');imp(resultGrid,'grid-template-columns','minmax(0,1.15fr) minmax(0,.85fr)');imp(resultGrid,'align-items','start');imp(resultGrid,'gap','10px');}
+      var yard=result.querySelector('.yardchips');if(yard){imp(yard,'display','grid');imp(yard,'grid-template-columns','repeat(4,minmax(0,1fr))');imp(yard,'gap','6px');imp(yard,'margin-top','6px');yard.querySelectorAll('.chip').forEach(function(c){imp(c,'width','100%');imp(c,'min-height','48px');imp(c,'height','auto');imp(c,'padding','6px 8px');});}
+      var calc=$('speedSpotCalc');if(calc){imp(calc,'margin-top','6px');imp(calc,'margin-bottom','6px');}
+      var summary=result.querySelector('.boxDockedSummary');if(summary){imp(summary,'min-height','0px');imp(summary,'margin-top','8px');imp(summary,'margin-bottom','0px');imp(summary,'padding','10px 12px');}
+    }
+    var finish=$('trackerFinishCard');if(finish)imp(finish,'margin-top','8px');
+  }
   function resetScoreIfEmpty(){if(A.state&&Array.isArray(A.state.plays)&&A.state.plays.length===0){clearScore(A.state);A.save('new-game-score-reset');}}
   var oldReset=A.resetGame;if(oldReset)A.resetGame=function(){var r=oldReset.apply(A,arguments);clearScore(A.state);A.save('reset-score');return r;};
   var start=$('start');if(start&&!start.dataset.q29ScoreReset){start.dataset.q29ScoreReset='1';var oldStart=start.onclick;start.onclick=function(e){resetScoreIfEmpty();return oldStart&&oldStart.call(this,e);};}
@@ -49,13 +70,14 @@ function install(A,root){
     dock.querySelector('[data-q29="save"]').onclick=function(){var b=$('save');if(b)b.click();};
     dock.querySelector('[data-q29="drive"]').onclick=function(){var b=$('newDrive');if(b)b.click();};
     dock.querySelector('[data-q29="situation"]').onclick=function(){var b=$('speedSituationEdit')||$('shortSituationEdit');if(b)b.click();else{var q=$('quarter');if(q)q.focus();}};
+    applyIpadFlow();
   }
-  function syncDock(){var dock=$('q29IpadDock');if(!dock)return;var live=$('live');dock.classList.toggle('hidden',!(live&&live.classList.contains('on')));var s=dock.querySelector('[data-q29="save"]');if(s){var p=A.sel&&A.sel.playType;s.textContent=p?'Save '+p:'Save Play';}}
-  injectCss();makeIpadDock();renderExtraStats();syncDock();
-  var oldAll=A.renderAll;if(oldAll)A.renderAll=function(){var r=oldAll.apply(A,arguments);renderExtraStats();syncDock();return r;};
+  function syncDock(){var dock=$('q29IpadDock');if(!dock)return;var live=$('live');dock.classList.toggle('hidden',!(live&&live.classList.contains('on')));var s=dock.querySelector('[data-q29="save"]');if(s){var p=A.sel&&A.sel.playType;s.textContent=p?'Save '+p:'Save Play';}applyIpadFlow();}
+  injectCss();makeIpadDock();renderExtraStats();syncDock();applyIpadFlow();
+  var oldAll=A.renderAll;if(oldAll)A.renderAll=function(){var r=oldAll.apply(A,arguments);renderExtraStats();syncDock();applyIpadFlow();return r;};
   var oldIQ=A.renderIQ;if(oldIQ)A.renderIQ=function(){var r=oldIQ.apply(A,arguments);renderExtraStats();return r;};
-  var oldScreen=A.screen;if(oldScreen)A.screen=function(){var r=oldScreen.apply(A,arguments);setTimeout(syncDock,0);return r;};
-  root.addEventListener('resize',function(){makeIpadDock();syncDock();});
+  var oldScreen=A.screen;if(oldScreen)A.screen=function(){var r=oldScreen.apply(A,arguments);setTimeout(function(){syncDock();applyIpadFlow();},0);return r;};
+  root.addEventListener('resize',function(){makeIpadDock();syncDock();applyIpadFlow();});
   return A;
 }
 return{sameSnap:sameSnap,clearScore:clearScore,driveStats:driveStats,formatField:formatField,repairPossessionGate:repairPossessionGate,install:install};
