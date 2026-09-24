@@ -31,11 +31,18 @@ const assert=require('assert');
   assert.equal(await page.evaluate(()=>FNIQ.state.awaitingPossessionStart),false,'stale possession flag should clear on save');
   assert.equal(await page.evaluate(()=>FNIQ.state.drive),1,'same-drive stale repair should keep drive number');
 
-  // Quick Game Stats: consistent card treatment + new coach-requested stats.
+  // Quick Game Stats: stable metric identities + new coach-requested stats.
   await page.click('[data-screen="iq"]');await page.waitForSelector('#iq.on');
   for(const key of ['avgStart','drives','turnovers'])assert.equal(await page.locator('[data-q29-stat="'+key+'"]').count(),1,'missing added quick stat '+key);
-  const colors=await page.locator('#quickStatsGrid>.quickStat').evaluateAll(els=>els.map(e=>{const c=getComputedStyle(e);return c.backgroundColor+'|'+c.borderColor}));
-  assert(new Set(colors).size===1,'Quick Game Stats cards should use one consistent visual treatment, got '+JSON.stringify(colors));
+  const identity=await page.evaluate(()=>{
+    function bg(key){return getComputedStyle(document.querySelector('#quickStatsGrid [data-stat-key="'+key+'"]')).backgroundColor;}
+    const passing=document.querySelector('#quickStatsGrid [data-stat-key="passing"]'),before=bg('passing'),rush=bg('rushing'),pen=bg('penalties');
+    passing.classList.remove('good','goodSoft','bad','badSoft');passing.classList.add('bad');const after=bg('passing');
+    return{before,after,rush,pen};
+  });
+  assert.equal(identity.before,identity.after,'Passing color should be stable regardless of good/bad result tone');
+  assert.notEqual(identity.before,identity.rush,'Passing and Rushing should keep distinct, consistent metric identities');
+  assert.notEqual(identity.pen,identity.before,'Penalty should keep a stable warning identity');
   assert((await page.locator('[data-q29-stat="avgStart"] b').textContent()).includes('Opp')||(await page.locator('[data-q29-stat="avgStart"] b').textContent()).includes('Own'),'average drive start should be rendered as a field position');
 
   // Empty-game Save & Start resets score without touching an in-progress game.
@@ -47,5 +54,5 @@ const assert=require('assert');
   assert(dims.scrollW<=dims.w+2,'iPad layout has horizontal overflow: '+dims.scrollW+' > '+dims.w);
   assert.equal(errors.length,0,'browser errors: '+errors.join(' | '));
   await context.close();await browser.close();
-  console.log('QUALITY29 IPAD PASS: goal-line save, stale-drive repair, score reset, consistent quick stats, touch targets and no horizontal overflow');
+  console.log('QUALITY29 IPAD PASS: goal-line save, stale-drive repair, score reset, stable quick-stat identities, touch targets and no horizontal overflow');
 })().catch(e=>{console.error(e);process.exit(1)});
