@@ -28,8 +28,8 @@ Run `npm audit` for details.
 Installing dependencies...
 Switching to root user to install dependencies...
 Get:1 file:/etc/apt/apt-mirrors.txt Mirrorlist [144 B]
-Hit:2 http://azure.archive.ubuntu.com/ubuntu noble InRelease
 Get:6 https://packages.microsoft.com/ubuntu/24.04/prod noble InRelease [3600 B]
+Hit:2 http://azure.archive.ubuntu.com/ubuntu noble InRelease
 Get:3 http://azure.archive.ubuntu.com/ubuntu noble-updates InRelease [126 kB]
 Get:4 http://azure.archive.ubuntu.com/ubuntu noble-backports InRelease [126 kB]
 Get:5 http://azure.archive.ubuntu.com/ubuntu noble-security InRelease [126 kB]
@@ -57,7 +57,7 @@ Get:27 http://azure.archive.ubuntu.com/ubuntu noble-security/universe Translatio
 Get:28 http://azure.archive.ubuntu.com/ubuntu noble-security/universe amd64 Components [76.3 kB]
 Get:29 http://azure.archive.ubuntu.com/ubuntu noble-security/restricted amd64 Packages [1535 kB]
 Get:30 http://azure.archive.ubuntu.com/ubuntu noble-security/restricted Translation-en [353 kB]
-Fetched 12.4 MB in 1s (9302 kB/s)
+Fetched 12.4 MB in 1s (9303 kB/s)
 Reading package lists...
 Reading package lists...
 Building dependency tree...
@@ -142,7 +142,7 @@ Get:13 http://azure.archive.ubuntu.com/ubuntu noble/universe amd64 xfonts-cyrill
 Get:14 http://azure.archive.ubuntu.com/ubuntu noble/main amd64 xfonts-scalable all 1:1.0.3-1.3 [304 kB]
 Get:15 http://azure.archive.ubuntu.com/ubuntu noble-updates/main amd64 xserver-common all 2:21.1.12-1ubuntu1.8 [34.8 kB]
 Get:16 http://azure.archive.ubuntu.com/ubuntu noble-updates/universe amd64 xvfb amd64 2:21.1.12-1ubuntu1.8 [877 kB]
-Fetched 23.9 MB in 0s (63.2 MB/s)
+Fetched 23.9 MB in 0s (56.1 MB/s)
 Selecting previously unselected package fonts-ipafont-gothic.
 (Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 202190 files and directories currently installed.)
 Preparing to unpack .../00-fonts-ipafont-gothic_00303-21ubuntu1_all.deb ...
@@ -315,25 +315,25 @@ TRACKER QA PASS: desktop Post-snap packs into unused right-column space without 
 PASS: Press-box tracker workflow
 --- Box ergonomics/readability ---
 BOX ERGONOMICS PASS: coach-short 1475x668 gap=3 internalGap=26 finish=1461/1461 blitzContrast=14.88
-BOX ERGONOMICS PASS: common-laptop 1366x768 gap=3 internalGap=26 finish=1058/1058 blitzContrast=14.88
+BOX ERGONOMICS PASS: common-laptop 1366x768 gap=4 internalGap=26 finish=525/525 blitzContrast=14.88
 BOX ERGONOMICS PASS: workstation-1660 1660x900 gap=5 internalGap=26 finish=1290/1290 blitzContrast=14.88
 BOX ERGONOMICS PASS: coach-1080p 1920x1080 gap=5 internalGap=26 finish=710/710 blitzContrast=14.88
-BOX ERGONOMICS PASS: wide-2048-regression 2048x1159 gap=12 internalGap=27 finish=710/710 blitzContrast=14.88
+BOX ERGONOMICS PASS: wide-2048-regression 2048x1159 gap=12 internalGap=27 finish=1430/1430 blitzContrast=14.88
 BOX ERGONOMICS QA PASS: Quality27 controls remain game-readable after density packing, Post-snap fills either the available right column or the intentional dense Run full-width row without overlap, short laptop keeps the full-width no-scroll layout, colors remain readable and desktop page scroll stays zero
 PASS: Box ergonomics/readability
 --- Multi-team accent matrix ---
-ACCENT PASS: orange-short font=11 target=32 blitzContrast=13.61
-ACCENT PASS: orange-wide font=12.5 target=38 blitzContrast=13.61
+ACCENT PASS: orange-short font=11 target=32 blitzContrast=12.28
+ACCENT PASS: orange-wide font=12.5 target=38 blitzContrast=12.28
 ACCENT PASS: red-short font=11 target=32 blitzContrast=10.49
 ACCENT PASS: red-wide font=12.5 target=38 blitzContrast=12.28
 ACCENT PASS: blue-short font=11 target=32 blitzContrast=10.49
 ACCENT PASS: blue-wide font=12.5 target=38 blitzContrast=12.28
 ACCENT PASS: green-short font=11 target=32 blitzContrast=10.49
-ACCENT PASS: green-wide font=12.5 target=38 blitzContrast=12.28
+ACCENT PASS: green-wide font=12.5 target=38 blitzContrast=13.61
 ACCENT PASS: purple-short font=11 target=32 blitzContrast=10.49
 ACCENT PASS: purple-wide font=12.5 target=38 blitzContrast=12.28
-ACCENT PASS: gold-short font=11 target=32 blitzContrast=10.49
-ACCENT PASS: gold-wide font=12.5 target=38 blitzContrast=13.61
+ACCENT PASS: gold-short font=11 target=32 blitzContrast=12.28
+ACCENT PASS: gold-wide font=12.5 target=38 blitzContrast=12.28
 ACCENT PASS: dark-short font=11 target=32 blitzContrast=10.49
 ACCENT PASS: dark-wide font=12.5 target=38 blitzContrast=12.28
 ACCENT MATRIX QA PASS: Quality27 coach pins stay readable and selected-state contrast remains clear across orange/red/blue/green/purple/gold/dark accents on short and wide press-box layouts
@@ -355,16 +355,16 @@ RESPONSIVE PASS: common-laptop 1366x768 scroll=1366x768
 RESPONSIVE PASS: large-monitor 1920x1080 scroll=1920x1080
 RESPONSIVE PASS: large-monitor-2k 2560x1440 scroll=2560x1440
 RESPONSIVE PASS: narrow-laptop-tablet 1024x768 scroll=1024x1343
-RESPONSIVE PASS: tablet-portrait 768x1024 scroll=768x2254
+RESPONSIVE PASS: tablet-portrait 768x1024 scroll=768x1953
 RESPONSIVE PASS: mobile-portrait 390x844 scroll=390x2142
-RESPONSIVE PASS: mobile-landscape 844x390 scroll=844x2228
+RESPONSIVE PASS: mobile-landscape 844x390 scroll=844x1953
 RESPONSIVE MATRIX PASS: Quality27 saved confirmation and coach pins stay usable on short laptop, common laptop, 1080p, 2K, narrow, tablet, mobile portrait and landscape
 PASS: Responsive viewport matrix
 --- Quality29 iPad coach workflow ---
-QUALITY29 IPAD PASS: real Edit Situation goal-line save, stale-drive repair, score reset, stable quick-stat identities, visible touch targets and no horizontal overflow
+QUALITY30 IPAD PASS: snap portal stays below visible navigation and moves to viewport top after navigation scrolls away, Situation card hidden, compact yard grid, full-size dock/Edit Situation controls, goal-line save, stale-drive repair, score reset, stable quick-stat identities, touch targets and no overflow
 PASS: Quality29 iPad coach workflow
 
 SOURCE_QA=success
 BROWSER_QA=success
-SOURCE_COMMIT=b46753da3087d059431c0414465f83dcaa7f48d6
+SOURCE_COMMIT=909c3a596df78e6be97f9dc9bd494abf4c43c68a
 FINAL: PASS
