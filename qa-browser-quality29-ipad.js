@@ -10,6 +10,24 @@ const assert=require('assert');
   await page.fill('#team','iPad QA');await page.fill('#opp','Coach Test');await page.click('#start');await page.waitForSelector('#live.on');
 
   assert(await page.locator('#q29IpadDock').isVisible(),'iPad action dock must be visible on live game');
+  const flowGeometry=await page.evaluate(()=>{
+    const situation=document.querySelector('#situationCard'),snap=document.querySelector('#live .snapbar');
+    const chips=[...document.querySelectorAll('.boxResultCard .yardchips .chip')].filter(e=>{const r=e.getBoundingClientRect();return r.width>0&&r.height>0;});
+    const rows=[...new Set(chips.map(e=>Math.round(e.getBoundingClientRect().top)))];
+    return{
+      situationDisplay:situation?getComputedStyle(situation).display:'missing',
+      snapPosition:snap?getComputedStyle(snap).position:'missing',
+      snapTop:snap?getComputedStyle(snap).top:'missing',
+      yardRows:rows.length,
+      yardCount:chips.length
+    };
+  });
+  assert.equal(flowGeometry.situationDisplay,'none','duplicate inline Situation card should be removed from iPad flow');
+  assert.equal(flowGeometry.snapPosition,'sticky','live snap context must stay pinned on iPad');
+  assert.equal(flowGeometry.snapTop,'0px','sticky snap context should pin to top of viewport');
+  assert(flowGeometry.yardCount>=8,'expected all yard quick presets on iPad');
+  assert(flowGeometry.yardRows<=2,'yard quick presets should use tablet width instead of a tall stack; rows='+flowGeometry.yardRows);
+
   const touch=await page.evaluate(()=>{
     const sels=['#q29IpadDock [data-q29="situation"]','#q29IpadDock [data-q29="drive"]','#q29IpadDock [data-q29="save"]','[data-group="playType"] [data-v="Run"]','#yards'];
     return sels.map(s=>{const e=document.querySelector(s),r=e.getBoundingClientRect(),cs=getComputedStyle(e);return{s,h:r.height,font:parseFloat(cs.fontSize),visible:r.width>0&&r.height>0}});
@@ -61,5 +79,5 @@ const assert=require('assert');
   assert(dims.scrollW<=dims.w+2,'iPad layout has horizontal overflow: '+dims.scrollW+' > '+dims.w);
   assert.equal(errors.length,0,'browser errors: '+errors.join(' | '));
   await context.close();await browser.close();
-  console.log('QUALITY29 IPAD PASS: real Edit Situation goal-line save, stale-drive repair, score reset, stable quick-stat identities, visible touch targets and no horizontal overflow');
+  console.log('QUALITY30 IPAD PASS: pinned snap context, no duplicate Situation card, compact yard grid, real Edit Situation goal-line save, stale-drive repair, score reset, stable quick-stat identities, touch targets and no horizontal overflow');
 })().catch(e=>{console.error(e);process.exit(1)});
