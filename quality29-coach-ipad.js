@@ -29,8 +29,7 @@ function install(A,root){
     if(spacer)spacer.style.display='none';
     if(!snap)return;
     delete snap.dataset.q30Pinned;delete snap.dataset.q30PinY;
-    ['left','right','width','margin-bottom'].forEach(function(p){clearImp(snap,p);});
-    imp(snap,'position','sticky');imp(snap,'top','0px');imp(snap,'z-index','1100');
+    ['position','top','z-index','left','right','width','margin-bottom'].forEach(function(p){clearImp(snap,p);});
   }
   function syncIpadSnapPin(recalc){
     var live=$('live'),snap=d.querySelector('#live .snapbar');
