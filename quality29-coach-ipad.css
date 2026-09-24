@@ -10,11 +10,11 @@
 .quickStatsGrid>[data-stat-key="success"],.quickStatsGrid>[data-stat-key="firstDowns"],.quickStatsGrid>[data-stat-key="explosives"]{background:color-mix(in srgb,var(--a) 7%,transparent)!important;border-color:color-mix(in srgb,var(--a) 25%,transparent)!important}
 .q29QuickStat{cursor:default}.q29QuickStat:hover{transform:none!important}
 
-/* Once Run is active on a normal desktop, Pre-snap should use its natural content height.
-   The older Quality28 stretch rule is useful before play type selection, but after Run reveals
-   it creates a large empty floor at 1080p. No control is hidden or resized here. */
+/* Desktop Pre-snap always uses its natural content height. The older Quality28
+   stretch rule tied this card to the full grid-track height and produced a timing-
+   dependent 200px+ blank floor after play-type changes on some runners. */
 @media (min-width:1181px) and (min-height:821px){
- html.fniqBoxCompact #live main.boxMainGrid:has(.boxResultCard #q27Pins-runType:not(.hidden))>#preSnapCard{align-self:start!important;min-height:0!important;height:auto!important}
+ html.fniqBoxCompact #live main.boxMainGrid>#preSnapCard{align-self:start!important;min-height:0!important;height:auto!important}
 }
 
 @media (pointer:coarse) and (min-width:700px) and (max-width:1400px){
