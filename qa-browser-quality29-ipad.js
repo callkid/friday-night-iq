@@ -10,29 +10,21 @@ const assert=require('assert');
   await page.fill('#team','iPad QA');await page.fill('#opp','Coach Test');await page.click('#start');await page.waitForSelector('#live.on');
 
   assert(await page.locator('#q29IpadDock').isVisible(),'iPad action dock must be visible on live game');
-  await page.waitForFunction(()=>{
-    const dock=document.querySelector('#q29IpadDock'),b=dock&&dock.querySelector('button'),s=document.querySelector('#situationCard'),snap=document.querySelector('#live .snapbar');
-    return dock&&b&&b.getBoundingClientRect().height>=47&&(!s||getComputedStyle(s).display==='none')&&snap&&snap.dataset.q30Pinned==='1';
-  });
-  const flowGeometry=await page.evaluate(()=>{
-    const snap=document.querySelector('#live .snapbar'),situation=document.querySelector('#situationCard'),spacer=document.querySelector('#q30SnapSpacer');
-    const chips=[...document.querySelectorAll('.boxResultCard .yardchips .chip')].filter(e=>{const r=e.getBoundingClientRect();return r.width>0&&r.height>0;});
-    const rows=[...new Set(chips.map(e=>Math.round(e.getBoundingClientRect().top)))],sr=situation?situation.getBoundingClientRect():null,r=snap&&snap.getBoundingClientRect();
-    return{situationVisible:!!(situation&&getComputedStyle(situation).display!=='none'&&sr&&sr.width>0&&sr.height>0),snapPosition:snap?getComputedStyle(snap).position:'missing',snapTop:r?r.top:null,snapHeight:r?r.height:0,spacerHeight:spacer?spacer.getBoundingClientRect().height:0,yardRows:rows.length,yardCount:chips.length};
-  });
+  await page.waitForFunction(()=>{const dock=document.querySelector('#q29IpadDock'),b=dock&&dock.querySelector('button'),s=document.querySelector('#situationCard'),snap=document.querySelector('#live .snapbar');return dock&&b&&b.getBoundingClientRect().height>=47&&(!s||getComputedStyle(s).display==='none')&&snap&&snap.dataset.q30Pinned==='1';});
+  const flowGeometry=await page.evaluate(()=>{const snap=document.querySelector('#live .snapbar'),situation=document.querySelector('#situationCard'),spacer=document.querySelector('#q30SnapSpacer');const chips=[...document.querySelectorAll('.boxResultCard .yardchips .chip')].filter(e=>{const r=e.getBoundingClientRect();return r.width>0&&r.height>0});const rows=[...new Set(chips.map(e=>Math.round(e.getBoundingClientRect().top)))],sr=situation?situation.getBoundingClientRect():null,r=snap&&snap.getBoundingClientRect();return{situationVisible:!!(situation&&getComputedStyle(situation).display!=='none'&&sr&&sr.width>0&&sr.height>0),snapPosition:snap?getComputedStyle(snap).position:'missing',snapTop:r?r.top:null,snapHeight:r?r.height:0,spacerHeight:spacer?spacer.getBoundingClientRect().height:0,yardRows:rows.length,yardCount:chips.length}});
   assert.equal(flowGeometry.situationVisible,false,'actual inline Situation card should be removed from iPad flow');
-  assert.equal(flowGeometry.snapPosition,'fixed','live snap context should stay fixed at the top on iPad');
-  assert(flowGeometry.snapTop>=-1&&flowGeometry.snapTop<=1,'fixed snap context should sit at viewport top; top='+flowGeometry.snapTop);
-  assert(flowGeometry.snapHeight>=70,'fixed snap context unexpectedly collapsed; height='+flowGeometry.snapHeight);
-  assert(flowGeometry.spacerHeight>=flowGeometry.snapHeight-2,'snap spacer must preserve layout under fixed strip');
+  assert.equal(flowGeometry.snapPosition,'fixed','live snap context should begin fixed at the top on iPad');
+  assert(flowGeometry.snapTop>=-1&&flowGeometry.snapTop<=1,'snap context should sit at viewport top; top='+flowGeometry.snapTop);
+  assert(flowGeometry.snapHeight>=70,'snap context unexpectedly collapsed; height='+flowGeometry.snapHeight);
+  assert(flowGeometry.spacerHeight>=flowGeometry.snapHeight-2,'snap spacer must preserve layout under pinned strip');
   assert(flowGeometry.yardCount>=8,'expected all yard quick presets on iPad');
   assert(flowGeometry.yardRows<=2,'yard quick presets should use tablet width instead of a tall stack; rows='+flowGeometry.yardRows);
   await page.screenshot({path:'qa-screenshots/q30-ipad-initial.png',fullPage:true});
 
-  const scrollTarget=await page.evaluate(()=>{document.documentElement.style.scrollBehavior='auto';const target=Math.min(700,document.documentElement.scrollHeight-innerHeight);window.scrollTo(0,target);return{target,max:document.documentElement.scrollHeight-innerHeight};});
+  const scrollTarget=await page.evaluate(()=>{document.documentElement.style.scrollBehavior='auto';const target=Math.min(700,document.documentElement.scrollHeight-innerHeight);window.scrollTo(0,target);return{target,max:document.documentElement.scrollHeight-innerHeight}});
   assert(scrollTarget.target>=100,'iPad page is too short to exercise pinned snap behavior; max='+scrollTarget.max);await page.waitForFunction(()=>scrollY>=100);await page.waitForTimeout(80);
   const pinnedSnap=await page.locator('#live .snapbar').evaluate(e=>{const r=e.getBoundingClientRect(),probeX=Math.max(r.left+8,Math.min(r.right-8,r.left+r.width/2)),probeY=Math.max(4,Math.min(12,r.bottom-4)),hit=document.elementFromPoint(probeX,probeY),cs=getComputedStyle(e);return{top:r.top,height:r.height,position:cs.position,hitInside:!!(hit&&(hit===e||e.contains(hit)))}});
-  assert.equal(pinnedSnap.position,'fixed','scrolled snap context must remain fixed');assert(pinnedSnap.top>=-1&&pinnedSnap.top<=1,'pinned snap context should remain at viewport top; top='+pinnedSnap.top);assert(pinnedSnap.height>=70,'pinned snap context unexpectedly collapsed; height='+pinnedSnap.height);assert.equal(pinnedSnap.hitInside,true,'pinned snap context is geometrically present but visually clipped near the viewport top');
+  assert(['fixed','sticky'].includes(pinnedSnap.position),'scrolled snap context must remain pinned; position='+pinnedSnap.position);assert(pinnedSnap.top>=-1&&pinnedSnap.top<=1,'pinned snap context should remain at viewport top; top='+pinnedSnap.top);assert(pinnedSnap.height>=70,'pinned snap context unexpectedly collapsed; height='+pinnedSnap.height);assert.equal(pinnedSnap.hitInside,true,'pinned snap context is geometrically present but visually clipped near the viewport top');
   await page.screenshot({path:'qa-screenshots/q30-ipad-scrolled.png',fullPage:false});await page.evaluate(()=>window.scrollTo(0,0));
 
   const touch=await page.evaluate(()=>['#q29IpadDock [data-q29="situation"]','#q29IpadDock [data-q29="drive"]','#q29IpadDock [data-q29="save"]','[data-group="playType"] [data-v="Run"]','#yards'].map(s=>{const e=document.querySelector(s),r=e.getBoundingClientRect(),cs=getComputedStyle(e);return{s,h:r.height,font:parseFloat(cs.fontSize),visible:r.width>0&&r.height>0}}));
@@ -53,5 +45,5 @@ const assert=require('assert');
 
   await page.evaluate(()=>{FNIQ.state.plays=[];FNIQ.state.score={us:21,them:14};FNIQ.save('q29-score-seed');FNIQ.screen('setup')});await page.click('#start');assert.deepEqual(await page.evaluate(()=>FNIQ.state.score),{us:0,them:0},'Save & Start on an empty game should reset score');
   const dims=await page.evaluate(()=>({w:innerWidth,scrollW:document.documentElement.scrollWidth}));assert(dims.scrollW<=dims.w+2,'iPad layout has horizontal overflow: '+dims.scrollW+' > '+dims.w);assert.equal(errors.length,0,'browser errors: '+errors.join(' | '));
-  await context.close();await browser.close();console.log('QUALITY30 IPAD PASS: snap context stays fixed at viewport top with flow spacer, Situation card hidden, compact yard grid, full-size dock/Edit Situation controls, goal-line save, stale-drive repair, score reset, stable quick-stat identities, touch targets and no overflow');
+  await context.close();await browser.close();console.log('QUALITY30 IPAD PASS: snap context stays visibly pinned at viewport top with flow spacer, Situation card hidden, compact yard grid, full-size dock/Edit Situation controls, goal-line save, stale-drive repair, score reset, stable quick-stat identities, touch targets and no overflow');
 })().catch(e=>{console.error(e);process.exit(1)});
