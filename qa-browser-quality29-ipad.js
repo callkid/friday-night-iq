@@ -10,23 +10,25 @@ const assert=require('assert');
   await page.fill('#team','iPad QA');await page.fill('#opp','Coach Test');await page.click('#start');await page.waitForSelector('#live.on');
 
   assert(await page.locator('#q29IpadDock').isVisible(),'iPad action dock must be visible on live game');
-  // The tablet CSS is loaded at app bootstrap. Wait for its visible effect so QA
-  // measures the same rendered state a coach sees instead of a stylesheet race.
-  await page.waitForFunction(()=>{const d=document.querySelector('#q29IpadDock');return d&&getComputedStyle(d).position==='fixed';});
+  // Wait for the final tablet runtime layer itself, not just a stylesheet token.
+  await page.waitForFunction(()=>{
+    const dock=document.querySelector('#q29IpadDock'),b=dock&&dock.querySelector('button'),s=document.querySelector('#situationCard');
+    return dock&&b&&b.getBoundingClientRect().height>=47&&(!s||getComputedStyle(s).display==='none');
+  });
   const flowGeometry=await page.evaluate(()=>{
-    const snap=document.querySelector('#live .snapbar');
+    const snap=document.querySelector('#live .snapbar'),situation=document.querySelector('#situationCard');
     const chips=[...document.querySelectorAll('.boxResultCard .yardchips .chip')].filter(e=>{const r=e.getBoundingClientRect();return r.width>0&&r.height>0;});
     const rows=[...new Set(chips.map(e=>Math.round(e.getBoundingClientRect().top)))];
-    const visibleSituationCards=[...document.querySelectorAll('#live main .stepcard')].filter(e=>{const r=e.getBoundingClientRect(),t=(e.textContent||'').replace(/\s+/g,' ').trim();return r.width>0&&r.height>0&&/^1\s*Situation\b/i.test(t);});
+    const sr=situation?situation.getBoundingClientRect():null;
     return{
-      visibleSituationCards:visibleSituationCards.length,
+      situationVisible:!!(situation&&getComputedStyle(situation).display!=='none'&&sr&&sr.width>0&&sr.height>0),
       snapPosition:snap?getComputedStyle(snap).position:'missing',
       snapTop:snap?getComputedStyle(snap).top:'missing',
       yardRows:rows.length,
       yardCount:chips.length
     };
   });
-  assert.equal(flowGeometry.visibleSituationCards,0,'duplicate visible Situation card should be removed from iPad flow');
+  assert.equal(flowGeometry.situationVisible,false,'actual inline Situation card should be removed from iPad flow');
   assert.equal(flowGeometry.snapPosition,'sticky','live snap context must stay pinned on iPad');
   assert.equal(flowGeometry.snapTop,'0px','sticky snap context should use top:0');
   assert(flowGeometry.yardCount>=8,'expected all yard quick presets on iPad');
@@ -95,5 +97,5 @@ const assert=require('assert');
   assert(dims.scrollW<=dims.w+2,'iPad layout has horizontal overflow: '+dims.scrollW+' > '+dims.w);
   assert.equal(errors.length,0,'browser errors: '+errors.join(' | '));
   await context.close();await browser.close();
-  console.log('QUALITY30 IPAD PASS: pinned snap context survives scroll, no visible Situation card, compact yard grid, real Edit Situation goal-line save, stale-drive repair, score reset, stable quick-stat identities, touch targets and no horizontal overflow');
+  console.log('QUALITY30 IPAD PASS: pinned snap context survives scroll, actual Situation card hidden, compact yard grid, full-size bottom dock, real Edit Situation goal-line save, stale-drive repair, score reset, stable quick-stat identities, touch targets and no horizontal overflow');
 })().catch(e=>{console.error(e);process.exit(1)});
