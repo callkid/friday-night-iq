@@ -35,7 +35,7 @@
  /* Quality30 tablet game-flow polish: the snap strip is the persistent situation
     reference, so the duplicate Situation card leaves the scrolling workflow. */
  #live #situationCard{display:none!important}
- #live .snapbar{position:sticky!important;top:0!important;z-index:1100!important;isolation:isolate;box-shadow:0 8px 18px rgba(0,0,0,.10)}
+ #live .snapbar{position:fixed!important;top:0!important;left:max(14px,env(safe-area-inset-left))!important;right:max(14px,env(safe-area-inset-right))!important;width:auto!important;margin-bottom:0!important;z-index:1300!important;isolation:isolate;box-shadow:0 8px 18px rgba(0,0,0,.10)}
 
  /* Use tablet width instead of stacking yard presets into a tall column. Keep every
     target game-speed sized while pulling Post-snap detail much closer to the result. */
