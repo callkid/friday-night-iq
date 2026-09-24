@@ -18,11 +18,51 @@ function install(A,root){
   function injectCss(){if($('quality29CoachIpadCss'))return;var l=d.createElement('link');l.id='quality29CoachIpadCss';l.rel='stylesheet';l.href='quality29-coach-ipad.css?v=q29coach1';d.head.appendChild(l);}
   function ipadMode(){return !!(root.matchMedia&&root.matchMedia('(pointer: coarse)').matches&&root.innerWidth>=700&&root.innerWidth<=1400);}
   function imp(el,name,value){if(el)el.style.setProperty(name,value,'important');}
+  function clearImp(el,name){if(el)el.style.removeProperty(name);}
+  function ensureSnapSpacer(snap){
+    var spacer=$('q30SnapSpacer');
+    if(!spacer&&snap){spacer=d.createElement('div');spacer.id='q30SnapSpacer';spacer.setAttribute('aria-hidden','true');spacer.style.display='none';snap.parentElement.insertBefore(spacer,snap);}
+    return spacer;
+  }
+  function resetIpadSnapPin(){
+    var snap=d.querySelector('#live .snapbar'),spacer=$('q30SnapSpacer');
+    if(spacer)spacer.style.display='none';
+    if(!snap)return;
+    delete snap.dataset.q30Pinned;delete snap.dataset.q30PinY;
+    ['left','right','width','margin-bottom'].forEach(function(p){clearImp(snap,p);});
+    imp(snap,'position','sticky');imp(snap,'top','0px');imp(snap,'z-index','1100');
+  }
+  function syncIpadSnapPin(recalc){
+    var live=$('live'),snap=d.querySelector('#live .snapbar');
+    if(!ipadMode()||!live||!live.classList.contains('on')||!snap){resetIpadSnapPin();return;}
+    var spacer=ensureSnapSpacer(snap),pinned=snap.dataset.q30Pinned==='1';
+    if(recalc&&pinned){
+      if(spacer)spacer.style.display='none';
+      delete snap.dataset.q30Pinned;
+      ['left','right','width','margin-bottom'].forEach(function(p){clearImp(snap,p);});
+      imp(snap,'position','sticky');imp(snap,'top','0px');
+      pinned=false;delete snap.dataset.q30PinY;
+    }
+    if(!snap.dataset.q30PinY&&!pinned)snap.dataset.q30PinY=String(snap.getBoundingClientRect().top+root.scrollY);
+    var threshold=Number(snap.dataset.q30PinY)||0,shouldPin=root.scrollY>=threshold&&threshold>0;
+    if(shouldPin&&!pinned){
+      var r=snap.getBoundingClientRect(),mb=parseFloat(root.getComputedStyle(snap).marginBottom)||0;
+      if(spacer){spacer.style.height=(r.height+mb)+'px';spacer.style.display='block';}
+      imp(snap,'position','fixed');imp(snap,'top','0px');imp(snap,'left',r.left+'px');imp(snap,'right','auto');imp(snap,'width',r.width+'px');imp(snap,'margin-bottom','0px');imp(snap,'z-index','1300');
+      snap.dataset.q30Pinned='1';
+    }else if(!shouldPin&&pinned){
+      if(spacer)spacer.style.display='none';
+      delete snap.dataset.q30Pinned;
+      ['left','right','width','margin-bottom'].forEach(function(p){clearImp(snap,p);});
+      imp(snap,'position','sticky');imp(snap,'top','0px');imp(snap,'z-index','1100');
+      snap.dataset.q30PinY=String(snap.getBoundingClientRect().top+root.scrollY);
+    }
+  }
   function applyIpadFlow(){
-    if(!ipadMode())return;
+    if(!ipadMode()){resetIpadSnapPin();return;}
     imp(d.body,'padding-bottom','78px');
     var situation=$('situationCard');if(situation)imp(situation,'display','none');
-    var snap=d.querySelector('#live .snapbar');if(snap){imp(snap,'position','sticky');imp(snap,'top','0px');imp(snap,'z-index','1100');}
+    var snap=d.querySelector('#live .snapbar');if(snap&&snap.dataset.q30Pinned!=='1'){imp(snap,'position','sticky');imp(snap,'top','0px');imp(snap,'z-index','1100');}
     var dock=$('q29IpadDock');
     if(dock){
       imp(dock,'position','fixed');imp(dock,'left','12px');imp(dock,'right','12px');imp(dock,'bottom','10px');imp(dock,'z-index','1200');imp(dock,'display','grid');imp(dock,'grid-template-columns','1fr 1fr 1.4fr');imp(dock,'gap','8px');imp(dock,'padding','8px');imp(dock,'border-radius','16px');imp(dock,'background','rgba(7,17,31,.94)');imp(dock,'border','1px solid rgba(255,255,255,.14)');imp(dock,'box-shadow','0 12px 38px rgba(0,0,0,.34)');imp(dock,'backdrop-filter','blur(14px)');
@@ -34,6 +74,7 @@ function install(A,root){
     var result=d.querySelector('#live .boxResultCard');
     if(result){var resultGrid=result.querySelector('.resultgrid');if(resultGrid){imp(resultGrid,'display','grid');imp(resultGrid,'grid-template-columns','minmax(0,1.15fr) minmax(0,.85fr)');imp(resultGrid,'align-items','start');imp(resultGrid,'gap','10px');}var yard=result.querySelector('.yardchips');if(yard){imp(yard,'display','grid');imp(yard,'grid-template-columns','repeat(4,minmax(0,1fr))');imp(yard,'gap','6px');imp(yard,'margin-top','6px');yard.querySelectorAll('.chip').forEach(function(c){imp(c,'width','100%');imp(c,'min-height','48px');imp(c,'height','auto');imp(c,'padding','6px 8px');});}var calc=$('speedSpotCalc');if(calc){imp(calc,'margin-top','6px');imp(calc,'margin-bottom','6px');}var summary=result.querySelector('.boxDockedSummary');if(summary){imp(summary,'min-height','0px');imp(summary,'margin-top','8px');imp(summary,'margin-bottom','0px');imp(summary,'padding','10px 12px');}}
     var finish=$('trackerFinishCard');if(finish)imp(finish,'margin-top','8px');
+    syncIpadSnapPin(false);
   }
   function resetScoreIfEmpty(){if(A.state&&Array.isArray(A.state.plays)&&A.state.plays.length===0){clearScore(A.state);A.save('new-game-score-reset');}}
   var oldReset=A.resetGame;if(oldReset)A.resetGame=function(){var r=oldReset.apply(A,arguments);clearScore(A.state);A.save('reset-score');return r;};
@@ -46,7 +87,8 @@ function install(A,root){
   var oldAll=A.renderAll;if(oldAll)A.renderAll=function(){var r=oldAll.apply(A,arguments);renderExtraStats();syncDock();applyIpadFlow();return r;};
   var oldIQ=A.renderIQ;if(oldIQ)A.renderIQ=function(){var r=oldIQ.apply(A,arguments);renderExtraStats();return r;};
   var oldScreen=A.screen;if(oldScreen)A.screen=function(){var r=oldScreen.apply(A,arguments);setTimeout(function(){syncDock();applyIpadFlow();},0);return r;};
-  root.addEventListener('resize',function(){makeIpadDock();syncDock();applyIpadFlow();});
+  root.addEventListener('scroll',function(){syncIpadSnapPin(false);},{passive:true});
+  root.addEventListener('resize',function(){makeIpadDock();syncDock();syncIpadSnapPin(true);applyIpadFlow();});
   return A;
 }
 return{sameSnap:sameSnap,clearScore:clearScore,driveStats:driveStats,formatField:formatField,repairPossessionGate:repairPossessionGate,install:install};
