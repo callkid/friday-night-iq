@@ -34,10 +34,17 @@ const assert=require('assert');
   assert(flowGeometry.yardRows<=2,'yard quick presets should use tablet width instead of a tall stack; rows='+flowGeometry.yardRows);
   await page.screenshot({path:'qa-screenshots/q30-ipad-initial.png',fullPage:true});
 
-  // After the natural snap-strip position scrolls away, Quality30 switches it to a
-  // fixed viewport pin. Verify not only geometry but that the strip itself owns a
-  // visible point near the top; this catches ancestor clipping that rect.top misses.
-  await page.evaluate(()=>window.scrollTo(0,Math.min(700,document.documentElement.scrollHeight-innerHeight)));
+  // Force an instant synthetic scroll for deterministic QA. The app intentionally
+  // uses smooth scrolling for users, but this gate is testing the final pinned
+  // geometry rather than animation timing.
+  const scrollTarget=await page.evaluate(()=>{
+    document.documentElement.style.scrollBehavior='auto';
+    const target=Math.min(700,document.documentElement.scrollHeight-innerHeight);
+    window.scrollTo(0,target);
+    return{target,y:scrollY,max:document.documentElement.scrollHeight-innerHeight};
+  });
+  assert(scrollTarget.target>=100,'iPad page is too short to exercise pinned snap behavior; max='+scrollTarget.max);
+  await page.waitForFunction(()=>scrollY>=100);
   await page.waitForFunction(()=>document.querySelector('#live .snapbar')?.dataset.q30Pinned==='1');
   await page.waitForTimeout(80);
   const pinnedSnap=await page.locator('#live .snapbar').evaluate(e=>{
@@ -101,5 +108,5 @@ const assert=require('assert');
   assert(dims.scrollW<=dims.w+2,'iPad layout has horizontal overflow: '+dims.scrollW+' > '+dims.w);
   assert.equal(errors.length,0,'browser errors: '+errors.join(' | '));
   await context.close();await browser.close();
-  console.log('QUALITY30 IPAD PASS: full snap context visibly pins after scroll, actual Situation card hidden, compact yard grid, full-size bottom dock and Edit Situation controls, real goal-line save, stale-drive repair, score reset, stable quick-stat identities, touch targets and no horizontal overflow');
+  console.log('QUALITY30 IPAD PASS: full snap context visibly pins after deterministic scroll, actual Situation card hidden, compact yard grid, full-size bottom dock and Edit Situation controls, real goal-line save, stale-drive repair, score reset, stable quick-stat identities, touch targets and no horizontal overflow');
 })().catch(e=>{console.error(e);process.exit(1)});
