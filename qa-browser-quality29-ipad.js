@@ -27,6 +27,15 @@ const assert=require('assert');
   assert.equal(flowGeometry.snapTop,'0px','sticky snap context should pin to top of viewport');
   assert(flowGeometry.yardCount>=8,'expected all yard quick presets on iPad');
   assert(flowGeometry.yardRows<=2,'yard quick presets should use tablet width instead of a tall stack; rows='+flowGeometry.yardRows);
+  await page.screenshot({path:'qa-screenshots/q30-ipad-initial.png',fullPage:true});
+
+  // Sticky means sticky in motion, not merely a computed CSS value.
+  await page.evaluate(()=>window.scrollTo(0,Math.min(700,document.documentElement.scrollHeight-innerHeight)));
+  await page.waitForTimeout(100);
+  const stickyRect=await page.locator('#live .snapbar').evaluate(e=>{const r=e.getBoundingClientRect();return{top:r.top,bottom:r.bottom}});
+  assert(Math.abs(stickyRect.top)<=1,'snap context did not remain pinned after scroll; top='+stickyRect.top);
+  await page.screenshot({path:'qa-screenshots/q30-ipad-scrolled.png',fullPage:false});
+  await page.evaluate(()=>window.scrollTo(0,0));
 
   const touch=await page.evaluate(()=>{
     const sels=['#q29IpadDock [data-q29="situation"]','#q29IpadDock [data-q29="drive"]','#q29IpadDock [data-q29="save"]','[data-group="playType"] [data-v="Run"]','#yards'];
@@ -43,7 +52,9 @@ const assert=require('assert');
   situationTouch.forEach(x=>{assert(x.visible,'Edit Situation control must be visible '+x.s);assert(x.h>=47,'Edit Situation target too short '+x.s+': '+x.h);if(x.s!=='#q26SituationSave')assert(x.font>=16,'Edit Situation form control must be >=16px to prevent Safari zoom: '+x.s);});
   await page.click('#q26SituationSave');
   await page.waitForFunction(()=>document.querySelector('#headline').textContent.includes('2nd & 8')&&document.querySelector('#fieldline').textContent.includes('Opp 8'));
-  await page.click('[data-group="playType"] [data-v="Run"]');await page.fill('#yards','5');await page.click('#q29IpadDock [data-q29="save"]');
+  await page.click('[data-group="playType"] [data-v="Run"]');await page.fill('#yards','5');
+  await page.screenshot({path:'qa-screenshots/q30-ipad-run-selected.png',fullPage:true});
+  await page.click('#q29IpadDock [data-q29="save"]');
   await page.waitForFunction(()=>document.querySelector('#headline').textContent.includes('3rd'));
   assert((await page.locator('#headline').textContent()).includes('3rd & 3'),'goal-line +5 should become 3rd & 3');
   assert((await page.locator('#fieldline').textContent()).includes('Opp 3'),'goal-line +5 should spot at Opp 3');
@@ -79,5 +90,5 @@ const assert=require('assert');
   assert(dims.scrollW<=dims.w+2,'iPad layout has horizontal overflow: '+dims.scrollW+' > '+dims.w);
   assert.equal(errors.length,0,'browser errors: '+errors.join(' | '));
   await context.close();await browser.close();
-  console.log('QUALITY30 IPAD PASS: pinned snap context, no duplicate Situation card, compact yard grid, real Edit Situation goal-line save, stale-drive repair, score reset, stable quick-stat identities, touch targets and no horizontal overflow');
+  console.log('QUALITY30 IPAD PASS: pinned snap context survives scroll, no duplicate Situation card, compact yard grid, real Edit Situation goal-line save, stale-drive repair, score reset, stable quick-stat identities, touch targets and no horizontal overflow');
 })().catch(e=>{console.error(e);process.exit(1)});
