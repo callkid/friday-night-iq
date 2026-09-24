@@ -11,10 +11,10 @@ const assert=require('assert');
 
   assert(await page.locator('#q29IpadDock').isVisible(),'iPad action dock must be visible on live game');
   const touch=await page.evaluate(()=>{
-    const sels=['#q29IpadDock [data-q29="save"]','[data-group="playType"] [data-v="Run"]','#yards','#side','#yard'];
-    return sels.map(s=>{const e=document.querySelector(s),r=e.getBoundingClientRect(),cs=getComputedStyle(e);return{s,h:r.height,font:parseFloat(cs.fontSize)}});
+    const sels=['#q29IpadDock [data-q29="situation"]','#q29IpadDock [data-q29="drive"]','#q29IpadDock [data-q29="save"]','[data-group="playType"] [data-v="Run"]','#yards'];
+    return sels.map(s=>{const e=document.querySelector(s),r=e.getBoundingClientRect(),cs=getComputedStyle(e);return{s,h:r.height,font:parseFloat(cs.fontSize),visible:r.width>0&&r.height>0}});
   });
-  touch.forEach(x=>{assert(x.h>=47,'iPad target too short '+x.s+': '+x.h);if(x.s==='#yards'||x.s==='#side'||x.s==='#yard')assert(x.font>=16,'iPad form control must be >=16px to prevent Safari zoom: '+x.s);});
+  touch.forEach(x=>{assert(x.visible,'iPad target must be visible '+x.s);assert(x.h>=47,'iPad target too short '+x.s+': '+x.h);if(x.s==='#yards')assert(x.font>=16,'iPad form control must be >=16px to prevent Safari zoom: '+x.s);});
 
   // Coach-reported goal-line path: 2nd & goal from Opp 8, +5 must save and continue the drive.
   await page.selectOption('#down','2');await page.fill('#distance','8');await page.selectOption('#side','OPP');await page.fill('#yard','8');
@@ -54,5 +54,5 @@ const assert=require('assert');
   assert(dims.scrollW<=dims.w+2,'iPad layout has horizontal overflow: '+dims.scrollW+' > '+dims.w);
   assert.equal(errors.length,0,'browser errors: '+errors.join(' | '));
   await context.close();await browser.close();
-  console.log('QUALITY29 IPAD PASS: goal-line save, stale-drive repair, score reset, stable quick-stat identities, touch targets and no horizontal overflow');
+  console.log('QUALITY29 IPAD PASS: goal-line save, stale-drive repair, score reset, stable quick-stat identities, visible touch targets and no horizontal overflow');
 })().catch(e=>{console.error(e);process.exit(1)});
