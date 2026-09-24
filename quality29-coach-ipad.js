@@ -31,31 +31,30 @@ function install(A,root){
     delete snap.dataset.q30Pinned;delete snap.dataset.q30PinY;
     ['position','top','z-index','left','right','width','margin-bottom'].forEach(function(p){clearImp(snap,p);});
   }
+  function restoreIpadSticky(snap,spacer){
+    if(spacer)spacer.style.display='none';
+    delete snap.dataset.q30Pinned;
+    ['left','right','width','margin-bottom'].forEach(function(p){clearImp(snap,p);});
+    imp(snap,'position','sticky');imp(snap,'top','0px');imp(snap,'z-index','1100');
+  }
   function syncIpadSnapPin(recalc){
     var live=$('live'),snap=d.querySelector('#live .snapbar');
     if(!ipadMode()||!live||!live.classList.contains('on')||!snap){resetIpadSnapPin();return;}
     var spacer=ensureSnapSpacer(snap),pinned=snap.dataset.q30Pinned==='1';
-    if(recalc&&pinned){
-      if(spacer)spacer.style.display='none';
-      delete snap.dataset.q30Pinned;
-      ['left','right','width','margin-bottom'].forEach(function(p){clearImp(snap,p);});
-      imp(snap,'position','sticky');imp(snap,'top','0px');
-      pinned=false;delete snap.dataset.q30PinY;
-    }
-    if(!snap.dataset.q30PinY&&!pinned)snap.dataset.q30PinY=String(snap.getBoundingClientRect().top+root.scrollY);
-    var threshold=Number(snap.dataset.q30PinY)||0,shouldPin=root.scrollY>=threshold&&threshold>0;
-    if(shouldPin&&!pinned){
-      var r=snap.getBoundingClientRect(),mb=parseFloat(root.getComputedStyle(snap).marginBottom)||0;
+    if(recalc&&pinned){restoreIpadSticky(snap,spacer);pinned=false;delete snap.dataset.q30PinY;}
+    if(!pinned){
+      var r=snap.getBoundingClientRect(),maxScroll=Math.max(0,d.documentElement.scrollHeight-root.innerHeight),atBottom=root.scrollY>=maxScroll-1;
+      var shouldPin=root.scrollY>0&&(r.top<=4||(atBottom&&r.top<80));
+      if(!shouldPin){if(!snap.dataset.q30PinY)snap.dataset.q30PinY=String(r.top+root.scrollY);return;}
+      var mb=parseFloat(root.getComputedStyle(snap).marginBottom)||0;
       if(spacer){spacer.style.height=(r.height+mb)+'px';spacer.style.display='block';}
       imp(snap,'position','fixed');imp(snap,'top','0px');imp(snap,'left',r.left+'px');imp(snap,'right','auto');imp(snap,'width',r.width+'px');imp(snap,'margin-bottom','0px');imp(snap,'z-index','1300');
       snap.dataset.q30Pinned='1';
-    }else if(!shouldPin&&pinned){
-      if(spacer)spacer.style.display='none';
-      delete snap.dataset.q30Pinned;
-      ['left','right','width','margin-bottom'].forEach(function(p){clearImp(snap,p);});
-      imp(snap,'position','sticky');imp(snap,'top','0px');imp(snap,'z-index','1100');
-      snap.dataset.q30PinY=String(snap.getBoundingClientRect().top+root.scrollY);
+      snap.dataset.q30PinY=String(Math.max(0,root.scrollY-32));
+      return;
     }
+    var threshold=Number(snap.dataset.q30PinY)||0;
+    if(root.scrollY<threshold){restoreIpadSticky(snap,spacer);snap.dataset.q30PinY=String(snap.getBoundingClientRect().top+root.scrollY);}
   }
   function applyIpadFlow(){
     if(!ipadMode()){resetIpadSnapPin();return;}
