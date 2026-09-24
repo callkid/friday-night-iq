@@ -31,8 +31,25 @@
  .modalbox,.driveStartBox,.q26SituationBox{width:min(92vw,620px)!important;max-height:88vh;overflow:auto}.modalbox button,.driveStartBox button,.q26SituationBox button{min-height:50px}
  .q26SituationBox input,.q26SituationBox select{min-height:50px!important;height:50px!important;font-size:16px!important;padding-top:8px!important;padding-bottom:8px!important}
  .quickStatsGrid{grid-template-columns:repeat(3,minmax(0,1fr))!important}.quickStat{min-height:88px;padding:12px!important}.quickStat b{font-size:22px!important}.quickStat span,.quickStat small{font-size:12px!important}
+
+ /* Quality30 tablet game-flow polish: the snap strip is the persistent situation
+    reference, so the duplicate Situation card leaves the scrolling workflow. */
+ #live #situationCard{display:none!important}
+ #live .snapbar{position:sticky!important;top:0!important;z-index:1100!important;isolation:isolate;box-shadow:0 8px 18px rgba(0,0,0,.10)}
+
+ /* Use tablet width instead of stacking yard presets into a tall column. Keep every
+    target game-speed sized while pulling Post-snap detail much closer to the result. */
+ #live .boxResultCard{padding-bottom:10px!important}
+ #live .boxResultCard .resultgrid{grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr)!important;align-items:start!important;gap:10px!important}
+ #live .boxResultCard .yardchips{display:grid!important;grid-template-columns:repeat(4,minmax(0,1fr))!important;gap:6px!important;margin-top:6px!important}
+ #live .boxResultCard .yardchips .chip{width:100%!important;min-height:48px!important;padding:6px 8px!important}
+ #live .boxResultCard #speedSpotCalc{margin-top:6px!important;margin-bottom:6px!important}
+ #live .boxResultCard .boxDockedSummary{min-height:0!important;margin-top:8px!important;margin-bottom:0!important;padding:10px 12px!important}
+ #live #trackerFinishCard{margin-top:8px!important}
 }
 
 @media (pointer:coarse) and (min-width:700px) and (max-width:900px){
  #live .grid3,#live .grid4,#live .grid2.contextrow{grid-template-columns:1fr!important}.quickStatsGrid{grid-template-columns:repeat(2,minmax(0,1fr))!important}.q29IpadDock{grid-template-columns:.9fr .9fr 1.3fr}.snapbar{gap:8px}
+ /* Keep result entry two-dimensional even on the narrower iPad class. */
+ #live .boxResultCard .resultgrid{grid-template-columns:minmax(0,1fr) minmax(260px,.9fr)!important}
 }
