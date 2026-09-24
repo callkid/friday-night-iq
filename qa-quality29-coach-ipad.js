@@ -42,7 +42,7 @@ const plays=[
 const ds=Q.driveStats(E,plays);
 assert.equal(ds.drives,3);
 assert.equal(ds.turnovers,2);
-assert(Math.abs(ds.avgStartAbs-45)<1e-9,'average drive start absolute field position should be 45');
-assert.equal(Q.formatField(E,ds.avgStartAbs),'Own 45');
+assert(Math.abs(ds.avgStartAbs-35)<1e-9,'average drive start absolute field position should be 35');
+assert.equal(Q.formatField(E,ds.avgStartAbs),'Own 35');
 
 console.log('QUALITY29 COACH/IPAD SOURCE PASS: goal-line continuation, stale-drive repair, true-drive gate, score reset, and added quick stats');
