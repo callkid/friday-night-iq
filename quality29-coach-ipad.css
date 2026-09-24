@@ -29,6 +29,7 @@
  .q29IpadDock{position:fixed;left:max(12px,env(safe-area-inset-left));right:max(12px,env(safe-area-inset-right));bottom:max(10px,env(safe-area-inset-bottom));z-index:1200;display:grid;grid-template-columns:1fr 1fr 1.4fr;gap:8px;padding:8px;background:rgba(7,17,31,.94);backdrop-filter:blur(14px);border:1px solid rgba(255,255,255,.14);border-radius:16px;box-shadow:0 12px 38px rgba(0,0,0,.34)}
  .q29IpadDock.hidden{display:none}.q29IpadDock button{border:1px solid rgba(255,255,255,.14);border-radius:11px;background:rgba(255,255,255,.07);color:inherit;font-weight:850;min-height:52px;padding:8px 10px}.q29IpadDock button.primary{background:var(--a);color:var(--onA);border-color:transparent}
  .modalbox,.driveStartBox,.q26SituationBox{width:min(92vw,620px)!important;max-height:88vh;overflow:auto}.modalbox button,.driveStartBox button,.q26SituationBox button{min-height:50px}
+ .q26SituationBox input,.q26SituationBox select{min-height:50px!important;height:50px!important;font-size:16px!important;padding-top:8px!important;padding-bottom:8px!important}
  .quickStatsGrid{grid-template-columns:repeat(3,minmax(0,1fr))!important}.quickStat{min-height:88px;padding:12px!important}.quickStat b{font-size:22px!important}.quickStat span,.quickStat small{font-size:12px!important}
 }
 
