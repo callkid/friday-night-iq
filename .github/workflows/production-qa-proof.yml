@@ -16,7 +16,7 @@ jobs:
   proof:
     if: github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.head_branch == 'main'
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 24
     steps:
       - uses: actions/checkout@v4
         with:
@@ -31,13 +31,14 @@ jobs:
         run: |
           bash tools/run_safety18_qa.sh
           node qa-quality27-hotfix.js
+          node qa-quality29-coach-ipad.js
       - name: Run production browser QA
         id: browser
         continue-on-error: true
         run: |
           set +e
-          PROOF=qa-quality28-game-day-proof.txt
-          echo "=== FRIDAY NIGHT IQ GAME-DAY PRODUCTION QA ===" > "$PROOF"
+          PROOF=qa-quality29-coach-ipad-proof.txt
+          echo "=== FRIDAY NIGHT IQ QUALITY29 PRODUCTION QA ===" > "$PROOF"
           npm init -y >> "$PROOF" 2>&1
           npm install playwright@1.55.0 >> "$PROOF" 2>&1
           npx playwright install --with-deps chromium >> "$PROOF" 2>&1
@@ -47,10 +48,10 @@ jobs:
           run_one() {
             LABEL="$1"
             SCRIPT="$2"
-            echo "--- $LABEL ---" >> "$PROOF"
-            node "$SCRIPT" >> "$PROOF" 2>&1
-            CODE=$?
-            if [ $CODE -ne 0 ]; then FAIL=1; echo "FAIL: $LABEL" >> "$PROOF"; else echo "PASS: $LABEL" >> "$PROOF"; fi
+            echo "--- $LABEL ---" | tee -a "$PROOF"
+            node "$SCRIPT" 2>&1 | tee -a "$PROOF"
+            CODE=${PIPESTATUS[0]}
+            if [ $CODE -ne 0 ]; then FAIL=1; echo "FAIL: $LABEL" | tee -a "$PROOF"; else echo "PASS: $LABEL" | tee -a "$PROOF"; fi
           }
           run_one "Browser box" qa-browser-e2e.js
           run_one "Quality24 speed/confidence" qa-browser-quality24.js
@@ -64,11 +65,12 @@ jobs:
           run_one "Quality27 multi-device visual matrix" qa-browser-quality27-visual.js
           run_one "Pick-six browser path" qa-browser-pick-six.js
           run_one "Responsive viewport matrix" qa-browser-responsive.js
+          run_one "Quality29 iPad coach workflow" qa-browser-quality29-ipad.js
           exit $FAIL
       - name: Publish auditable QA result
         if: always()
         run: |
-          PROOF=qa-quality28-game-day-proof.txt
+          PROOF=qa-quality29-coach-ipad-proof.txt
           touch "$PROOF"
           printf '\nSOURCE_QA=%s\nBROWSER_QA=%s\nSOURCE_COMMIT=%s\n' "${{ steps.source.outcome }}" "${{ steps.browser.outcome }}" "${{ github.event.workflow_run.head_sha }}" >> "$PROOF"
           if [ "${{ steps.source.outcome }}" = "success" ] && [ "${{ steps.browser.outcome }}" = "success" ]; then
@@ -76,7 +78,7 @@ jobs:
             mv "$PROOF" qa-production-proof.txt
             git fetch origin main
             git checkout main
-            sed -i -E 's/app\.js\?v=[^"]+/app.js?v=quality28-game-day-final/' index.html
+            sed -i -E 's/app\.js\?v=[^"]+/app.js?v=quality29-coach-ipad-final/' index.html
             git config user.name "Friday Night IQ QA"
             git config user.email "actions@users.noreply.github.com"
             git add qa-production-proof.txt index.html
